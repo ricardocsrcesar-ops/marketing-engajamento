@@ -61,6 +61,10 @@ p{margin:0;} a{color:var(--accent-strong);} button{font-family:var(--font-body);
 details.card{padding:18px 20px;} details.card summary{cursor:pointer;font-weight:700;font-size:14px;color:var(--ink);list-style:revert;}
 details.card summary::marker{color:var(--topic, var(--accent));}
 details.card[open] summary{margin-bottom:14px;}
+.help-card{margin-bottom:18px;background:linear-gradient(175deg, var(--topic-border, var(--accent-soft)) -180%, rgba(255,247,238,0.018));}
+.help-card summary{color:var(--topic, var(--accent-strong));}
+.help-card summary::after{content:' — clique para abrir';font-weight:500;font-size:11.5px;color:var(--ink-faint);}
+.help-card[open] summary::after{content:'';}
 .card{position:relative;background:linear-gradient(175deg, rgba(255,247,238,0.08), rgba(255,247,238,0.018));border:1px solid var(--border);border-radius:var(--radius-m);box-shadow:var(--shadow), inset 0 1px 0 rgba(255,247,238,0.07), var(--topic-glow, 0 0 64px -16px rgba(201,113,79,0.5));backdrop-filter:blur(22px) saturate(150%);-webkit-backdrop-filter:blur(22px) saturate(150%);animation:fadeUp .5s cubic-bezier(.22,1,.36,1) both;transition:box-shadow .3s ease;}
 .panel{padding:18px 20px;border-left:2px solid var(--topic-border, rgba(201,113,79,0.4));} .panel h3{font-size:15px;margin-bottom:2px;} .panel .hint{font-size:12px;color:var(--ink-muted);margin-bottom:14px;}
 .kpi{position:relative;padding:16px 16px 14px;overflow:hidden;transition:transform .25s ease;}
@@ -103,6 +107,7 @@ details.card[open] summary{margin-bottom:14px;}
   .tab-nav{display:none!important;} .app-shell{display:block!important;}
   .tab-panel{display:block!important;page-break-inside:avoid;margin-bottom:28px;}
   .onboarding-screen{display:none!important;}
+  .help-card{display:none!important;}
 }
 
 /* ============================================================
@@ -175,9 +180,11 @@ details.card[open] summary{margin-bottom:14px;}
 .field input[type=text],.field input[type=number],.field textarea{width:100%;font-family:var(--font-body);font-size:13.5px;padding:8px 10px;border-radius:var(--radius-s);border:1px solid var(--border-strong);background:var(--surface-solid);color:var(--ink);}
 .field input:focus,.field textarea:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px var(--accent-soft);}
 .field textarea{resize:vertical;min-height:64px;font-family:var(--font-body);} .field .field-note{font-size:10.5px;color:var(--ink-faint);margin-top:3px;}
-.list-editor{display:flex;flex-direction:column;gap:8px;} .list-row{display:flex;gap:8px;align-items:flex-start;}
-.list-row input,.list-row textarea{flex:1;}
-.list-row .btn-remove{flex:none;width:30px;height:34px;border-radius:var(--radius-s);border:1px solid var(--border-strong);background:var(--surface);color:var(--critical);cursor:pointer;font-size:15px;line-height:1;}
+.list-editor{display:flex;flex-direction:column;gap:10px;} .list-row{display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap;padding-bottom:8px;border-bottom:1px solid var(--surface-2);}
+.list-row:last-child{border-bottom:none;padding-bottom:0;}
+.list-row .field{flex:1;min-width:110px;}
+.list-row > input,.list-row > textarea{flex:1;}
+.list-row .btn-remove{flex:none;width:30px;height:34px;border-radius:var(--radius-s);border:1px solid var(--border-strong);background:var(--surface);color:var(--critical);cursor:pointer;font-size:15px;line-height:1;align-self:flex-end;}
 .btn-add{align-self:flex-start;margin-top:2px;}
 .veredict-hero{display:grid;grid-template-columns:220px 1fr;gap:28px;align-items:center;}
 @media (max-width:700px){.veredict-hero{grid-template-columns:1fr;}}
@@ -997,12 +1004,17 @@ const LIST_CONFIGS = {
   'compliance.jurisdicoes': {pais:'', exigencias:''},
 };
 function cselId(path){ return 'csel_'+path.replace(/[^a-zA-Z0-9]/g,'_'); }
+/* Cada campo de uma linha de lista carrega seu próprio rótulo persistente
+   (não só placeholder) — placeholder some assim que a pessoa digita, e sem
+   rótulo fixo ela perde de vista o que aquele campo representa depois de
+   preenchido (ex.: "Indicador" de um objetivo SMART). */
 function fieldInputHTML(path, field, value){
-  if(field.type==='select'){ return `<div style="flex:1;min-width:140px">${customSelect(cselId(path), field.options, value??field.options[0].value, `data-path="${path}"`)}</div>`; }
-  if(field.type==='textarea'){ return `<textarea placeholder="${esc(field.placeholder||field.label)}" data-path="${path}">${esc(value??'')}</textarea>`; }
-  if(field.type==='checkbox'){ return `<label style="display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--ink-muted)"><input type="checkbox" data-path="${path}" data-checkbox="1" ${value?'checked':''}> ${esc(field.label)}</label>`; }
+  if(field.type==='checkbox'){ return `<label style="display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--ink-muted);align-self:center;"><input type="checkbox" data-path="${path}" data-checkbox="1" ${value?'checked':''}> ${esc(field.label)}</label>`; }
+  const labelHTML = `<label>${esc(field.label)}</label>`;
+  if(field.type==='select'){ return `<div class="field" style="min-width:140px">${labelHTML}${customSelect(cselId(path), field.options, value??field.options[0].value, `data-path="${path}"`)}</div>`; }
+  if(field.type==='textarea'){ return `<div class="field">${labelHTML}<textarea placeholder="${esc(field.placeholder||field.label)}" data-path="${path}">${esc(value??'')}</textarea></div>`; }
   const type = field.type||'text';
-  return `<input type="${type}" placeholder="${esc(field.placeholder||field.label)}" data-path="${path}" value="${esc(value??'')}" ${field.step?`step="${field.step}"`:''} ${field.min!=null?`min="${field.min}"`:''} ${field.max!=null?`max="${field.max}"`:''}>`;
+  return `<div class="field">${labelHTML}<input type="${type}" placeholder="${esc(field.placeholder||field.label)}" data-path="${path}" value="${esc(value??'')}" ${field.step?`step="${field.step}"`:''} ${field.min!=null?`min="${field.min}"`:''} ${field.max!=null?`max="${field.max}"`:''}></div>`;
 }
 function listEditorHTML(path, items, fields, placeholder){
   items = items||[];
@@ -1014,10 +1026,66 @@ function listEditorHTML(path, items, fields, placeholder){
 }
 const FORMATO_OPTIONS = [{value:'Reels',label:'Reels'},{value:'Carrossel',label:'Carrossel'},{value:'Estático',label:'Estático'},{value:'Stories',label:'Stories'},{value:'Live',label:'Live'}];
 
+/* ---------- Ajuda por aba — explicação em linguagem simples + exemplo prático ----------
+   Pedido explícito do usuário: "notas explicativas para cada aba, um botão que gere uma
+   explicação breve e um exemplo de caso". Cada aba usa o mesmo fio condutor de exemplo
+   (Elaine, do Ateliê da Elaine — a mesma referência real usada para a paleta de cores),
+   pra dar continuidade e tornar o exemplo concreto em vez de abstrato/genérico. */
+const TAB_AJUDA = {
+  'visao-geral': {
+    explicacao: 'Esta aba guarda os dados básicos do seu plano (nome da marca, setor, período). Você não escreve nada além disso aqui — no modo Dashboard, ela vira um resumo escrito automaticamente a partir do que você preencheu nas outras abas.',
+    exemplo: 'Elaine preenche "Ateliê da Elaine" como nome, "Moda e costura sob medida" como setor, e deixa 12 meses de horizonte. No Dashboard, ela passa a ver um parágrafo como "8 publicações registradas, taxa de engajamento média de 3,2%" — calculado sozinho, sem ela escrever nada.',
+  },
+  cenario: {
+    explicacao: '"SWOT" é uma sigla (em inglês) para Forças, Fraquezas, Oportunidades e Ameaças — uma forma simples de organizar o que está bom e ruim dentro do seu negócio (Forças/Fraquezas) e fora dele, no mercado (Oportunidades/Ameaças). Um "objetivo SMART" é uma meta com número e prazo, não só uma vontade — isso é o que permite medir depois se ela foi batida. O campo "Indicador" é o nome da coisa que você vai medir (ex.: "Pedidos via Instagram", "Faturamento") — é ele que aparece como rótulo do cartão na aba Metas × Resultados.',
+    exemplo: 'Elaine anota como Força "atendimento personalizado e prazo rápido", como Fraqueza "pouco alcance no Instagram", como Oportunidade "temporada de casamentos se aproximando" e como Ameaça "lojas de roupa pronta com preço mais baixo". Um objetivo dela: descrição "Aumentar pedidos via Instagram em 20% até dezembro", Indicador "Pedidos via Instagram", Meta 20, Atingido até agora 8, Unidade "%". Esse indicador vira automaticamente um cartão na aba Metas × Resultados, mostrando 40% do caminho andado (8 de 20).',
+  },
+  publico: {
+    explicacao: 'Esta aba ajuda a definir COM QUEM você está falando. "Público-alvo" é uma descrição geral (idade, região, classe social); "Personas" são personagens fictícios que representam um cliente típico — dar um nome e um rosto ao cliente ajuda a escrever conteúdo que fala com uma pessoa real, não com "todo mundo".',
+    exemplo: 'Elaine descreve o público-alvo como "mulheres de 25 a 45 anos, classe B/C, que valorizam roupa sob medida para ocasiões especiais". Ela cria a persona "Marina, 29 anos, planejando o próprio casamento, com dificuldade de achar ateliê que entregue no prazo combinado" — e passa a pensar nela ao escrever legendas.',
+  },
+  conteudo: {
+    explicacao: 'É o módulo mais usado do sistema: aqui você registra cada publicação e suas métricas. "Alcance" é quantas pessoas viram o post; "Engajamento" é a soma de curtidas, comentários, salvamentos e compartilhamentos. Dividindo o engajamento pelo alcance, o sistema calcula a Taxa de Engajamento (ER) — o principal termômetro de quão bem um post performou. Você não precisa preencher todos os campos: só entram na conta os que tiverem número.',
+    exemplo: 'Elaine publica um Reels mostrando o processo de costura de um vestido. Ela registra Alcance 1.200, Curtidas 85, Comentários 12, Salvamentos 20, Compartilhamentos 8. O sistema calcula sozinho: (85+12+20+8) ÷ 1.200 = 10,4% de engajamento — bem acima da faixa de referência de 1–5%, sinal de que esse formato funciona bem para ela.',
+  },
+  canais: {
+    explicacao: 'Aqui você organiza ONDE a marca aparece, dividido em 4 frentes: Conteúdo (o que você posta), Presença Digital e Mídia (redes sociais, anúncios), Email e Automação (mensagens diretas) e Eventos e Comunidade (feiras, encontros). Também é onde você registra campanhas de anúncio pago, se tiver alguma.',
+    exemplo: 'Elaine cadastra "Instagram (feed + Reels)" na frente Presença Digital e Mídia, com prioridade 5. Ela testa um impulsionamento de R$ 300 no Instagram Ads que gerou 4 pedidos — registra essa campanha e o sistema calcula sozinho o retorno (ROAS) e o custo por pedido (CPA).',
+  },
+  audiencia: {
+    explicacao: 'Esta aba é opcional e serve para negócios com mais de uma etapa até a venda (ex.: a pessoa vê o post, entra no site, manda mensagem, só depois compra). Se o seu processo é direto — vê o post e já manda mensagem —, pode deixar em branco sem problema.',
+    exemplo: 'Uma loja com site próprio registraria: 5.000 pessoas alcançadas, 400 visitaram o site, 90 entraram em contato, 30 compraram. O sistema mostra a % de conversão entre cada etapa, revelando em qual ponto mais gente desiste.',
+  },
+  orcamento: {
+    explicacao: 'Reúne o cronograma (o que vai acontecer em cada trimestre do ano), quanto será investido em cada canal, e as metas que definem sucesso (OKRs — Objetivos e Resultados-Chave). Seções mais técnicas (sensibilidade, simulação Monte Carlo, Marketing Mix Modeling) ficam escondidas em "Configurações avançadas" — só abra se precisar delas.',
+    exemplo: 'Elaine planeja: Q1 "organizar catálogo de tecidos e fotos novas", Q2 "campanha para o Dia das Mães". Ela investe R$ 300/mês em Instagram Ads e define como meta (OKR) "aumentar pedidos em 20%". O gráfico de rosca mostra visualmente para onde está indo o dinheiro.',
+  },
+  metasResultados: {
+    explicacao: 'É o painel de conferência do plano: toda meta que você definiu em qualquer outra aba (objetivo SMART, meta de conteúdo, OKR) aparece aqui como um cartão comparando o que foi prometido com o que já foi alcançado. Verde é meta batida, amarelo é perto, vermelho ainda está longe.',
+    exemplo: 'Elaine prometeu "aumentar pedidos via Instagram em 20%" e por enquanto está em 8%. O cartão mostra "40%" no canto (8 dividido por 20) — ainda em vermelho, indicando que precisa de mais esforço até dezembro.',
+  },
+  riscos: {
+    explicacao: 'Aqui você lista o que pode dar errado (riscos reputacionais, como uma crítica pública ou atraso de entrega) e como pretende reagir. Quanto mais provável e mais grave, mais vermelho aparece no mapa de calor. A seção de Compliance (LGPD) é opcional e só importa se você coleta dados pessoais em formulários ou campanhas.',
+    exemplo: 'Elaine registra o risco "atraso na entrega de um vestido de casamento", com probabilidade 2 (baixa) e impacto 5 (muito grave se acontecer) — e anota como mitigação "sempre combinar um prazo com 5 dias de folga".',
+  },
+  veredito: {
+    explicacao: 'É o resultado final: um único número de 0 a 100 que resume a saúde do plano, calculado a partir de 4 partes (aquisição, engajamento, marca, risco). Se uma aba ainda não foi preenchida, a parte correspondente do score fica num valor neutro — não penaliza quem ainda não chegou lá.',
+    exemplo: 'Com engajamento forte mas sem campanhas pagas cadastradas, o score de Elaine pode ficar em "Efetivo com ajustes" (ex.: 62/100) — bom em conteúdo, mas ainda sem dado suficiente sobre aquisição paga pra dizer se compensa anunciar mais.',
+  },
+};
+function helpCardHTML(tabId){
+  const a = TAB_AJUDA[tabId]; if(!a) return '';
+  return `<details class="card panel help-card"><summary>Como usar esta aba (explicação + exemplo)</summary>
+    <p style="font-size:13px;line-height:1.65;color:var(--ink);margin-bottom:10px">${a.explicacao}</p>
+    <p style="font-size:13px;line-height:1.65;color:var(--ink-muted)"><b style="color:var(--accent-strong)">Exemplo prático:</b> ${a.exemplo}</p>
+  </details>`;
+}
+
 /* ---------- 01 · Visão Geral ---------- */
 function formVisaoGeral(state){
   const m = state.meta;
   return `<div class="section-head"><div><div class="eyebrow">01 · Visão Geral</div><h1>Visão Geral</h1><div class="desc">Dados básicos do plano — o resumo executivo aparece no modo Dashboard, gerado automaticamente a partir das outras abas.</div></div></div>
+  ${helpCardHTML('visao-geral')}
   <div class="card panel field-group"><h3>Dados do plano</h3><div class="form-grid cols-3">
     <div class="field"><label>Nome da marca ou projeto</label><input type="text" data-path="meta.nomeMarca" value="${esc(m.nomeMarca)}"></div>
     <div class="field"><label>Setor</label><input type="text" data-path="meta.setor" value="${esc(m.setor)}"></div>
@@ -1065,6 +1133,7 @@ function formCenario(state){
   const s = state.cenario.swot;
   const listaSimples = (path, items, placeholder) => listEditorHTML(path, items, null, placeholder);
   return `<div class="section-head"><div><div class="eyebrow">02 · Cenário</div><h1>Cenário e Objetivos</h1><div class="desc">Onde você está (SWOT) e onde quer chegar (objetivos SMART) — a base de tudo o que vem depois.</div></div></div>
+  ${helpCardHTML('cenario')}
   <div class="grid cols-2">
     <div class="card panel field-group"><h3>Forças</h3><div class="hint">Pontos fortes internos</div>${listaSimples('cenario.swot.forcas', s.forcas, 'Ex.: equipe especializada')}</div>
     <div class="card panel field-group"><h3>Fraquezas</h3><div class="hint">Pontos fracos internos</div>${listaSimples('cenario.swot.fraquezas', s.fraquezas, 'Ex.: orçamento limitado')}</div>
@@ -1072,16 +1141,16 @@ function formCenario(state){
     <div class="card panel field-group"><h3>Ameaças</h3><div class="hint">Fatores externos desfavoráveis</div>${listaSimples('cenario.swot.ameacas', s.ameacas, 'Ex.: concorrência acirrada')}</div>
   </div>
   <div class="card panel field-group"><h3>Objetivos (SMART)</h3><div class="hint">Específicos, mensuráveis, atingíveis, relevantes e com prazo. Cada um com meta preenchida vira automaticamente um cartão na aba Metas × Resultados.</div>
-    ${listEditorHTML('cenario.objetivos', state.cenario.objetivos, [{key:'descricao',label:'Objetivo',placeholder:'Ex.: Aumentar o faturamento em 15% até o fim do Q4'},{key:'indicador',label:'Indicador',placeholder:'Ex.: Faturamento'},{key:'meta',label:'Meta',type:'number'},{key:'atual',label:'Atingido até agora',type:'number'},{key:'unidade',label:'Unidade',placeholder:'%, R$, un...'},{key:'prazo',label:'Prazo',placeholder:'Ex.: Q4 2026'}])}
+    ${listEditorHTML('cenario.objetivos', state.cenario.objetivos, [{key:'descricao',label:'Objetivo',placeholder:'Ex.: Aumentar o faturamento em 15% até o fim do Q4'},{key:'indicador',label:'Indicador (o que medir)',placeholder:'Ex.: Faturamento, Pedidos via Instagram'},{key:'meta',label:'Meta (número)',type:'number'},{key:'atual',label:'Atingido até agora',type:'number'},{key:'unidade',label:'Unidade',placeholder:'%, R$, un...'},{key:'prazo',label:'Prazo',placeholder:'Ex.: Q4 2026'}])}
   </div>`;
 }
 function viewCenario(state, r){
   const objs = state.cenario.objetivos||[];
   let html = `<div class="section-head"><div><div class="eyebrow">02 · Cenário</div><h1>Cenário e Objetivos</h1></div></div>
   <div class="card panel"><h3>Análise de cenário (SWOT)</h3>${swotBoardHTML(state.cenario.swot)}</div>`;
-  html += `<div class="card panel"><h3>Objetivos</h3>${objs.length? objs.map(o=>{
+  html += `<div class="card panel"><h3>Objetivos</h3><div class="hint">O número em cada barra compara o Indicador definido com a Meta prometida.</div>${objs.length? objs.map(o=>{
     const fmt = v => o.unidade==='R$'?fmtBRL(v):o.unidade==='%'?fmtPct(v):fmtNum(v)+(o.unidade?' '+o.unidade:'');
-    return `<div style="margin-bottom:12px;"><div style="font-size:13px;color:var(--ink);margin-bottom:4px;">${esc(o.descricao)}${o.prazo?` <span class="muted">· ${esc(o.prazo)}</span>`:''}</div>${o.meta!=null?barRow(o.indicador||'Progresso', o.atual||0, o.meta, fmt):''}</div>`;
+    return `<div style="margin-bottom:12px;"><div style="font-size:13px;color:var(--ink);margin-bottom:4px;">${esc(o.descricao)}${o.prazo?` <span class="muted">· ${esc(o.prazo)}</span>`:''}</div>${o.meta!=null?barRow('Indicador: '+(o.indicador||'Progresso'), o.atual||0, o.meta, fmt):''}</div>`;
   }).join('') : '<p class="empty-note">Nenhum objetivo cadastrado ainda.</p>'}</div>`;
   return html;
 }
@@ -1090,6 +1159,7 @@ function viewCenario(state, r){
 function formPublico(state){
   const mp = state.posicionamento.mapaPerceptual;
   return `<div class="section-head"><div><div class="eyebrow">03 · Público</div><h1>Público e Personas</h1></div></div>
+  ${helpCardHTML('publico')}
   <div class="card panel field-group"><h3>Público-alvo (visão macro)</h3><div class="hint">Dados demográficos e geográficos gerais — ex.: "25-40 anos, classe média B/C, grandes centros urbanos"</div><textarea data-path="publico.segmentacao">${esc(state.publico.segmentacao)}</textarea></div>
   <div class="card panel field-group"><h3>Personas</h3><div class="hint">Personagens semi-fictícios que representam seu cliente ideal — ajuda a equipe a humanizar quem você está tentando alcançar.</div>
     ${listEditorHTML('publico.personas', state.publico.personas, [{key:'nome',label:'Nome'},{key:'cargo',label:'Cargo/perfil'},{key:'idade',label:'Idade',type:'number'},{key:'frustracoes',label:'Frustrações',type:'textarea'},{key:'objetivos',label:'Objetivos',type:'textarea'}])}
@@ -1142,6 +1212,7 @@ const POST_FIELDS = [
 function formConteudo(state){
   const c = state.conteudo;
   let html = `<div class="section-head"><div><div class="eyebrow">04 · Conteúdo</div><h1>Conteúdo e Calendário</h1></div></div>
+  ${helpCardHTML('conteudo')}
   <div class="card panel field-group"><h3>Pilares de conteúdo</h3><div class="hint">Ex.: Educar, Inspirar, Vender, Bastidores — use o mesmo nome no calendário e nos posts</div>${listEditorHTML('conteudo.pilares', c.pilares, [{key:'nome',label:'Nome do pilar'},{key:'objetivo',label:'Objetivo'}])}</div>
   <div class="card panel field-group"><h3>Metas e seguidores</h3><div class="form-grid cols-3">
     <div class="field"><label>Frequência semanal alvo</label><input type="number" step="0.5" data-path="conteudo.metas.frequenciaSemanal" value="${c.metas.frequenciaSemanal??''}"></div>
@@ -1181,6 +1252,7 @@ const ETAPAS_FUNIL = [['alcance','Alcance'],['aquisicao','Aquisição'],['ativac
 function formMetasResultados(state){
   const m = state.conteudo.metas;
   return `<div class="section-head"><div><div class="eyebrow">08 · Aferição</div><h1>Metas × Resultados</h1></div></div>
+  ${helpCardHTML('metasResultados')}
   <div class="card panel field-group"><h3>Metas de conteúdo</h3><div class="hint">Definidas na aba Conteúdo e Calendário — o resultado real é medido automaticamente a partir dos posts cadastrados.</div>
     <div class="form-grid cols-3">
       <div class="field"><label>Frequência semanal alvo</label><input type="number" step="0.5" data-path="conteudo.metas.frequenciaSemanal" value="${m.frequenciaSemanal??''}"></div>
@@ -1189,7 +1261,7 @@ function formMetasResultados(state){
     </div>
   </div>
   <div class="card panel field-group"><h3>Outros indicadores (livre)</h3><div class="hint">Qualquer meta que não tenha campo próprio — nº de leads, ticket médio, assinantes, o que for.</div>
-    ${listEditorHTML('metasResultados', state.metasResultados, [{key:'indicador',label:'Indicador'},{key:'meta',label:'Meta',type:'number'},{key:'atual',label:'Atingido',type:'number'},{key:'unidade',label:'Unidade',placeholder:'%, R$, un...'}])}
+    ${listEditorHTML('metasResultados', state.metasResultados, [{key:'indicador',label:'Indicador (o que medir)',placeholder:'Ex.: Nº de leads, ticket médio'},{key:'meta',label:'Meta (número)',type:'number'},{key:'atual',label:'Atingido',type:'number'},{key:'unidade',label:'Unidade',placeholder:'%, R$, un...'}])}
   </div>`;
 }
 function scorecardRowHTML(label, meta, atual, unidade){
@@ -1197,7 +1269,7 @@ function scorecardRowHTML(label, meta, atual, unidade){
   const pct = meta!==0 ? clamp((atual||0)/meta*100, 0, 999) : (atual?999:0);
   const tone = pct>=100?'good':pct>=70?'warn':'bad';
   const fmt = v => unidade==='%'||unidade==='R$' ? (unidade==='R$'?fmtBRL(v):fmtPct(v)) : fmtNum(v)+(unidade?' '+unidade:'');
-  return `<div class="card kpi ${tone}"><div class="kpi-badge">${pct.toFixed(0)}%</div><div class="kpi-label">${esc(label)}</div><div class="kpi-value num">${fmt(atual)}</div><div class="kpi-goal">Meta: ${fmt(meta)}</div></div>`;
+  return `<div class="card kpi ${tone}"><div class="kpi-badge">${pct.toFixed(0)}% da meta</div><div class="kpi-label">${esc(label)}</div><div class="kpi-value num">${fmt(atual)} <span style="font-size:10px;font-weight:600;color:var(--ink-faint);text-transform:uppercase;">atual</span></div><div class="kpi-goal">Meta: ${fmt(meta)}</div></div>`;
 }
 function scorecardCardsHTML(state, r){
   const ag = r.agregados; const m = state.conteudo.metas;
@@ -1225,6 +1297,7 @@ const CATEGORIA_OPTIONS = [
 ];
 function formCanais(state){
   return `<div class="section-head"><div><div class="eyebrow">05 · Estratégia</div><h1>Estratégia e Canais</h1><div class="desc">O mix de marketing — onde e como a marca aparece, agrupado em 4 frentes.</div></div></div>
+  ${helpCardHTML('canais')}
   <div class="card panel field-group"><h3>Mix de canais</h3><div class="hint">Cada linha é um canal ou tática — agrupe pela frente principal (conteúdo, presença digital, email, eventos)</div>${listEditorHTML('canais.mix', state.canais.mix, [{key:'canal',label:'Canal/tática'},{key:'categoria',label:'Frente',type:'select',options:CATEGORIA_OPTIONS},{key:'tipo',label:'Tipo',type:'select',options:[{value:'owned',label:'Próprio (owned)'},{value:'earned',label:'Conquistado (earned)'},{value:'paid',label:'Pago (paid)'}]},{key:'prioridade',label:'Prioridade (1-5)',type:'number',min:1,max:5}])}</div>
   <div class="card panel field-group"><h3>Campanhas de mídia paga</h3>${listEditorHTML('midiaPaga.campanhas', state.midiaPaga.campanhas, [{key:'nome',label:'Campanha'},{key:'canal',label:'Canal'},{key:'investimento',label:'Investimento',type:'number'},{key:'impressoes',label:'Impressões',type:'number'},{key:'cliques',label:'Cliques',type:'number'},{key:'conversoes',label:'Conversões',type:'number'},{key:'receita',label:'Receita gerada',type:'number'}])}</div>`;
 }
@@ -1239,9 +1312,9 @@ function viewCanais(state, r){
   }).join('')}</div>
   ${campanhas.length? campanhas.map(c=>`<div class="card panel"><h3>${esc(c.nome)} <span class="muted" style="font-size:12px">· ${esc(c.canal)}</span></h3>
     <div class="grid cols-3">
-      <div class="card kpi ${c.roas==null?'':c.roas>=3?'good':c.roas>=1?'warn':'bad'}"><div class="kpi-label">ROAS</div><div class="kpi-value num">${c.roas!=null?c.roas.toFixed(2)+'×':'—'}</div></div>
-      <div class="card kpi"><div class="kpi-label">CPA</div><div class="kpi-value num">${fmtBRL(c.cpa)}</div></div>
-      <div class="card kpi"><div class="kpi-label">CTR</div><div class="kpi-value num">${fmtPct(c.ctr)}</div></div>
+      <div class="card kpi ${c.roas==null?'':c.roas>=3?'good':c.roas>=1?'warn':'bad'}"><div class="kpi-label">ROAS</div><div class="kpi-value num">${c.roas!=null?c.roas.toFixed(2)+'×':'—'}</div><div class="kpi-goal">Quanto voltou pra cada R$1 investido</div></div>
+      <div class="card kpi"><div class="kpi-label">CPA</div><div class="kpi-value num">${fmtBRL(c.cpa)}</div><div class="kpi-goal">Custo por pedido/conversão</div></div>
+      <div class="card kpi"><div class="kpi-label">CTR</div><div class="kpi-value num">${fmtPct(c.ctr)}</div><div class="kpi-goal">% de quem viu e clicou</div></div>
     </div></div>`).join('') : '<p class="empty-note">Nenhuma campanha de mídia paga cadastrada.</p>'}`;
 }
 
@@ -1249,6 +1322,7 @@ function viewCanais(state, r){
 function formAudiencia(state){
   const e = state.jornada.etapas; const eng = state.engajamentoRetencao;
   return `<div class="section-head"><div><div class="eyebrow">06 · Audiência</div><h1>Audiência e Funil</h1><div class="desc">Opcional — preencha se o plano envolve mais de uma etapa de conversão (site, loja, formulário). Para uma publicação isolada, pode pular esta aba.</div></div></div>
+  ${helpCardHTML('audiencia')}
   <div class="card panel field-group"><h3>Volume por etapa (RACE/AARRR)</h3><div class="hint">Volume absoluto em cada etapa — as taxas de conversão são calculadas automaticamente</div>
     <div class="form-grid cols-3">${ETAPAS_FUNIL.map(([k,label])=>`<div class="field"><label>${label}</label><input type="number" data-path="jornada.etapas.${k}" value="${e[k]??''}"></div>`).join('')}</div>
   </div>
@@ -1276,6 +1350,7 @@ function viewAudiencia(state, r){
 function formOrcamento(state){
   const o = state.orcamentoRoi; const c = state.cronograma; const k = state.metricasKpis;
   let html = `<div class="section-head"><div><div class="eyebrow">07 · Execução</div><h1>Cronograma, Orçamento e KPIs</h1><div class="desc">Quando será feito, quanto vai custar e como saberemos se funcionou.</div></div></div>`;
+  html += helpCardHTML('orcamento');
   html += `<div class="card panel field-group"><h3>Cronograma trimestral</h3><div class="hint">Marco principal de cada trimestre — ex.: Setup, Lançamento, Otimização, Escala</div>
     <div class="form-grid">
       <div class="field"><label>Q1</label><input type="text" data-path="cronograma.Q1" value="${esc(c.Q1)}"></div>
@@ -1287,10 +1362,10 @@ function formOrcamento(state){
   html += `<div class="card panel field-group"><h3>OKRs / KPIs de sucesso</h3>${listEditorHTML('metricasKpis.okrs', k.okrs, [{key:'objetivo',label:'Objetivo'},{key:'keyResult',label:'Resultado-chave'},{key:'metaPct',label:'Meta (%)',type:'number'},{key:'atualPct',label:'Atual (%)',type:'number'}])}</div>`;
   html += `<div class="card panel field-group"><h3>Investimento por canal</h3>${listEditorHTML('orcamentoRoi.investimentoPorCanal', o.investimentoPorCanal, [{key:'canal',label:'Canal'},{key:'valor',label:'Valor',type:'number'}])}</div>`;
   html += `<div class="card panel field-group"><h3>Aquisição</h3><div class="form-grid cols-3">
-    <div class="field"><label>CAC (custo de aquisição)</label><input type="number" data-path="orcamentoRoi.cac" value="${o.cac??''}"></div>
-    <div class="field"><label>Ticket médio</label><input type="number" data-path="orcamentoRoi.ticketMedio" value="${o.ticketMedio??''}"></div>
-    <div class="field"><label>Churn mensal (%)</label><input type="number" step="0.1" data-path="orcamentoRoi.churnMensalPct" value="${o.churnMensalPct??''}"></div>
-  </div><div class="field-note" style="margin-top:8px">LTV é calculado como ticket médio × (1/churn mensal) — deixe churn em branco se não souber; o sistema não estima.</div></div>`;
+    <div class="field"><label>CAC — quanto custou conquistar 1 cliente</label><input type="number" data-path="orcamentoRoi.cac" value="${o.cac??''}"></div>
+    <div class="field"><label>Ticket médio (valor médio de uma venda)</label><input type="number" data-path="orcamentoRoi.ticketMedio" value="${o.ticketMedio??''}"></div>
+    <div class="field"><label>Churn mensal — % que deixa de comprar/assinar por mês</label><input type="number" step="0.1" data-path="orcamentoRoi.churnMensalPct" value="${o.churnMensalPct??''}"></div>
+  </div><div class="field-note" style="margin-top:8px">LTV (quanto 1 cliente gera no total ao longo do tempo) é calculado como ticket médio × (1/churn mensal) — deixe churn em branco se não souber; o sistema não estima.</div></div>`;
   html += `<details class="card"><summary>Configurações avançadas (opcional)</summary>
     <div class="field-group"><h3 style="font-size:14px">Sensibilidade</h3><div class="form-grid cols-3"><div class="field"><label>Variação padrão (±%)</label><input type="number" data-path="orcamentoRoi.sensibilidade.variacaoPct" value="${o.sensibilidade.variacaoPct??15}"></div></div></div>
     <div class="field-group"><h3 style="font-size:14px">Marketing Mix Modeling — canais</h3><div class="hint">Investimento máximo considerado por canal, para desenhar a curva de saturação</div>${listEditorHTML('orcamentoRoi.mmm.canais', o.mmm.canais, [{key:'canal',label:'Canal'},{key:'saturacaoInvestimento',label:'Investimento máx.',type:'number'}])}</div>
@@ -1319,9 +1394,9 @@ function viewOrcamento(state, r){
   </div>`;
   html += `<div class="grid kpis">
     <div class="card kpi"><div class="kpi-label">Investimento total</div><div class="kpi-value num">${fmtBRL(a.investTotal)}</div></div>
-    <div class="card kpi"><div class="kpi-label">CAC</div><div class="kpi-value num">${fmtBRL(a.cac)}</div></div>
-    <div class="card kpi"><div class="kpi-label">LTV</div><div class="kpi-value num">${fmtBRL(a.ltv)}</div></div>
-    <div class="card kpi ${a.ltvCac==null?'':a.ltvCac>=3?'good':a.ltvCac>=1?'warn':'bad'}"><div class="kpi-label">LTV : CAC</div><div class="kpi-value num">${a.ltvCac!=null?a.ltvCac.toFixed(1)+'×':'—'}</div><div class="kpi-goal">Referência: ≥ 3×</div></div>
+    <div class="card kpi"><div class="kpi-label">CAC</div><div class="kpi-value num">${fmtBRL(a.cac)}</div><div class="kpi-goal">Custo p/ conquistar 1 cliente novo</div></div>
+    <div class="card kpi"><div class="kpi-label">LTV</div><div class="kpi-value num">${fmtBRL(a.ltv)}</div><div class="kpi-goal">Quanto 1 cliente costuma gerar no total</div></div>
+    <div class="card kpi ${a.ltvCac==null?'':a.ltvCac>=3?'good':a.ltvCac>=1?'warn':'bad'}"><div class="kpi-label">LTV : CAC</div><div class="kpi-value num">${a.ltvCac!=null?a.ltvCac.toFixed(1)+'×':'—'}</div><div class="kpi-goal">Retorno por cliente — referência: ≥ 3×</div></div>
   </div>`;
   if(o.investimentoPorCanal?.length){
     html += `<div class="card panel"><h3>Investimento por canal</h3>${o.investimentoPorCanal.map(c=>barRow(c.canal, c.valor||0, null, v=>fmtBRL(v))).join('')}</div>`;
@@ -1347,6 +1422,7 @@ function viewOrcamento(state, r){
 function formRiscos(state){
   const c = state.compliance;
   return `<div class="section-head"><div><div class="eyebrow">09 · Riscos</div><h1>Riscos e Compliance</h1></div></div>
+  ${helpCardHTML('riscos')}
   <div class="card panel field-group"><h3>Riscos identificados</h3>${listEditorHTML('riscosReputacionais', state.riscosReputacionais, [{key:'descricao',label:'Descrição',type:'textarea'},{key:'categoria',label:'Categoria'},{key:'probabilidade',label:'Probabilidade (1-5)',type:'number',min:1,max:5},{key:'impacto',label:'Impacto (1-5)',type:'number',min:1,max:5},{key:'mitigacao',label:'Mitigação',type:'textarea'}])}</div>
   <details class="card"><summary>Compliance e dados — LGPD/GDPR (opcional)</summary>
     <div class="field-group"><h3 style="font-size:14px">Consentimento e coleta de dados</h3><div class="hint">Como a coleta de dados em campanhas/formulários trata consentimento</div><textarea data-path="compliance.consentimentoDados">${esc(c.consentimentoDados)}</textarea></div>
@@ -1378,6 +1454,7 @@ function renderVeredito(state, r){
   if(!state.midiaPaga.campanhas?.length && !r.aquisicao.ltvCac) justificativa += ' O Score de Aquisição está em valor neutro — cadastre campanhas ou CAC/LTV em Cronograma, Orçamento e KPIs para refiná-lo.';
   if(!state.riscosReputacionais?.length) justificativa += ' O Score de Risco está em valor neutro — cadastre riscos na aba Riscos e Compliance para refiná-lo.';
   let html = `<div class="section-head"><div><div class="eyebrow">10 · Diagnóstico</div><h1>Diagnóstico Final</h1></div></div>
+  ${helpCardHTML('veredito')}
   <div class="card panel veredict-hero">
     <div class="gauge-wrap">${gaugeChartSVG({value:r.veredito.score})}<div class="gauge-classificacao ${cls}">${r.veredito.classificacao}</div></div>
     <div>

@@ -1,12 +1,18 @@
 # Marketing e Engajamento — Sistema de Planejamento Estratégico
 
 Sistema autocontido em HTML/CSS/JS puro (sem backend, sem build) para
-planejar e avaliar marketing e engajamento em três níveis de profundidade —
-**Essencial** (criador solo/MEI), **Padrão** (PME) e **Avançado** (grande
-empresa) — com foco especial em **Conteúdo e Redes Sociais**: métricas reais
-de performance (taxa de engajamento, salvamentos, retenção de vídeo, mix de
-formato), calendário editorial por pilar, e um **painel de recomendações**
-gerado automaticamente a partir dos números — nunca conselho genérico.
+planejar e aferir marketing e engajamento — um plano único, que serve tanto
+para uma publicação isolada no Instagram quanto para uma campanha
+multinacional (sem seleção de nível/porte; seções mais avançadas ficam
+recolhidas em `<details>`, nunca escondidas atrás de uma tela separada).
+A estrutura segue 4 fases — Cenário e Objetivos (SWOT + SMART), Público e
+Personas, Estratégia e Canais, Cronograma/Orçamento/KPIs — com foco especial
+em **Conteúdo e Redes Sociais**: métricas reais de performance (taxa de
+engajamento, salvamentos, retenção de vídeo, mix de formato), calendário
+editorial por pilar, e um **painel de recomendações** gerado
+automaticamente a partir dos números — nunca conselho genérico. A aba
+**Metas × Resultados** fecha o ciclo: qualquer meta definida em outra aba
+vira um cartão de aferição (% do alvo atingido).
 
 Cobre ainda funil RACE/AARRR, CAC/LTV, mídia paga (ROAS/CPA), RFM,
 Marketing Mix Modeling, simulação Monte Carlo de aquisição, e um score de

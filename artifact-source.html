@@ -7,33 +7,33 @@
    TOKENS — herdados do sistema "dashboard-vidro-escuro".
    ============================================================ */
 :root{
-  --bg:#0A0D12; --bg-2:#0E1319; --surface:rgba(255,255,255,0.045); --surface-solid:#131923;
-  --surface-2:rgba(255,255,255,0.028); --border:rgba(255,255,255,0.09); --border-strong:rgba(255,255,255,0.18);
-  --ink:#EDEFF4; --ink-muted:#9AA3B2; --ink-faint:#666F80;
-  --accent:#D9A24E; --accent-strong:#F0BE72; --accent-soft:rgba(217,162,78,0.16);
-  --positive:#3DD9A4; --positive-soft:rgba(61,217,164,0.14);
-  --warning:#F2C94C; --warning-soft:rgba(242,201,76,0.14);
-  --critical:#F2685C; --critical-soft:rgba(242,104,92,0.14);
-  --focus:#6FA8F5;
-  --shadow:0 1px 2px rgba(0,0,0,0.45),0 24px 60px -24px rgba(0,0,0,0.75);
-  --glow-accent:0 0 46px -14px rgba(217,162,78,0.55); --glow-positive:0 0 46px -14px rgba(61,217,164,0.5); --glow-critical:0 0 46px -14px rgba(242,104,92,0.5);
+  --bg:#170F0C; --bg-2:#1C1310; --surface:rgba(255,247,238,0.05); --surface-solid:#231810;
+  --surface-2:rgba(255,247,238,0.032); --border:rgba(255,240,225,0.10); --border-strong:rgba(255,240,225,0.19);
+  --ink:#F5EEE4; --ink-muted:#B8A99A; --ink-faint:#7E6F62;
+  --accent:#C9714F; --accent-strong:#E08F68; --accent-soft:rgba(201,113,79,0.18);
+  --positive:#5FB08A; --positive-soft:rgba(95,176,138,0.15);
+  --warning:#E0A94C; --warning-soft:rgba(224,169,76,0.15);
+  --critical:#D9614F; --critical-soft:rgba(217,97,79,0.15);
+  --focus:#7B9AA8;
+  --shadow:0 1px 2px rgba(0,0,0,0.5),0 24px 60px -24px rgba(0,0,0,0.8);
+  --glow-accent:0 0 46px -14px rgba(201,113,79,0.6); --glow-positive:0 0 46px -14px rgba(95,176,138,0.5); --glow-critical:0 0 46px -14px rgba(217,97,79,0.5);
   --radius-s:8px; --radius-m:16px; --radius-l:26px;
   --font-display:'Fraunces',ui-serif,Georgia,serif; --font-body:'Public Sans',ui-sans-serif,system-ui,-apple-system,sans-serif; --font-mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
 }
 :root[data-theme="light"]{
-  --bg:#EEF1EE; --bg-2:#EEF1EE; --surface:#FFFFFF; --surface-solid:#FFFFFF; --surface-2:#F4F6F3;
-  --border:#D8DED7; --border-strong:#C2CAC0; --ink:#12201B; --ink-muted:#55635B; --ink-faint:#8B968C;
-  --accent:#9C6B2E; --accent-strong:#7C5322; --accent-soft:#EFE1CC;
-  --positive:#1F7A5C; --positive-soft:#DCEEE6; --warning:#A87418; --warning-soft:#F3E7CC;
-  --critical:#B23B3B; --critical-soft:#F5DEDE; --focus:#2F6FA3;
-  --shadow:0 1px 2px rgba(18,32,27,0.06),0 6px 20px -8px rgba(18,32,27,0.14);
+  --bg:#F3ECE1; --bg-2:#F3ECE1; --surface:#FFFFFF; --surface-solid:#FFFFFF; --surface-2:#EDE4D6;
+  --border:#DED0BC; --border-strong:#C7B79E; --ink:#2B211C; --ink-muted:#5C4F44; --ink-faint:#8C7C6C;
+  --accent:#A8562F; --accent-strong:#87421F; --accent-soft:#EFDAC9;
+  --positive:#2E7A57; --positive-soft:#DCEEE3; --warning:#95691E; --warning-soft:#F3E4C6;
+  --critical:#A23A2B; --critical-soft:#F5DAD4; --focus:#3D6672;
+  --shadow:0 1px 2px rgba(43,33,28,0.07),0 6px 20px -8px rgba(43,33,28,0.16);
   --glow-accent:none; --glow-positive:none; --glow-critical:none;
 }
 *{box-sizing:border-box;}
 html{background:var(--bg);}
 body{
-  background:radial-gradient(1100px 620px at 14% -8%, rgba(217,162,78,0.10), transparent 60%),
-             radial-gradient(900px 560px at 100% 8%, rgba(232,80,138,0.08), transparent 55%),
+  background:radial-gradient(1100px 620px at 14% -8%, rgba(201,113,79,0.13), transparent 60%),
+             radial-gradient(900px 560px at 100% 8%, rgba(123,154,168,0.10), transparent 55%),
              linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
   background-attachment:fixed; color:var(--ink); font-family:var(--font-body); font-size:15px; line-height:1.5; -webkit-font-smoothing:antialiased;
 }
@@ -54,8 +54,8 @@ p{margin:0;} a{color:var(--accent-strong);} button{font-family:var(--font-body);
 .grid.kpis{grid-template-columns:repeat(4,1fr);} .grid.cols-2{grid-template-columns:repeat(2,1fr);} .grid.cols-3{grid-template-columns:repeat(3,1fr);}
 @media (max-width:900px){.grid.kpis{grid-template-columns:repeat(2,1fr);} .grid.cols-3{grid-template-columns:repeat(2,1fr);}}
 @media (max-width:560px){.grid.kpis,.grid.cols-2,.grid.cols-3{grid-template-columns:1fr;}}
-.card{position:relative;background:linear-gradient(175deg, rgba(255,255,255,0.07), rgba(255,255,255,0.015));border:1px solid var(--border);border-radius:var(--radius-m);box-shadow:var(--shadow), inset 0 1px 0 rgba(255,255,255,0.06), var(--topic-glow, 0 0 64px -16px rgba(217,162,78,0.5));backdrop-filter:blur(22px) saturate(150%);-webkit-backdrop-filter:blur(22px) saturate(150%);animation:fadeUp .5s cubic-bezier(.22,1,.36,1) both;transition:box-shadow .3s ease;}
-.panel{padding:18px 20px;border-left:2px solid var(--topic-border, rgba(217,162,78,0.4));} .panel h3{font-size:15px;margin-bottom:2px;} .panel .hint{font-size:12px;color:var(--ink-muted);margin-bottom:14px;}
+.card{position:relative;background:linear-gradient(175deg, rgba(255,247,238,0.08), rgba(255,247,238,0.018));border:1px solid var(--border);border-radius:var(--radius-m);box-shadow:var(--shadow), inset 0 1px 0 rgba(255,247,238,0.07), var(--topic-glow, 0 0 64px -16px rgba(201,113,79,0.5));backdrop-filter:blur(22px) saturate(150%);-webkit-backdrop-filter:blur(22px) saturate(150%);animation:fadeUp .5s cubic-bezier(.22,1,.36,1) both;transition:box-shadow .3s ease;}
+.panel{padding:18px 20px;border-left:2px solid var(--topic-border, rgba(201,113,79,0.4));} .panel h3{font-size:15px;margin-bottom:2px;} .panel .hint{font-size:12px;color:var(--ink-muted);margin-bottom:14px;}
 .kpi{position:relative;padding:16px 16px 14px;overflow:hidden;transition:transform .25s ease;}
 .kpi:hover{transform:translateY(-2px);}
 .kpi::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--topic, var(--ink-faint));}
@@ -101,14 +101,17 @@ p{margin:0;} a{color:var(--accent-strong);} button{font-family:var(--font-body);
 /* ============================================================
    PALETA POR ASSUNTO — mesma lógica do plano-de-negocios-visual
    ============================================================ */
-.tab-panel[data-tab="publico"]      { --topic:#5B9BD5; --topic-border:rgba(91,157,213,0.42); --topic-glow:0 0 64px -16px rgba(91,157,213,0.55); }
-.tab-panel[data-tab="conteudo"]     { --topic:#E8508A; --topic-border:rgba(232,80,138,0.42); --topic-glow:0 0 68px -14px rgba(232,80,138,0.6); }
-.tab-panel[data-tab="jornada"]      { --topic:#7C89E8; --topic-border:rgba(124,137,232,0.42); --topic-glow:0 0 64px -16px rgba(124,137,232,0.55); }
-.tab-panel[data-tab="canais"]       { --topic:#45BFAE; --topic-border:rgba(69,191,174,0.42); --topic-glow:0 0 64px -16px rgba(69,191,174,0.55); }
-.tab-panel[data-tab="midiaPaga"]    { --topic:#E2704F; --topic-border:rgba(226,112,79,0.42); --topic-glow:0 0 64px -16px rgba(226,112,79,0.55); }
-.tab-panel[data-tab="engajamento"]  { --topic:#9B7ED8; --topic-border:rgba(155,126,216,0.42); --topic-glow:0 0 64px -16px rgba(155,126,216,0.55); }
-.tab-panel[data-tab="riscos"]       { --topic:#D98F3D; --topic-border:rgba(217,143,61,0.42); --topic-glow:0 0 64px -16px rgba(217,143,61,0.55); }
-.tab-panel[data-tab="compliance"]   { --topic:#5FB583; --topic-border:rgba(95,181,131,0.42); --topic-glow:0 0 64px -16px rgba(95,181,131,0.55); }
+/* "Cores aparentadas" extraídas da referência (ateliê): terracota, azul-petróleo
+   empoeirado, dourado envelhecido, malva, sálvia — paleta artesanal e alegre,
+   mantendo o glow/vidro escuro como base (ver design-guide do dashboard-vidro-escuro
+   sobre por que vidro translúcido não funciona em fundo claro). */
+.tab-panel[data-tab="estrategia"]      { --topic:#6E8F98; --topic-border:rgba(110,143,152,0.42); --topic-glow:0 0 64px -16px rgba(110,143,152,0.55); }
+.tab-panel[data-tab="conteudo"]        { --topic:#E8735F; --topic-border:rgba(232,115,95,0.42); --topic-glow:0 0 68px -14px rgba(232,115,95,0.6); }
+.tab-panel[data-tab="metasResultados"] { --topic:#D9A24E; --topic-border:rgba(217,162,78,0.42); --topic-glow:0 0 68px -14px rgba(217,162,78,0.58); }
+.tab-panel[data-tab="campanhas"]       { --topic:#B85C36; --topic-border:rgba(184,92,54,0.42); --topic-glow:0 0 64px -16px rgba(184,92,54,0.55); }
+.tab-panel[data-tab="audiencia"]       { --topic:#B07A8C; --topic-border:rgba(176,122,140,0.42); --topic-glow:0 0 64px -16px rgba(176,122,140,0.55); }
+.tab-panel[data-tab="riscos"]          { --topic:#B8843F; --topic-border:rgba(184,132,63,0.42); --topic-glow:0 0 64px -16px rgba(184,132,63,0.55); }
+.tab-panel[data-tab="compliance"]      { --topic:#8FA893; --topic-border:rgba(143,168,147,0.42); --topic-glow:0 0 64px -16px rgba(143,168,147,0.55); }
 
 /* ============================================================
    COMPONENTES — específicos do Marketing e Engajamento
@@ -885,24 +888,28 @@ function defaultState(nivel){
       sensibilidade:{variacaoPct:15},
       monteCarlo:{iteracoes:2000, distribuicoes:{cacTriangular:{min:null,moda:null,max:null}, conversaoTriangular:{min:null,moda:null,max:null}}, semente:42},
     },
+    metasResultados: [],
     riscosReputacionais: [],
     compliance: { jurisdicoes:[], consentimentoDados:'' },
     veredito: { pesos:{aquisicao:0.35, engajamentoRetencao:0.25, marca:0.20, risco:0.20}, overrideManual:null },
   };
 }
+/* Estrutura pensada como PLANEJAMENTO (Estratégia/Conteúdo/Campanhas/Audiência/
+   Orçamento) + AFERIÇÃO (Metas × Resultados dedicada, e Diagnóstico ao final) —
+   deliberadamente diferente da sequência "módulo de negócio por módulo de
+   negócio" do sistema de Plano de Negócios, ainda que reaproveite o mesmo motor
+   visual (--topic, glass cards). Ver marketing-engajamento-metodologia/niveis.md. */
 const TAB_DEFS = [
-  {id:'sumario', label:'Sumário Executivo', tiers:['essencial','padrao','avancado']},
-  {id:'publico', label:'Público e Posicionamento', tiers:['essencial','padrao','avancado']},
-  {id:'conteudo', label:'Conteúdo e Redes Sociais', tiers:['essencial','padrao','avancado']},
-  {id:'jornada', label:'Jornada e Funil', tiers:['padrao','avancado']},
-  {id:'canais', label:'Estratégia de Canais', tiers:['padrao','avancado']},
-  {id:'midiaPaga', label:'Mídia Paga', tiers:['padrao','avancado']},
-  {id:'engajamento', label:'Engajamento e Retenção', tiers:['padrao','avancado']},
-  {id:'metricas', label:'Métricas e KPIs', tiers:['padrao','avancado']},
-  {id:'orcamento', label:'Orçamento e ROI', tiers:['essencial','padrao','avancado']},
+  {id:'visao-geral', label:'Visão Geral', tiers:['essencial','padrao','avancado']},
+  {id:'estrategia', label:'Estratégia e Público', tiers:['essencial','padrao','avancado']},
+  {id:'conteudo', label:'Conteúdo e Calendário', tiers:['essencial','padrao','avancado']},
+  {id:'metasResultados', label:'Metas × Resultados', tiers:['essencial','padrao','avancado']},
+  {id:'campanhas', label:'Campanhas e Canais', tiers:['padrao','avancado']},
+  {id:'audiencia', label:'Audiência e Funil', tiers:['padrao','avancado']},
+  {id:'orcamento', label:'Orçamento e Retorno', tiers:['essencial','padrao','avancado']},
   {id:'riscos', label:'Riscos e Reputação', tiers:['padrao','avancado']},
   {id:'compliance', label:'Compliance e Dados', tiers:['avancado']},
-  {id:'veredito', label:'Veredito', tiers:['essencial','padrao','avancado']},
+  {id:'diagnostico', label:'Diagnóstico Final', tiers:['essencial','padrao','avancado']},
 ];
 const LIST_CONFIGS = {
   'publico.concorrentesDiretos': {nome:'', diferencial:''},
@@ -910,6 +917,7 @@ const LIST_CONFIGS = {
   'conteudo.pilares': {nome:'', objetivo:''},
   'conteudo.calendario': {data:'', pilar:'', formato:'Reels', tema:'', status:'planejado'},
   'conteudo.posts': {data:'', formato:'Reels', pilar:'', alcance:null, impressoes:null, curtidas:null, comentarios:null, salvamentos:null, compartilhamentos:null, cliquesLink:null, seguidoresGanhos:null, duracaoMediaAssistidaPct:null, horarioPublicacao:''},
+  'metasResultados': {indicador:'', meta:null, atual:null, unidade:''},
   'canais.mix': {canal:'', tipo:'owned', prioridade:3},
   'midiaPaga.campanhas': {nome:'', canal:'', investimento:0, impressoes:0, cliques:0, conversoes:0, receita:0},
   'engajamentoRetencao.rfm': {segmento:'', recencia:3, frequencia:3, valor:3, tamanho:10},
@@ -964,16 +972,18 @@ function renderSumario(state, r){
   }
   const subLabels = {aquisicao:'Aquisição', engajamentoRetencao:'de Engajamento/Retenção', marca:'de Marca', risco:'de Risco'};
   const piorKey = Object.entries(r.sub).sort((a,b)=>a[1]-b[1])[0];
-  let p4 = `Veredito: <b>${r.veredito.classificacao}</b> (score ${r.veredito.score.toFixed(0)}/100). A condição mais restritiva é o Score ${subLabels[piorKey[0]]} (${piorKey[1].toFixed(0)}/100)`;
+  let p4 = `Diagnóstico: <b>${r.veredito.classificacao}</b> (score ${r.veredito.score.toFixed(0)}/100). A condição mais restritiva é o Score ${subLabels[piorKey[0]]} (${piorKey[1].toFixed(0)}/100)`;
   paragrafos.push(p4+'.');
-  return `<div class="section-head"><div><div class="eyebrow">01 · Síntese</div><h1>Sumário Executivo</h1><div class="desc">Gerado automaticamente a partir dos módulos preenchidos — nunca preenchido manualmente.</div></div></div>
-    <div class="card panel">${paragrafos.length? paragrafos.map(p=>`<div class="summary-block">${p}</div>`).join('') : '<p class="empty-note">Preencha as abas de Conteúdo e Posicionamento para gerar o sumário.</p>'}</div>`;
+  const scorecard = scorecardCardsHTML(state, r);
+  return `<div class="section-head"><div><div class="eyebrow">01 · Visão Geral</div><h1>Visão Geral</h1><div class="desc">Gerado automaticamente a partir dos módulos preenchidos — nunca preenchido manualmente.</div></div></div>
+    <div class="card panel">${paragrafos.length? paragrafos.map(p=>`<div class="summary-block">${p}</div>`).join('') : '<p class="empty-note">Preencha as abas de Conteúdo e Calendário e Estratégia para gerar a visão geral.</p>'}</div>
+    ${scorecard? `<div class="section-head" style="margin-top:20px"><div><h3 style="font-size:15px">Metas × Resultados em destaque</h3></div></div><div class="grid kpis">${scorecard}</div>` : ''}`;
 }
 
 /* ---------- 02 · Público e Posicionamento ---------- */
 function formPublico(state){
   const simplificado = state.meta.nivel==='essencial';
-  let html = `<div class="section-head"><div><div class="eyebrow">02 · Público</div><h1>Público e Posicionamento</h1></div></div>
+  let html = `<div class="section-head"><div><div class="eyebrow">02 · Estratégia</div><h1>Estratégia e Público</h1></div></div>
   <div class="card panel field-group"><h3>Público-alvo</h3><div class="form-grid cols-1">
     <div class="field"><label>Segmentação</label><textarea data-path="publico.segmentacao">${esc(state.publico.segmentacao)}</textarea></div>
     <div class="field"><label>Persona principal</label><textarea data-path="publico.persona">${esc(state.publico.persona)}</textarea></div>
@@ -999,7 +1009,7 @@ function formPublico(state){
 }
 function viewPublico(state, r){
   const simplificado = state.meta.nivel==='essencial';
-  let html = `<div class="section-head"><div><div class="eyebrow">02 · Público</div><h1>Público e Posicionamento</h1></div></div>`;
+  let html = `<div class="section-head"><div><div class="eyebrow">02 · Estratégia</div><h1>Estratégia e Público</h1></div></div>`;
   if(state.publico.persona) html += `<div class="card panel"><h3>Persona</h3><p style="font-size:13px;color:var(--ink-muted)">${esc(state.publico.persona)}</p></div>`;
   if(state.posicionamento.propostaDeValor) html += `<div class="card panel"><h3>Proposta de valor</h3><p style="font-size:13px;color:var(--ink-muted)">${esc(state.posicionamento.propostaDeValor)}</p></div>`;
   if(state.publico.concorrentesDiretos?.length){
@@ -1028,7 +1038,7 @@ const POST_FIELDS = [
 ];
 function formConteudo(state){
   const c = state.conteudo;
-  let html = `<div class="section-head"><div><div class="eyebrow">03 · Conteúdo</div><h1>Conteúdo e Redes Sociais</h1></div></div>
+  let html = `<div class="section-head"><div><div class="eyebrow">03 · Conteúdo</div><h1>Conteúdo e Calendário</h1></div></div>
   <div class="card panel field-group"><h3>Pilares de conteúdo</h3><div class="hint">Ex.: Educar, Inspirar, Vender, Bastidores — use o mesmo nome no calendário e nos posts</div>${listEditorHTML('conteudo.pilares', c.pilares, [{key:'nome',label:'Nome do pilar'},{key:'objetivo',label:'Objetivo'}])}</div>
   <div class="card panel field-group"><h3>Metas e seguidores</h3><div class="form-grid cols-3">
     <div class="field"><label>Frequência semanal alvo</label><input type="number" step="0.5" data-path="conteudo.metas.frequenciaSemanal" value="${c.metas.frequenciaSemanal??''}"></div>
@@ -1043,7 +1053,7 @@ function formConteudo(state){
 }
 function viewConteudo(state, r){
   const ag = r.agregados;
-  let html = `<div class="section-head"><div><div class="eyebrow">03 · Conteúdo</div><h1>Conteúdo e Redes Sociais</h1></div></div>`;
+  let html = `<div class="section-head"><div><div class="eyebrow">03 · Conteúdo</div><h1>Conteúdo e Calendário</h1></div></div>`;
   html += `<div class="grid kpis">
     <div class="card kpi ${ag.erMedio==null?'':ag.erMedio>=2?'good':ag.erMedio>=1?'warn':'bad'}"><div class="kpi-label">ER médio (sobre alcance)</div><div class="kpi-value num">${fmtPct(ag.erMedio)}</div><div class="kpi-goal">Faixa de referência: 1–5%</div></div>
     <div class="card kpi"><div class="kpi-label">Taxa de salvamento média</div><div class="kpi-value num">${fmtPct(ag.salvMedio,2)}</div></div>
@@ -1064,91 +1074,100 @@ function viewConteudo(state, r){
 
 /* ---------- 04 · Jornada e Funil ---------- */
 const ETAPAS_FUNIL = [['alcance','Alcance'],['aquisicao','Aquisição'],['ativacao','Ativação'],['retencao','Retenção'],['receita','Receita'],['indicacao','Indicação']];
-function formJornada(state){
-  const e = state.jornada.etapas;
-  return `<div class="section-head"><div><div class="eyebrow">04 · Jornada</div><h1>Jornada e Funil (RACE/AARRR)</h1></div></div>
-  <div class="card panel field-group"><h3>Volume por etapa</h3><div class="hint">Preencha o volume absoluto em cada etapa (nº de pessoas/contatos) — as taxas de conversão são calculadas automaticamente</div>
-    <div class="form-grid cols-3">${ETAPAS_FUNIL.map(([k,label])=>`<div class="field"><label>${label}</label><input type="number" data-path="jornada.etapas.${k}" value="${e[k]??''}"></div>`).join('')}</div>
+/* ---------- Metas × Resultados — aferição, a peça que faltava ---------- */
+function formMetasResultados(state){
+  const m = state.conteudo.metas;
+  return `<div class="section-head"><div><div class="eyebrow">04 · Aferição</div><h1>Metas × Resultados</h1></div></div>
+  <div class="card panel field-group"><h3>Metas de conteúdo</h3><div class="hint">Definidas na aba Conteúdo e Calendário — o resultado real é medido automaticamente a partir dos posts cadastrados.</div>
+    <div class="form-grid cols-3">
+      <div class="field"><label>Frequência semanal alvo</label><input type="number" step="0.5" data-path="conteudo.metas.frequenciaSemanal" value="${m.frequenciaSemanal??''}"></div>
+      <div class="field"><label>Taxa de engajamento alvo (%)</label><input type="number" step="0.1" data-path="conteudo.metas.taxaEngajamentoAlvoPct" value="${m.taxaEngajamentoAlvoPct??''}"></div>
+      <div class="field"><label>Crescimento de seguidores alvo (%)</label><input type="number" step="0.1" data-path="conteudo.metas.crescimentoSeguidoresAlvoPct" value="${m.crescimentoSeguidoresAlvoPct??''}"></div>
+    </div>
+  </div>
+  <div class="card panel field-group"><h3>Outros indicadores (livre)</h3><div class="hint">Qualquer meta que não tenha campo próprio — nº de leads, ticket médio, assinantes, o que for.</div>
+    ${listEditorHTML('metasResultados', state.metasResultados, [{key:'indicador',label:'Indicador'},{key:'meta',label:'Meta',type:'number'},{key:'atual',label:'Atingido',type:'number'},{key:'unidade',label:'Unidade',placeholder:'%, R$, un...'}])}
   </div>`;
 }
-function viewJornada(state, r){
-  const f = r.funil;
-  return `<div class="section-head"><div><div class="eyebrow">04 · Jornada</div><h1>Jornada e Funil</h1></div></div>
-  <div class="card panel">${funnelChartSVG({...f, labels:ETAPAS_FUNIL.map(e=>e[1])})}</div>`;
+function scorecardRowHTML(label, meta, atual, unidade){
+  if(meta==null) return '';
+  const pct = meta!==0 ? clamp((atual||0)/meta*100, 0, 999) : (atual?999:0);
+  const tone = pct>=100?'good':pct>=70?'warn':'bad';
+  const fmt = v => unidade==='%'||unidade==='R$' ? (unidade==='R$'?fmtBRL(v):fmtPct(v)) : fmtNum(v)+(unidade?' '+unidade:'');
+  return `<div class="card kpi ${tone}"><div class="kpi-badge">${pct.toFixed(0)}%</div><div class="kpi-label">${esc(label)}</div><div class="kpi-value num">${fmt(atual)}</div><div class="kpi-goal">Meta: ${fmt(meta)}</div></div>`;
+}
+function scorecardCardsHTML(state, r){
+  const ag = r.agregados; const m = state.conteudo.metas;
+  let cards = '';
+  if(m.frequenciaSemanal!=null) cards += scorecardRowHTML('Frequência de posts/semana', m.frequenciaSemanal, ag.freqReal, '');
+  if(m.taxaEngajamentoAlvoPct!=null) cards += scorecardRowHTML('Taxa de engajamento', m.taxaEngajamentoAlvoPct, ag.erMedio, '%');
+  if(m.crescimentoSeguidoresAlvoPct!=null) cards += scorecardRowHTML('Crescimento de seguidores', m.crescimentoSeguidoresAlvoPct, ag.crescSeguidores, '%');
+  (state.metricasKpis?.okrs||[]).forEach(o=>{ if(o.metaPct!=null) cards += scorecardRowHTML(o.keyResult||o.objetivo, o.metaPct, o.atualPct, '%'); });
+  (state.metasResultados||[]).forEach(x=>{ if(x.meta!=null) cards += scorecardRowHTML(x.indicador, x.meta, x.atual, x.unidade); });
+  return cards;
+}
+function viewMetasResultados(state, r){
+  const cards = scorecardCardsHTML(state, r);
+  return `<div class="section-head"><div><div class="eyebrow">04 · Aferição</div><h1>Metas × Resultados</h1><div class="desc">Cada cartão mostra o quanto do alvo já foi atingido — 100% ou mais em verde, entre 70-99% em amber, abaixo em vermelho.</div></div></div>
+  ${cards? `<div class="grid kpis">${cards}</div>` : '<p class="empty-note">Defina metas em Conteúdo e Calendário, em Campanhas e Canais → Métricas e KPIs, ou cadastre um indicador livre aqui para começar a aferir.</p>'}`;
 }
 
-/* ---------- 05 · Estratégia de Canais ---------- */
-function formCanais(state){
-  return `<div class="section-head"><div><div class="eyebrow">05 · Canais</div><h1>Estratégia de Canais</h1></div></div>
-  <div class="card panel field-group"><h3>Mix de canais</h3>${listEditorHTML('canais.mix', state.canais.mix, [{key:'canal',label:'Canal'},{key:'tipo',label:'Tipo',type:'select',options:[{value:'owned',label:'Próprio (owned)'},{value:'earned',label:'Conquistado (earned)'},{value:'paid',label:'Pago (paid)'}]},{key:'prioridade',label:'Prioridade (1-5)',type:'number',min:1,max:5}])}</div>`;
+/* ---------- Campanhas e Canais (mix de canais + mídia paga) ---------- */
+function formCampanhas(state){
+  return `<div class="section-head"><div><div class="eyebrow">05 · Campanhas</div><h1>Campanhas e Canais</h1></div></div>
+  <div class="card panel field-group"><h3>Mix de canais</h3>${listEditorHTML('canais.mix', state.canais.mix, [{key:'canal',label:'Canal'},{key:'tipo',label:'Tipo',type:'select',options:[{value:'owned',label:'Próprio (owned)'},{value:'earned',label:'Conquistado (earned)'},{value:'paid',label:'Pago (paid)'}]},{key:'prioridade',label:'Prioridade (1-5)',type:'number',min:1,max:5}])}</div>
+  <div class="card panel field-group"><h3>Campanhas de mídia paga</h3>${listEditorHTML('midiaPaga.campanhas', state.midiaPaga.campanhas, [{key:'nome',label:'Campanha'},{key:'canal',label:'Canal'},{key:'investimento',label:'Investimento',type:'number'},{key:'impressoes',label:'Impressões',type:'number'},{key:'cliques',label:'Cliques',type:'number'},{key:'conversoes',label:'Conversões',type:'number'},{key:'receita',label:'Receita gerada',type:'number'}])}</div>
+  <div class="card panel field-group"><h3>North Star Metric</h3><div class="hint">Objetivo dominante — alimenta o mix de formato recomendado na aba Conteúdo.</div><textarea data-path="metricasKpis.northStarMetric">${esc(state.metricasKpis.northStarMetric)}</textarea></div>
+  <div class="card panel field-group"><h3>OKRs</h3>${listEditorHTML('metricasKpis.okrs', state.metricasKpis.okrs, [{key:'objetivo',label:'Objetivo'},{key:'keyResult',label:'Resultado-chave'},{key:'metaPct',label:'Meta (%)',type:'number'},{key:'atualPct',label:'Atual (%)',type:'number'}])}</div>`;
 }
-function viewCanais(state, r){
+function viewCampanhas(state, r){
   const porTipo = {owned:[], earned:[], paid:[]};
   (state.canais.mix||[]).forEach(c=> porTipo[c.tipo||'owned']?.push(c));
   const labelTipo = {owned:'Próprio', earned:'Conquistado', paid:'Pago'};
-  return `<div class="section-head"><div><div class="eyebrow">05 · Canais</div><h1>Estratégia de Canais</h1></div></div>
-  <div class="grid cols-3">${Object.entries(porTipo).map(([tipo,lista])=>`<div class="card panel"><h3>${labelTipo[tipo]}</h3>${lista.length?lista.sort((a,b)=>(b.prioridade||0)-(a.prioridade||0)).map(c=>barRow(c.canal, c.prioridade||0, 5, v=>v)).join(''):'<p class="muted">—</p>'}</div>`).join('')}</div>`;
-}
-
-/* ---------- 06 · Mídia Paga ---------- */
-function formMidiaPaga(state){
-  return `<div class="section-head"><div><div class="eyebrow">06 · Mídia Paga</div><h1>Mídia Paga</h1></div></div>
-  <div class="card panel field-group"><h3>Campanhas</h3>${listEditorHTML('midiaPaga.campanhas', state.midiaPaga.campanhas, [{key:'nome',label:'Campanha'},{key:'canal',label:'Canal'},{key:'investimento',label:'Investimento',type:'number'},{key:'impressoes',label:'Impressões',type:'number'},{key:'cliques',label:'Cliques',type:'number'},{key:'conversoes',label:'Conversões',type:'number'},{key:'receita',label:'Receita gerada',type:'number'}])}</div>`;
-}
-function viewMidiaPaga(state, r){
   const campanhas = r.campanhas;
-  return `<div class="section-head"><div><div class="eyebrow">06 · Mídia Paga</div><h1>Mídia Paga</h1></div></div>
+  return `<div class="section-head"><div><div class="eyebrow">05 · Campanhas</div><h1>Campanhas e Canais</h1></div></div>
+  <div class="grid cols-3">${Object.entries(porTipo).map(([tipo,lista])=>`<div class="card panel"><h3>${labelTipo[tipo]}</h3>${lista.length?lista.sort((a,b)=>(b.prioridade||0)-(a.prioridade||0)).map(c=>barRow(c.canal, c.prioridade||0, 5, v=>v)).join(''):'<p class="muted">—</p>'}</div>`).join('')}</div>
   ${campanhas.length? campanhas.map(c=>`<div class="card panel"><h3>${esc(c.nome)} <span class="muted" style="font-size:12px">· ${esc(c.canal)}</span></h3>
     <div class="grid cols-3">
       <div class="card kpi ${c.roas==null?'':c.roas>=3?'good':c.roas>=1?'warn':'bad'}"><div class="kpi-label">ROAS</div><div class="kpi-value num">${c.roas!=null?c.roas.toFixed(2)+'×':'—'}</div></div>
       <div class="card kpi"><div class="kpi-label">CPA</div><div class="kpi-value num">${fmtBRL(c.cpa)}</div></div>
       <div class="card kpi"><div class="kpi-label">CTR</div><div class="kpi-value num">${fmtPct(c.ctr)}</div></div>
-    </div></div>`).join('') : '<p class="empty-note">Nenhuma campanha cadastrada.</p>'}`;
+    </div></div>`).join('') : '<p class="empty-note">Nenhuma campanha cadastrada.</p>'}
+  ${state.metricasKpis.northStarMetric?`<div class="card panel"><h3>North Star Metric</h3><p style="font-size:13px;color:var(--ink-muted)">${esc(state.metricasKpis.northStarMetric)}</p><p class="kpi-goal" style="margin-top:8px">Objetivo interpretado: <b>${esc(r.objetivo)}</b></p></div>`:''}
+  ${(state.metricasKpis.okrs||[]).length?`<div class="card panel"><h3>OKRs</h3>${state.metricasKpis.okrs.map(o=>barRow(o.objetivo+' — '+o.keyResult, o.atualPct||0, o.metaPct, v=>fmtPct(v))).join('')}</div>`:''}`;
 }
 
-/* ---------- 07 · Engajamento e Retenção (RFM) ---------- */
-function formEngajamento(state){
-  const e = state.engajamentoRetencao;
-  return `<div class="section-head"><div><div class="eyebrow">07 · Engajamento</div><h1>Engajamento e Retenção</h1></div></div>
-  <div class="card panel field-group"><h3>Segmentos RFM</h3><div class="hint">Recência/Frequência/Valor de 1 (baixo) a 5 (alto), por segmento de audiência/cliente</div>${listEditorHTML('engajamentoRetencao.rfm', e.rfm, [{key:'segmento',label:'Segmento'},{key:'recencia',label:'Recência (1-5)',type:'number',min:1,max:5},{key:'frequencia',label:'Frequência (1-5)',type:'number',min:1,max:5},{key:'valor',label:'Valor (1-5)',type:'number',min:1,max:5},{key:'tamanho',label:'Tamanho do segmento',type:'number'}])}</div>
+/* ---------- Audiência e Funil (jornada RACE/AARRR + RFM + ciclo de vida) ---------- */
+function formAudiencia(state){
+  const e = state.jornada.etapas; const eng = state.engajamentoRetencao;
+  return `<div class="section-head"><div><div class="eyebrow">06 · Audiência</div><h1>Audiência e Funil</h1></div></div>
+  <div class="card panel field-group"><h3>Volume por etapa (RACE/AARRR)</h3><div class="hint">Volume absoluto em cada etapa — as taxas de conversão são calculadas automaticamente</div>
+    <div class="form-grid cols-3">${ETAPAS_FUNIL.map(([k,label])=>`<div class="field"><label>${label}</label><input type="number" data-path="jornada.etapas.${k}" value="${e[k]??''}"></div>`).join('')}</div>
+  </div>
+  <div class="card panel field-group"><h3>Segmentos RFM</h3><div class="hint">Recência/Frequência/Valor de 1 (baixo) a 5 (alto), por segmento de audiência/cliente</div>${listEditorHTML('engajamentoRetencao.rfm', eng.rfm, [{key:'segmento',label:'Segmento'},{key:'recencia',label:'Recência (1-5)',type:'number',min:1,max:5},{key:'frequencia',label:'Frequência (1-5)',type:'number',min:1,max:5},{key:'valor',label:'Valor (1-5)',type:'number',min:1,max:5},{key:'tamanho',label:'Tamanho do segmento',type:'number'}])}</div>
   <div class="card panel field-group"><h3>Ciclo de vida (nº de contatos/clientes por estágio)</h3><div class="form-grid">
-    <div class="field"><label>Novo</label><input type="number" data-path="engajamentoRetencao.lifecycle.novo" value="${e.lifecycle.novo??''}"></div>
-    <div class="field"><label>Ativo</label><input type="number" data-path="engajamentoRetencao.lifecycle.ativo" value="${e.lifecycle.ativo??''}"></div>
-    <div class="field"><label>Em risco</label><input type="number" data-path="engajamentoRetencao.lifecycle.emRisco" value="${e.lifecycle.emRisco??''}"></div>
-    <div class="field"><label>Inativo</label><input type="number" data-path="engajamentoRetencao.lifecycle.inativo" value="${e.lifecycle.inativo??''}"></div>
+    <div class="field"><label>Novo</label><input type="number" data-path="engajamentoRetencao.lifecycle.novo" value="${eng.lifecycle.novo??''}"></div>
+    <div class="field"><label>Ativo</label><input type="number" data-path="engajamentoRetencao.lifecycle.ativo" value="${eng.lifecycle.ativo??''}"></div>
+    <div class="field"><label>Em risco</label><input type="number" data-path="engajamentoRetencao.lifecycle.emRisco" value="${eng.lifecycle.emRisco??''}"></div>
+    <div class="field"><label>Inativo</label><input type="number" data-path="engajamentoRetencao.lifecycle.inativo" value="${eng.lifecycle.inativo??''}"></div>
   </div></div>`;
 }
-function viewEngajamento(state, r){
-  const e = state.engajamentoRetencao;
-  return `<div class="section-head"><div><div class="eyebrow">07 · Engajamento</div><h1>Engajamento e Retenção</h1></div></div>
-  ${e.rfm?.length?`<div class="card panel"><h3>Matriz RFM</h3><div class="chart-wrap">${rfmMatrixSVG({segmentos:e.rfm})}</div></div>`:'<p class="empty-note">Cadastre segmentos RFM para ver a matriz.</p>'}
+function viewAudiencia(state, r){
+  const f = r.funil; const eng = state.engajamentoRetencao;
+  return `<div class="section-head"><div><div class="eyebrow">06 · Audiência</div><h1>Audiência e Funil</h1></div></div>
+  <div class="card panel">${funnelChartSVG({...f, labels:ETAPAS_FUNIL.map(e=>e[1])})}</div>
+  ${eng.rfm?.length?`<div class="card panel"><h3>Matriz RFM</h3><div class="chart-wrap">${rfmMatrixSVG({segmentos:eng.rfm})}</div></div>`:''}
   <div class="grid cols-3">
-    <div class="card kpi"><div class="kpi-label">Novo</div><div class="kpi-value num">${fmtNum(e.lifecycle.novo)}</div></div>
-    <div class="card kpi good"><div class="kpi-label">Ativo</div><div class="kpi-value num">${fmtNum(e.lifecycle.ativo)}</div></div>
-    <div class="card kpi warn"><div class="kpi-label">Em risco</div><div class="kpi-value num">${fmtNum(e.lifecycle.emRisco)}</div></div>
+    <div class="card kpi"><div class="kpi-label">Novo</div><div class="kpi-value num">${fmtNum(eng.lifecycle.novo)}</div></div>
+    <div class="card kpi good"><div class="kpi-label">Ativo</div><div class="kpi-value num">${fmtNum(eng.lifecycle.ativo)}</div></div>
+    <div class="card kpi warn"><div class="kpi-label">Em risco</div><div class="kpi-value num">${fmtNum(eng.lifecycle.emRisco)}</div></div>
   </div>`;
 }
 
-/* ---------- 08 · Métricas e KPIs ---------- */
-function formMetricas(state){
-  const m = state.metricasKpis;
-  return `<div class="section-head"><div><div class="eyebrow">08 · Métricas</div><h1>Métricas e KPIs</h1></div></div>
-  <div class="card panel field-group"><h3>North Star Metric</h3><div class="hint">Descreva o objetivo dominante (ex.: "aumentar alcance/reconhecimento", "gerar mais engajamento/comunidade", "converter mais vendas", "construir autoridade/educação") — isso alimenta o mix de formato recomendado na aba Conteúdo.</div>
-    <textarea data-path="metricasKpis.northStarMetric">${esc(m.northStarMetric)}</textarea>
-  </div>
-  <div class="card panel field-group"><h3>OKRs</h3>${listEditorHTML('metricasKpis.okrs', m.okrs, [{key:'objetivo',label:'Objetivo'},{key:'keyResult',label:'Resultado-chave'},{key:'metaPct',label:'Meta (%)',type:'number'},{key:'atualPct',label:'Atual (%)',type:'number'}])}</div>`;
-}
-function viewMetricas(state, r){
-  const m = state.metricasKpis;
-  return `<div class="section-head"><div><div class="eyebrow">08 · Métricas</div><h1>Métricas e KPIs</h1></div></div>
-  ${m.northStarMetric?`<div class="card panel"><h3>North Star Metric</h3><p style="font-size:13px;color:var(--ink-muted)">${esc(m.northStarMetric)}</p><p class="kpi-goal" style="margin-top:8px">Objetivo interpretado: <b>${esc(r.objetivo)}</b></p></div>`:''}
-  ${(m.okrs||[]).length?`<div class="card panel"><h3>OKRs</h3>${m.okrs.map(o=>barRow(o.objetivo+' — '+o.keyResult, o.atualPct||0, o.metaPct, v=>fmtPct(v))).join('')}</div>`:'<p class="empty-note">Nenhum OKR cadastrado.</p>'}`;
-}
-
-/* ---------- 09 · Orçamento e ROI ---------- */
+/* ---------- Orçamento e Retorno ---------- */
 function formOrcamento(state){
   const nivel = state.meta.nivel; const o = state.orcamentoRoi;
-  let html = `<div class="section-head"><div><div class="eyebrow">09 · Orçamento</div><h1>Orçamento e ROI</h1></div></div>`;
+  let html = `<div class="section-head"><div><div class="eyebrow">07 · Orçamento</div><h1>Orçamento e Retorno</h1></div></div>`;
   html += `<div class="card panel field-group"><h3>Investimento por canal</h3>${listEditorHTML('orcamentoRoi.investimentoPorCanal', o.investimentoPorCanal, [{key:'canal',label:'Canal'},{key:'valor',label:'Valor',type:'number'}])}</div>`;
   html += `<div class="card panel field-group"><h3>Aquisição</h3><div class="form-grid cols-3">
     <div class="field"><label>CAC (custo de aquisição)</label><input type="number" data-path="orcamentoRoi.cac" value="${o.cac??''}"></div>
@@ -1174,7 +1193,7 @@ function formOrcamento(state){
 }
 function viewOrcamento(state, r){
   const nivel = state.meta.nivel; const a = r.aquisicao;
-  let html = `<div class="section-head"><div><div class="eyebrow">09 · Orçamento</div><h1>Orçamento e ROI</h1></div></div>`;
+  let html = `<div class="section-head"><div><div class="eyebrow">07 · Orçamento</div><h1>Orçamento e Retorno</h1></div></div>`;
   html += `<div class="grid kpis">
     <div class="card kpi"><div class="kpi-label">Investimento total</div><div class="kpi-value num">${fmtBRL(a.investTotal)}</div></div>
     <div class="card kpi"><div class="kpi-label">CAC</div><div class="kpi-value num">${fmtBRL(a.cac)}</div></div>
@@ -1203,11 +1222,11 @@ function viewOrcamento(state, r){
 
 /* ---------- 10 · Riscos e Reputação ---------- */
 function formRiscos(state){
-  return `<div class="section-head"><div><div class="eyebrow">10 · Riscos</div><h1>Riscos e Reputação</h1></div></div>
+  return `<div class="section-head"><div><div class="eyebrow">08 · Riscos</div><h1>Riscos e Reputação</h1></div></div>
   <div class="card panel field-group"><h3>Riscos identificados</h3>${listEditorHTML('riscosReputacionais', state.riscosReputacionais, [{key:'descricao',label:'Descrição',type:'textarea'},{key:'categoria',label:'Categoria'},{key:'probabilidade',label:'Probabilidade (1-5)',type:'number',min:1,max:5},{key:'impacto',label:'Impacto (1-5)',type:'number',min:1,max:5},{key:'mitigacao',label:'Mitigação',type:'textarea'}])}</div>`;
 }
 function viewRiscos(state, r){
-  return `<div class="section-head"><div><div class="eyebrow">10 · Riscos</div><h1>Riscos e Reputação</h1></div></div>
+  return `<div class="section-head"><div><div class="eyebrow">08 · Riscos</div><h1>Riscos e Reputação</h1></div></div>
   <div class="grid cols-2">
     <div class="card panel"><h3>Heatmap 5×5</h3><div class="chart-wrap">${heatmapRiscosSVG({riscos:state.riscosReputacionais})}</div></div>
     <div><h3 style="font-size:15px;margin-bottom:10px">Riscos e mitigação</h3>${(state.riscosReputacionais||[]).length? state.riscosReputacionais.map(rk=>{ const sev=(rk.probabilidade||0)*(rk.impacto||0); const tone = sev>=17?'bad':sev>=9?'warn':'good'; return `<div class="card kpi ${tone}" style="margin-bottom:8px"><div class="kpi-label">${esc(rk.categoria)||'Risco'}</div><div style="font-size:13px;margin:4px 0">${esc(rk.descricao)}</div><div style="font-size:11.5px;color:var(--ink-muted)">Severidade ${sev}/25 · ${esc(rk.mitigacao)||'sem mitigação definida'}</div></div>`; }).join('') : '<p class="empty-note">Nenhum risco cadastrado.</p>'}</div>
@@ -1217,13 +1236,13 @@ function viewRiscos(state, r){
 /* ---------- 11 · Compliance e Dados (avançado) ---------- */
 function formCompliance(state){
   const c = state.compliance;
-  return `<div class="section-head"><div><div class="eyebrow">Compliance</div><h1>Compliance e Dados</h1></div></div>
+  return `<div class="section-head"><div><div class="eyebrow">09 · Compliance</div><h1>Compliance e Dados</h1></div></div>
   <div class="card panel field-group"><h3>Consentimento e coleta de dados</h3><div class="hint">Como a coleta de dados em campanhas/formulários trata consentimento (LGPD/GDPR)</div><textarea data-path="compliance.consentimentoDados">${esc(c.consentimentoDados)}</textarea></div>
   <div class="card panel field-group"><h3>Jurisdições cobertas</h3>${listEditorHTML('compliance.jurisdicoes', c.jurisdicoes, [{key:'pais',label:'País/região'},{key:'exigencias',label:'Exigências regulatórias',type:'textarea'}])}</div>`;
 }
 function viewCompliance(state, r){
   const c = state.compliance;
-  return `<div class="section-head"><div><div class="eyebrow">Compliance</div><h1>Compliance e Dados</h1></div></div>
+  return `<div class="section-head"><div><div class="eyebrow">09 · Compliance</div><h1>Compliance e Dados</h1></div></div>
   ${c.consentimentoDados?`<div class="card panel"><h3>Consentimento e coleta de dados</h3><p style="font-size:13px;color:var(--ink-muted)">${esc(c.consentimentoDados)}</p></div>`:''}
   <div class="card panel"><h3>Jurisdições cobertas</h3>${(c.jurisdicoes||[]).length?`<ul>${c.jurisdicoes.map(j=>`<li><b>${esc(j.pais)}</b>: ${esc(j.exigencias)}</li>`).join('')}</ul>`:'<p class="muted">Nenhuma jurisdição cadastrada.</p>'}</div>`;
 }
@@ -1235,7 +1254,7 @@ function renderVeredito(state, r){
   const piorKey = Object.entries(r.sub).sort((a,b)=>a[1]-b[1])[0];
   let justificativa = `A condição mais restritiva é o Score de ${subLabels[piorKey[0]]} (${piorKey[1].toFixed(0)}/100).`;
   if(state.meta.nivel==='essencial') justificativa += ' Scores de Aquisição/Risco usam valores neutros neste nível (módulos completos só em Padrão+).';
-  let html = `<div class="section-head"><div><div class="eyebrow">Veredito</div><h1>Veredito de Efetividade</h1></div></div>
+  let html = `<div class="section-head"><div><div class="eyebrow">10 · Diagnóstico</div><h1>Diagnóstico Final</h1></div></div>
   <div class="card panel veredict-hero">
     <div class="gauge-wrap">${gaugeChartSVG({value:r.veredito.score})}<div class="gauge-classificacao ${cls}">${r.veredito.classificacao}</div></div>
     <div>
@@ -1258,21 +1277,19 @@ function renderVeredito(state, r){
 
 /* ---------- Orquestração ---------- */
 const TAB_RENDERERS = {
-  sumario: {dashboard: renderSumario},
-  publico: {form: formPublico, dashboard: viewPublico},
+  'visao-geral': {dashboard: renderSumario},
+  estrategia: {form: formPublico, dashboard: viewPublico},
   conteudo: {form: formConteudo, dashboard: viewConteudo},
-  jornada: {form: formJornada, dashboard: viewJornada},
-  canais: {form: formCanais, dashboard: viewCanais},
-  midiaPaga: {form: formMidiaPaga, dashboard: viewMidiaPaga},
-  engajamento: {form: formEngajamento, dashboard: viewEngajamento},
-  metricas: {form: formMetricas, dashboard: viewMetricas},
+  metasResultados: {form: formMetasResultados, dashboard: viewMetasResultados},
+  campanhas: {form: formCampanhas, dashboard: viewCampanhas},
+  audiencia: {form: formAudiencia, dashboard: viewAudiencia},
   orcamento: {form: formOrcamento, dashboard: viewOrcamento},
   riscos: {form: formRiscos, dashboard: viewRiscos},
   compliance: {form: formCompliance, dashboard: viewCompliance},
-  veredito: {dashboard: renderVeredito},
+  diagnostico: {dashboard: renderVeredito},
 };
 
-let STATE = null, MODE = 'preencher', currentTab = 'sumario', RESULT = null, dirty = true;
+let STATE = null, MODE = 'preencher', currentTab = 'visao-geral', RESULT = null, dirty = true;
 function markDirty(){ dirty = true; saveLocal(); }
 function ensureResult(){ if(dirty || !RESULT){ RESULT = calcularTudo(STATE); dirty = false; } return RESULT; }
 function saveLocal(){ try{ localStorage.setItem('marketingEngajamento.v1', JSON.stringify(STATE)); }catch(e){} }
@@ -1314,8 +1331,8 @@ function setMode(mode){ MODE = mode; document.querySelectorAll('#mode-toggle but
 
 /* ---------- Tela de seleção de nível ---------- */
 const TIER_INFO = [
-  {value:'essencial', nome:'Essencial', perfil:'Criador solo, MEI, autônomo', desc:'Conteúdo e Redes Sociais completo desde o primeiro nível, Público/Posicionamento simplificado, Orçamento básico e Veredito.', modulos:['Sumário Executivo','Público e Posicionamento','Conteúdo e Redes Sociais (completo)','Orçamento básico','Veredito']},
-  {value:'padrao', nome:'Padrão', perfil:'Pequena e média empresa', desc:'Adiciona Jornada/Funil, Canais, Mídia Paga, Engajamento (RFM), Métricas/KPIs e Riscos.', modulos:['+ Jornada e Funil','+ Estratégia de Canais','+ Mídia Paga','+ Engajamento e Retenção (RFM)','+ Métricas e KPIs','+ Riscos e Reputação']},
+  {value:'essencial', nome:'Essencial', perfil:'Criador solo, MEI, autônomo', desc:'Conteúdo e Calendário completo desde o primeiro nível, Estratégia simplificada, aferição de Metas × Resultados, Orçamento básico e Diagnóstico.', modulos:['Visão Geral','Estratégia e Público (simplificado)','Conteúdo e Calendário (completo)','Metas × Resultados','Orçamento básico','Diagnóstico Final']},
+  {value:'padrao', nome:'Padrão', perfil:'Pequena e média empresa', desc:'Adiciona Campanhas e Canais, Audiência e Funil (com RFM), e Riscos de reputação.', modulos:['+ Campanhas e Canais','+ Audiência e Funil (RACE/AARRR + RFM)','+ Riscos e Reputação']},
   {value:'avancado', nome:'Avançado', perfil:'Grande empresa / multimarca', desc:'Adiciona Marketing Mix Modeling, Monte Carlo de aquisição, atribuição multi-touch e Compliance de dados.', modulos:['+ Marketing Mix Modeling','+ Monte Carlo de aquisição','+ Atribuição multi-touch','+ Compliance e Dados (LGPD)']},
 ];
 function renderTierPicker(){

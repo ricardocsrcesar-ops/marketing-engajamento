@@ -1,0 +1,1408 @@
+<style>:root{color-scheme:dark}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#0A0D12;color:#EDEFF2}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<title>Marketing e Engajamento</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Public+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* ============================================================
+   TOKENS — herdados do sistema "dashboard-vidro-escuro".
+   ============================================================ */
+:root{
+  --bg:#0A0D12; --bg-2:#0E1319; --surface:rgba(255,255,255,0.045); --surface-solid:#131923;
+  --surface-2:rgba(255,255,255,0.028); --border:rgba(255,255,255,0.09); --border-strong:rgba(255,255,255,0.18);
+  --ink:#EDEFF4; --ink-muted:#9AA3B2; --ink-faint:#666F80;
+  --accent:#D9A24E; --accent-strong:#F0BE72; --accent-soft:rgba(217,162,78,0.16);
+  --positive:#3DD9A4; --positive-soft:rgba(61,217,164,0.14);
+  --warning:#F2C94C; --warning-soft:rgba(242,201,76,0.14);
+  --critical:#F2685C; --critical-soft:rgba(242,104,92,0.14);
+  --focus:#6FA8F5;
+  --shadow:0 1px 2px rgba(0,0,0,0.45),0 24px 60px -24px rgba(0,0,0,0.75);
+  --glow-accent:0 0 46px -14px rgba(217,162,78,0.55); --glow-positive:0 0 46px -14px rgba(61,217,164,0.5); --glow-critical:0 0 46px -14px rgba(242,104,92,0.5);
+  --radius-s:8px; --radius-m:16px; --radius-l:26px;
+  --font-display:'Fraunces',ui-serif,Georgia,serif; --font-body:'Public Sans',ui-sans-serif,system-ui,-apple-system,sans-serif; --font-mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+:root[data-theme="light"]{
+  --bg:#EEF1EE; --bg-2:#EEF1EE; --surface:#FFFFFF; --surface-solid:#FFFFFF; --surface-2:#F4F6F3;
+  --border:#D8DED7; --border-strong:#C2CAC0; --ink:#12201B; --ink-muted:#55635B; --ink-faint:#8B968C;
+  --accent:#9C6B2E; --accent-strong:#7C5322; --accent-soft:#EFE1CC;
+  --positive:#1F7A5C; --positive-soft:#DCEEE6; --warning:#A87418; --warning-soft:#F3E7CC;
+  --critical:#B23B3B; --critical-soft:#F5DEDE; --focus:#2F6FA3;
+  --shadow:0 1px 2px rgba(18,32,27,0.06),0 6px 20px -8px rgba(18,32,27,0.14);
+  --glow-accent:none; --glow-positive:none; --glow-critical:none;
+}
+*{box-sizing:border-box;}
+html{background:var(--bg);}
+body{
+  background:radial-gradient(1100px 620px at 14% -8%, rgba(217,162,78,0.10), transparent 60%),
+             radial-gradient(900px 560px at 100% 8%, rgba(232,80,138,0.08), transparent 55%),
+             linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+  background-attachment:fixed; color:var(--ink); font-family:var(--font-body); font-size:15px; line-height:1.5; -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{font-family:var(--font-display);color:var(--ink);text-wrap:balance;margin:0;font-weight:600;}
+p{margin:0;} a{color:var(--accent-strong);} button{font-family:var(--font-body);}
+.num,.tabular{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;} .mono{font-family:var(--font-mono);}
+::selection{background:var(--accent-soft);} :focus-visible{outline:2px solid var(--focus);outline-offset:2px;}
+[hidden]{display:none!important;} select,input,textarea{color-scheme:dark;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+@keyframes drawLine{to{stroke-dashoffset:0;}}
+@keyframes barGrow{from{transform:scaleY(0);}to{transform:scaleY(1);}}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:0.001ms!important;transition-duration:0.001ms!important;}}
+.eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-strong);font-weight:700;}
+.page{max-width:1360px;margin:0 auto;padding:32px 28px 90px;}
+.section-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:18px;}
+.section-head .desc{font-size:12.5px;color:var(--ink-muted);}
+.grid{display:grid;gap:14px;margin-bottom:22px;}
+.grid.kpis{grid-template-columns:repeat(4,1fr);} .grid.cols-2{grid-template-columns:repeat(2,1fr);} .grid.cols-3{grid-template-columns:repeat(3,1fr);}
+@media (max-width:900px){.grid.kpis{grid-template-columns:repeat(2,1fr);} .grid.cols-3{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:560px){.grid.kpis,.grid.cols-2,.grid.cols-3{grid-template-columns:1fr;}}
+.card{position:relative;background:linear-gradient(175deg, rgba(255,255,255,0.07), rgba(255,255,255,0.015));border:1px solid var(--border);border-radius:var(--radius-m);box-shadow:var(--shadow), inset 0 1px 0 rgba(255,255,255,0.06), var(--topic-glow, 0 0 64px -16px rgba(217,162,78,0.5));backdrop-filter:blur(22px) saturate(150%);-webkit-backdrop-filter:blur(22px) saturate(150%);animation:fadeUp .5s cubic-bezier(.22,1,.36,1) both;transition:box-shadow .3s ease;}
+.panel{padding:18px 20px;border-left:2px solid var(--topic-border, rgba(217,162,78,0.4));} .panel h3{font-size:15px;margin-bottom:2px;} .panel .hint{font-size:12px;color:var(--ink-muted);margin-bottom:14px;}
+.kpi{position:relative;padding:16px 16px 14px;overflow:hidden;transition:transform .25s ease;}
+.kpi:hover{transform:translateY(-2px);}
+.kpi::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--topic, var(--ink-faint));}
+.kpi.good::before{background:var(--positive);box-shadow:var(--glow-positive);} .kpi.warn::before{background:var(--warning);} .kpi.bad::before{background:var(--critical);box-shadow:var(--glow-critical);}
+.kpi.good{box-shadow:var(--shadow), inset 0 1px 0 rgba(255,255,255,0.05), var(--glow-positive);} .kpi.bad{box-shadow:var(--shadow), inset 0 1px 0 rgba(255,255,255,0.05), var(--glow-critical);}
+.kpi-label{font-size:10.5px;color:var(--ink-muted);font-weight:600;text-transform:uppercase;letter-spacing:.03em;margin-bottom:9px;padding-right:60px;line-height:1.35;overflow-wrap:break-word;}
+.kpi-value{font-family:var(--font-mono);font-size:clamp(17px,2vw,24px);font-weight:600;letter-spacing:-0.01em;white-space:nowrap;text-shadow:0 0 24px rgba(255,255,255,0.08);}
+.kpi-goal{font-size:11px;color:var(--ink-faint);margin-top:5px;}
+.kpi-badge{position:absolute;top:14px;right:13px;font-size:9.5px;font-weight:700;padding:2px 6px;border-radius:5px;text-transform:uppercase;}
+.kpi.good .kpi-badge{background:var(--positive-soft);color:var(--positive);} .kpi.warn .kpi-badge{background:var(--warning-soft);color:var(--warning);} .kpi.bad .kpi-badge{background:var(--critical-soft);color:var(--critical);}
+.barrow{display:grid;grid-template-columns:170px 1fr auto;align-items:center;gap:10px;padding:6px 0;font-size:12.5px;border-bottom:1px solid var(--surface-2);}
+.barrow:last-child{border-bottom:none;} .barrow .lbl{color:var(--ink);font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.bartrack{position:relative;height:9px;background:var(--surface-2);border-radius:5px;}
+.barfill{position:absolute;left:0;top:0;bottom:0;border-radius:5px;background:linear-gradient(90deg,var(--accent-strong),var(--accent));box-shadow:0 0 12px -1px var(--accent);width:0;transition:width 1s cubic-bezier(.22,1,.36,1);}
+.barfill.over{background:linear-gradient(90deg,var(--critical),#c94a3f);box-shadow:0 0 14px -1px var(--critical);}
+.barval{text-align:right;font-family:var(--font-mono);font-size:12px;color:var(--ink-muted);white-space:nowrap;}
+.chart-wrap{width:100%;overflow-x:auto;} .chart-wrap svg{display:block;font-family:var(--font-mono);overflow:visible;}
+.chart-wrap svg path.draw{animation:drawLine 1.3s cubic-bezier(.22,1,.36,1) forwards;}
+.chart-wrap svg .bar-rect{transform-box:fill-box;transform-origin:bottom;animation:barGrow .7s cubic-bezier(.22,1,.36,1) both;}
+.chart-wrap svg .donut-seg{animation:fadeUp .6s ease both;}
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:8px;font-size:11.5px;color:var(--ink-muted);} .legend span{display:inline-flex;align-items:center;gap:6px;} .legend i{width:10px;height:10px;border-radius:3px;display:inline-block;}
+.csel{position:relative;}
+.csel-btn{width:100%;display:flex;align-items:center;justify-content:space-between;gap:8px;font-family:var(--font-body);font-size:13.5px;padding:8px 10px;border-radius:var(--radius-s);border:1px solid var(--border-strong);background:var(--surface-solid);color:var(--ink);cursor:pointer;text-align:left;}
+.csel-btn:hover{background:var(--surface-2);border-color:var(--accent);}
+.csel.open .csel-btn{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft);}
+.csel-caret{width:14px;height:14px;flex:none;color:var(--ink-faint);transition:transform .15s ease;} .csel.open .csel-caret{transform:rotate(180deg);}
+.csel-list{position:fixed;z-index:300;max-height:260px;overflow-y:auto;background:var(--surface-solid);border:1px solid var(--border-strong);border-radius:var(--radius-s);box-shadow:var(--shadow);padding:6px;backdrop-filter:blur(20px) saturate(150%);}
+.csel-group-label{font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-faint);font-weight:700;padding:8px 8px 4px;}
+.csel-opt{padding:8px 10px;border-radius:6px;font-size:13px;color:var(--ink);cursor:pointer;} .csel-opt:hover{background:var(--accent-soft);color:var(--accent-strong);} .csel-opt.selected{background:var(--accent-soft);color:var(--accent-strong);font-weight:600;}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border-radius:var(--radius-s);border:1px solid var(--border-strong);background:var(--surface);color:var(--ink);font-size:13px;font-weight:600;cursor:pointer;transition:transform .08s ease, background .15s ease;}
+.btn:hover{background:var(--surface-2);} .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff;} .btn.primary:hover{background:var(--accent-strong);border-color:var(--accent-strong);}
+.btn.ghost{background:transparent;} .btn.small{padding:5px 10px;font-size:11.5px;} .btn[disabled]{opacity:.4;cursor:not-allowed;}
+@media print{
+  body{background:#fff;} .no-print{display:none!important;}
+  .card,.kpi{animation:none!important;backdrop-filter:none!important;box-shadow:none!important;background:#fff!important;border-color:#D8DED7!important;color:#141413!important;}
+  .chart-wrap svg path.draw,.bar-rect,.donut-seg{animation:none!important;}
+  .csel-list,.csel-btn{display:none!important;}
+  .tab-nav{display:none!important;} .app-shell{display:block!important;}
+  .tab-panel{display:block!important;page-break-inside:avoid;margin-bottom:28px;}
+  .tier-picker-screen{display:none!important;}
+}
+
+/* ============================================================
+   PALETA POR ASSUNTO — mesma lógica do plano-de-negocios-visual
+   ============================================================ */
+.tab-panel[data-tab="publico"]      { --topic:#5B9BD5; --topic-border:rgba(91,157,213,0.42); --topic-glow:0 0 64px -16px rgba(91,157,213,0.55); }
+.tab-panel[data-tab="conteudo"]     { --topic:#E8508A; --topic-border:rgba(232,80,138,0.42); --topic-glow:0 0 68px -14px rgba(232,80,138,0.6); }
+.tab-panel[data-tab="jornada"]      { --topic:#7C89E8; --topic-border:rgba(124,137,232,0.42); --topic-glow:0 0 64px -16px rgba(124,137,232,0.55); }
+.tab-panel[data-tab="canais"]       { --topic:#45BFAE; --topic-border:rgba(69,191,174,0.42); --topic-glow:0 0 64px -16px rgba(69,191,174,0.55); }
+.tab-panel[data-tab="midiaPaga"]    { --topic:#E2704F; --topic-border:rgba(226,112,79,0.42); --topic-glow:0 0 64px -16px rgba(226,112,79,0.55); }
+.tab-panel[data-tab="engajamento"]  { --topic:#9B7ED8; --topic-border:rgba(155,126,216,0.42); --topic-glow:0 0 64px -16px rgba(155,126,216,0.55); }
+.tab-panel[data-tab="riscos"]       { --topic:#D98F3D; --topic-border:rgba(217,143,61,0.42); --topic-glow:0 0 64px -16px rgba(217,143,61,0.55); }
+.tab-panel[data-tab="compliance"]   { --topic:#5FB583; --topic-border:rgba(95,181,131,0.42); --topic-glow:0 0 64px -16px rgba(95,181,131,0.55); }
+
+/* ============================================================
+   COMPONENTES — específicos do Marketing e Engajamento
+   ============================================================ */
+.calendar-grid{display:flex;flex-direction:column;gap:8px;max-height:520px;overflow-y:auto;}
+.calendar-day{display:grid;grid-template-columns:96px 1fr;gap:10px;align-items:start;padding:8px 0;border-bottom:1px solid var(--surface-2);}
+.calendar-date{font-family:var(--font-mono);font-size:11.5px;color:var(--ink-muted);padding-top:6px;}
+.calendar-item{display:flex;flex-direction:column;gap:2px;background:var(--surface);border-left:3px solid var(--ink-faint);border-radius:6px;padding:6px 10px;margin-bottom:6px;font-size:12px;}
+.calendar-item:last-child{margin-bottom:0;}
+.calendar-item b{font-size:11.5px;color:var(--ink);}
+.calendar-item span{color:var(--ink-muted);}
+.calendar-status{font-size:9.5px;text-transform:uppercase;letter-spacing:.03em;font-weight:700;width:fit-content;padding:1px 6px;border-radius:4px;}
+.calendar-status-planejado{background:var(--warning-soft);color:var(--warning);}
+.calendar-status-publicado{background:var(--positive-soft);color:var(--positive);}
+.rec-list{display:flex;flex-direction:column;gap:10px;}
+.rec-card{padding:14px 16px 14px 18px;}
+.rec-card .kpi-badge{position:static;display:inline-block;margin-bottom:8px;}
+.rec-text{font-size:13px;line-height:1.6;color:var(--ink);padding-right:0;}
+
+.tier-picker-screen{max-width:1080px;margin:60px auto;padding:0 24px;}
+.tier-picker-screen .intro{text-align:center;margin-bottom:36px;}
+.tier-picker-screen .intro h1{font-size:34px;margin-bottom:10px;}
+.tier-picker-screen .intro p{color:var(--ink-muted);font-size:14px;max-width:560px;margin:0 auto;}
+.tier-picker{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+@media (max-width:800px){.tier-picker{grid-template-columns:1fr;}}
+.tier-card{cursor:pointer;padding:24px 20px;text-align:left;transition:transform .2s ease,border-color .2s ease;}
+.tier-card:hover{transform:translateY(-3px);border-color:var(--accent);}
+.tier-card h3{font-size:19px;margin-bottom:6px;}
+.tier-card .tier-perfil{font-size:12px;color:var(--accent-strong);text-transform:uppercase;letter-spacing:.04em;font-weight:700;margin-bottom:10px;}
+.tier-card ul{margin:12px 0 0;padding-left:16px;font-size:12px;color:var(--ink-muted);line-height:1.6;}
+.tier-card p{font-size:12.5px;color:var(--ink-muted);line-height:1.55;}
+.tier-picker-screen .resume-row{text-align:center;margin-top:28px;}
+
+.topbar{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 28px;background:rgba(10,13,18,0.82);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);flex-wrap:wrap;}
+:root[data-theme="light"] .topbar{background:rgba(238,241,238,0.9);}
+.topbar .brand{display:flex;align-items:center;gap:10px;}
+.topbar .brand .tier-badge{font-size:10px;text-transform:uppercase;letter-spacing:.05em;font-weight:700;color:var(--accent-strong);background:var(--accent-soft);padding:3px 8px;border-radius:6px;}
+.topbar .actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.mode-toggle{display:inline-flex;border:1px solid var(--border-strong);border-radius:var(--radius-s);overflow:hidden;}
+.mode-toggle button{padding:7px 14px;background:var(--surface-solid);border:none;color:var(--ink-muted);font-size:12.5px;font-weight:600;cursor:pointer;}
+.mode-toggle button.active{background:var(--accent);color:#fff;}
+
+.app-shell{display:grid;grid-template-columns:230px 1fr;gap:24px;align-items:start;}
+.tab-nav{position:sticky;top:76px;display:flex;flex-direction:column;gap:3px;max-height:calc(100vh - 96px);overflow-y:auto;}
+@media (max-width:900px){
+  .app-shell{grid-template-columns:1fr;}
+  .tab-nav{position:static;max-height:none;overflow-y:visible;flex-direction:row;flex-wrap:wrap;margin-bottom:8px;}
+  .tab-nav .tab-btn{width:auto;}
+}
+.tab-btn{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--radius-s);border:1px solid transparent;background:none;color:var(--ink-muted);font-size:13px;font-weight:500;text-align:left;cursor:pointer;transition:all .15s ease;width:100%;}
+.tab-btn:hover{background:var(--surface-2);color:var(--ink);}
+.tab-btn.active{background:var(--surface);border-color:var(--border-strong);color:var(--accent-strong);font-weight:700;box-shadow:inset 2px 0 0 var(--accent);}
+.tab-btn .tab-num{font-family:var(--font-mono);font-size:10.5px;color:var(--ink-faint);width:16px;flex:none;}
+.tab-btn.active .tab-num{color:var(--accent);}
+
+.field-group{margin-bottom:18px;} .field-group h3{font-size:15px;margin-bottom:2px;} .field-group .hint{font-size:12px;color:var(--ink-muted);margin-bottom:12px;}
+.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;} .form-grid.cols-3{grid-template-columns:repeat(3,1fr);} .form-grid.cols-1{grid-template-columns:1fr;}
+@media (max-width:700px){.form-grid,.form-grid.cols-3{grid-template-columns:1fr;}}
+.field label{display:block;font-size:11.5px;color:var(--ink-muted);font-weight:600;margin-bottom:5px;}
+.field input[type=text],.field input[type=number],.field textarea{width:100%;font-family:var(--font-body);font-size:13.5px;padding:8px 10px;border-radius:var(--radius-s);border:1px solid var(--border-strong);background:var(--surface-solid);color:var(--ink);}
+.field input:focus,.field textarea:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px var(--accent-soft);}
+.field textarea{resize:vertical;min-height:64px;font-family:var(--font-body);} .field .field-note{font-size:10.5px;color:var(--ink-faint);margin-top:3px;}
+.list-editor{display:flex;flex-direction:column;gap:8px;} .list-row{display:flex;gap:8px;align-items:flex-start;}
+.list-row input,.list-row textarea{flex:1;}
+.list-row .btn-remove{flex:none;width:30px;height:34px;border-radius:var(--radius-s);border:1px solid var(--border-strong);background:var(--surface);color:var(--critical);cursor:pointer;font-size:15px;line-height:1;}
+.btn-add{align-self:flex-start;margin-top:2px;}
+.veredict-hero{display:grid;grid-template-columns:220px 1fr;gap:28px;align-items:center;}
+@media (max-width:700px){.veredict-hero{grid-template-columns:1fr;}}
+.veredict-title{font-size:15px;} .veredict-classificacao{font-family:var(--font-display);font-size:28px;margin:4px 0 10px;}
+.veredict-justificativa{font-size:13.5px;color:var(--ink-muted);line-height:1.6;}
+.subscore-row{display:flex;gap:14px;margin-top:16px;flex-wrap:wrap;} .subscore{flex:1;min-width:130px;}
+.subscore .lbl{font-size:10.5px;text-transform:uppercase;color:var(--ink-muted);font-weight:700;margin-bottom:4px;} .subscore .val{font-family:var(--font-mono);font-size:18px;font-weight:700;}
+.summary-block{margin-bottom:16px;font-size:13.5px;line-height:1.7;color:var(--ink);} .summary-block b{color:var(--accent-strong);}
+.tab-panel{display:none;} .tab-panel.active{display:block;animation:fadeUp .4s cubic-bezier(.22,1,.36,1) both;}
+.empty-note{font-size:12.5px;color:var(--ink-faint);padding:18px;text-align:center;}
+.muted{color:var(--ink-faint);}
+.footer-note{text-align:center;font-size:11px;color:var(--ink-faint);margin-top:40px;}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--surface-solid);border:1px solid var(--border-strong);border-radius:var(--radius-s);padding:10px 18px;font-size:12.5px;box-shadow:var(--shadow);z-index:400;opacity:0;pointer-events:none;transition:opacity .25s ease, transform .25s ease;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(-6px);}
+</style>
+
+<!-- ============================================================ TELA 1 — SELEÇÃO DE NÍVEL ============================================================ -->
+<div class="tier-picker-screen" id="screen-onboarding">
+  <div class="intro">
+    <div class="eyebrow">Sistema de Marketing e Engajamento</div>
+    <h1>Marketing e Engajamento</h1>
+    <p>Escolha a profundidade da análise. O módulo de Conteúdo e Redes Sociais vem completo em qualquer nível — é o que a maioria usa todo dia.</p>
+  </div>
+  <div class="tier-picker" id="tier-picker"></div>
+  <div class="resume-row" id="resume-row" hidden>
+    <button class="btn" id="btn-resume">Continuar plano salvo neste navegador</button>
+  </div>
+</div>
+
+<!-- ============================================================ TELA 2 — APP ============================================================ -->
+<div id="screen-app" hidden>
+  <div class="topbar no-print">
+    <div class="brand">
+      <div class="eyebrow" style="color:var(--ink-muted);font-weight:700;">Marketing e Engajamento</div>
+      <span class="tier-badge" id="tier-badge"></span>
+    </div>
+    <div class="actions">
+      <div class="mode-toggle" id="mode-toggle">
+        <button data-mode="preencher" class="active">Preencher</button>
+        <button data-mode="dashboard">Dashboard</button>
+      </div>
+      <button class="btn small" id="btn-change-tier">Trocar nível</button>
+      <button class="btn small" id="btn-export">Exportar JSON</button>
+      <button class="btn small" id="btn-import">Importar JSON</button>
+      <input type="file" id="file-import" accept="application/json" hidden>
+      <button class="btn primary small" id="btn-print">Imprimir / PDF</button>
+    </div>
+  </div>
+  <div class="page">
+    <div class="app-shell">
+      <nav class="tab-nav no-print" id="tab-nav"></nav>
+      <main id="tab-content"></main>
+    </div>
+    <div class="footer-note">Marketing e Engajamento — gerado localmente, nenhum dado sai deste navegador.</div>
+  </div>
+</div>
+
+<div id="csel-portal" class="csel-list" hidden></div>
+<div id="toast" class="toast"></div>
+
+<script>
+/* ================================================================
+   CAMADA 1 — utilidades genéricas + gráficos base (dashboard-vidro-escuro)
+   ================================================================ */
+function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+let _svgUid = 0;
+function lineChartSVG({labels, series, goal, fmtY=(v)=>v, width=760, height=230, area=true}){
+  const uidv = 'lc'+(_svgUid++);
+  const padL=54,padR=20,padT=18,padB=26;
+  const innerW=width-padL-padR, innerH=height-padT-padB;
+  const allVals=[]; series.forEach(s=>s.values.forEach(v=>{ if(v!=null && !isNaN(v)) allVals.push(v); }));
+  if(goal!=null) allVals.push(goal);
+  if(!allVals.length) allVals.push(0,1);
+  let min=Math.min(0,...allVals), max=Math.max(...allVals);
+  if(min===max){ max=min+1; }
+  const pad=(max-min)*0.12; min-=pad; max+=pad;
+  const n=labels.length;
+  const x = i => n<=1 ? padL+innerW/2 : padL + (i*(innerW/(n-1)));
+  const y = v => padT + innerH - ((v-min)/(max-min))*innerH;
+  const baseY = Math.min(padT+innerH, Math.max(padT, y(Math.max(min,0))));
+  const step = Math.max(1, Math.ceil(n/9));
+  let defs = `<defs><filter id="${uidv}-glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="3.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>`;
+  series.forEach((s,si)=>{ defs += `<linearGradient id="${uidv}-grad${si}" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="${s.color}" stop-opacity="0.35"/><stop offset="100%" stop-color="${s.color}" stop-opacity="0"/></linearGradient>`; });
+  defs += `</defs>`;
+  let svg = `<svg viewBox="0 0 ${width} ${height}" width="100%" height="${height}" role="img" aria-label="Gráfico de tendência">${defs}`;
+  for(let g=0; g<=3; g++){ const gv = min + (max-min)*g/3; const gy = y(gv);
+    svg += `<line x1="${padL}" y1="${gy}" x2="${width-padR}" y2="${gy}" stroke="var(--border)" stroke-width="1"/>`;
+    svg += `<text x="${padL-8}" y="${gy+4}" text-anchor="end" font-size="10" fill="var(--ink-faint)">${fmtY(gv)}</text>`;
+  }
+  if(goal!=null){ const gy=y(goal); svg += `<line x1="${padL}" y1="${gy}" x2="${width-padR}" y2="${gy}" stroke="var(--positive)" stroke-width="1.4" stroke-dasharray="4 3"/>`; }
+  labels.forEach((lb,i)=>{ if(i%step===0 || i===n-1){ svg += `<text x="${x(i)}" y="${height-8}" text-anchor="middle" font-size="10" fill="var(--ink-faint)">${esc(lb)}</text>`; } });
+  series.forEach((s,si)=>{
+    let d=''; let started=false; const pts=[];
+    s.values.forEach((v,i)=>{ if(v==null||isNaN(v)){ started=false; return; } d += `${started?'L':'M'}${x(i).toFixed(1)},${y(v).toFixed(1)} `; pts.push([x(i),y(v)]); started=true; });
+    if(area && pts.length>1){
+      const areaD = `M${pts[0][0].toFixed(1)},${baseY.toFixed(1)} ` + pts.map(p=>`L${p[0].toFixed(1)},${p[1].toFixed(1)}`).join(' ') + ` L${pts[pts.length-1][0].toFixed(1)},${baseY.toFixed(1)} Z`;
+      svg += `<path d="${areaD}" fill="url(#${uidv}-grad${si})" stroke="none"/>`;
+    }
+    svg += `<path class="draw" d="${d}" fill="none" stroke="${s.color}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" filter="url(#${uidv}-glow)" style="stroke-dasharray:2400;stroke-dashoffset:2400;animation-delay:${(si*0.12).toFixed(2)}s"/>`;
+    s.values.forEach((v,i)=>{ if(v!=null && !isNaN(v)){ svg += `<circle cx="${x(i).toFixed(1)}" cy="${y(v).toFixed(1)}" r="2.6" fill="${s.color}"/>`; } });
+  });
+  svg += `</svg>`;
+  return svg;
+}
+function groupedBarChartSVG({labels, series, fmtY=(v)=>v, width=760, height=230}){
+  const padL=54,padR=16,padT=18,padB=26;
+  const innerW=width-padL-padR, innerH=height-padT-padB;
+  const allVals=[0]; series.forEach(s=>s.values.forEach(v=>{ if(v!=null && !isNaN(v)) allVals.push(v); }));
+  const max = Math.max(...allVals)*1.15 || 1;
+  const n = labels.length;
+  const groupW = innerW/Math.max(1,n);
+  const barGap = 4;
+  const barW = Math.max(4, (groupW - barGap*(series.length+1))/series.length);
+  const y = v => padT + innerH - (v/max)*innerH;
+  let svg = `<svg viewBox="0 0 ${width} ${height}" width="100%" height="${height}" role="img" aria-label="Gráfico de barras">`;
+  for(let g=0; g<=3; g++){ const gv = max*g/3; const gy=y(gv);
+    svg += `<line x1="${padL}" y1="${gy}" x2="${width-padR}" y2="${gy}" stroke="var(--border)" stroke-width="1"/>`;
+    svg += `<text x="${padL-8}" y="${gy+4}" text-anchor="end" font-size="10" fill="var(--ink-faint)">${fmtY(gv)}</text>`;
+  }
+  labels.forEach((lb,i)=>{
+    const gx = padL + i*groupW;
+    svg += `<text x="${(gx+groupW/2).toFixed(1)}" y="${height-8}" text-anchor="middle" font-size="10" fill="var(--ink-faint)">${esc(lb)}</text>`;
+    series.forEach((s,si)=>{
+      const v = s.values[i]||0; const bx = gx + barGap + si*(barW+barGap); const by = y(v); const bh = Math.max(0,(padT+innerH)-by);
+      svg += `<rect class="bar-rect" x="${bx.toFixed(1)}" y="${by.toFixed(1)}" width="${barW.toFixed(1)}" height="${bh.toFixed(1)}" rx="3" fill="${s.color}" style="animation-delay:${(i*0.04+si*0.08).toFixed(2)}s"/>`;
+    });
+  });
+  svg += `</svg>`;
+  return svg;
+}
+function donutChartSVG({segments, width=220, height=220, fmtV=(v)=>v}){
+  const total = segments.reduce((s,x)=>s+x.value,0) || 1;
+  const cx=width/2, cy=height/2, r=Math.min(width,height)/2-14, circ=2*Math.PI*r, strokeW=Math.min(width,height)*0.16;
+  let acc=0, segsSvg='';
+  segments.forEach((s,i)=>{
+    const frac = s.value/total; const dash = Math.max(0, frac*circ - 2); const offset = circ*0.25 - acc*circ;
+    segsSvg += `<circle class="donut-seg" cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${s.color}" stroke-width="${strokeW}" stroke-dasharray="${dash.toFixed(1)} ${(circ-dash).toFixed(1)}" stroke-dashoffset="${offset.toFixed(1)}" stroke-linecap="round" style="animation-delay:${(i*0.08).toFixed(2)}s"/>`;
+    acc += frac;
+  });
+  return `<svg viewBox="0 0 ${width} ${height}" width="${width}" height="${height}" role="img" aria-label="Composição">
+    <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="var(--surface-2)" stroke-width="${strokeW}"/>
+    ${segsSvg}
+    <text x="${cx}" y="${cy-3}" text-anchor="middle" font-size="11" fill="var(--ink-faint)" font-family="var(--font-body)">Total</text>
+    <text x="${cx}" y="${cy+15}" text-anchor="middle" font-size="14" font-weight="700" fill="var(--ink)" font-family="var(--font-mono)">${fmtV(total)}</text>
+  </svg>`;
+}
+function barRow(label, actual, cap, fmt=(v)=>v){
+  const capVal = cap==null? null : cap;
+  const maxScale = Math.max(actual, capVal||0, 1) * 1.15;
+  const wActual = Math.min(100, (actual/maxScale)*100);
+  const over = capVal!=null && actual>capVal;
+  return `<div class="barrow"><div class="lbl">${esc(label)}</div><div class="bartrack"><div class="barfill ${over?'over':''}" data-w="${wActual}"></div></div><div class="barval">${fmt(actual)}${capVal!=null?` <span class="muted">/ ${fmt(capVal)}</span>`:''}</div></div>`;
+}
+function animateBars(root=document){ root.querySelectorAll('.barfill[data-w]').forEach(el=>{ requestAnimationFrame(()=>requestAnimationFrame(()=>{ el.style.width = el.dataset.w+'%'; })); }); }
+
+function cselOptionsHTML(options, selectedValue){
+  return options.map(o=>{
+    if(o.items){ return `<div class="csel-group-label">${esc(o.group)}</div>` + o.items.map(it=>`<div class="csel-opt${it.value===selectedValue?' selected':''}" data-csel-opt data-value="${esc(it.value)}">${esc(it.label)}</div>`).join(''); }
+    return `<div class="csel-opt${o.value===selectedValue?' selected':''}" data-csel-opt data-value="${esc(o.value)}">${esc(o.label)}</div>`;
+  }).join('');
+}
+function customSelect(id, options, selectedValue, extraAttrs){
+  const flat = []; options.forEach(o=> o.items? flat.push(...o.items) : flat.push(o));
+  const sel = flat.find(o=>o.value===selectedValue) || flat[0] || {label:''};
+  return `<div class="csel" data-csel="${id}">
+    <button type="button" class="csel-btn" data-csel-btn><span data-csel-label>${esc(sel.label||'')}</span>
+      <svg class="csel-caret" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7l5 6 5-6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <div class="csel-list-src" hidden>${cselOptionsHTML(options, selectedValue)}</div>
+    <input type="hidden" id="${id}" data-path-select="1" value="${esc(selectedValue)}" ${extraAttrs||''}>
+  </div>`;
+}
+function closeAllCsel(){
+  document.querySelectorAll('[data-csel].open').forEach(w=>w.classList.remove('open'));
+  const portal = document.getElementById('csel-portal');
+  if(portal){ portal.hidden = true; portal.innerHTML=''; portal.removeAttribute('data-owner'); }
+}
+document.addEventListener('click', (e)=>{
+  const btn = e.target.closest('[data-csel-btn]');
+  if(btn){
+    const wrap = btn.closest('[data-csel]'); const cid = wrap.dataset.csel; const portal = document.getElementById('csel-portal');
+    const isOpen = wrap.classList.contains('open'); closeAllCsel();
+    if(!isOpen){
+      const src = wrap.querySelector('.csel-list-src'); portal.innerHTML = src.innerHTML; portal.dataset.owner = cid;
+      wrap.classList.add('open'); portal.hidden = false;
+      const r = btn.getBoundingClientRect(); const spaceBelow = window.innerHeight - r.bottom; const openUp = spaceBelow < 260 && r.top > spaceBelow;
+      portal.style.left = r.left+'px'; portal.style.width = r.width+'px';
+      if(openUp){ portal.style.top='auto'; portal.style.bottom = (window.innerHeight-r.top+6)+'px'; }
+      else { portal.style.bottom='auto'; portal.style.top = (r.bottom+6)+'px'; }
+    }
+    return;
+  }
+  const opt = e.target.closest('[data-csel-opt]');
+  if(opt && opt.closest('#csel-portal')){
+    const portal = document.getElementById('csel-portal'); const cid = portal.dataset.owner;
+    const wrap = document.querySelector(`[data-csel="${cid}"]`); const hidden = document.getElementById(cid);
+    const label = wrap && wrap.querySelector('[data-csel-label]'); hidden.value = opt.dataset.value; if(label) label.textContent = opt.textContent;
+    const src = wrap && wrap.querySelector('.csel-list-src');
+    if(src){ src.querySelectorAll('.csel-opt.selected').forEach(o=>o.classList.remove('selected')); const match = [...src.querySelectorAll('[data-csel-opt]')].find(o=>o.dataset.value===opt.dataset.value); if(match) match.classList.add('selected'); }
+    closeAllCsel(); hidden.dispatchEvent(new Event('change', {bubbles:true}));
+    return;
+  }
+  closeAllCsel();
+}, true);
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeAllCsel(); });
+window.addEventListener('scroll', closeAllCsel, true);
+window.addEventListener('resize', closeAllCsel);
+
+function finalizeForPrint(root=document){
+  root.querySelectorAll('.chart-wrap svg path.draw').forEach(el=>{ el.style.animation='none'; el.style.strokeDashoffset='0'; });
+  root.querySelectorAll('.bar-rect,.donut-seg,.card').forEach(el=>{ el.style.animation='none'; });
+  root.querySelectorAll('.barfill[data-w],.phase-bar-fill[data-w]').forEach(el=>{ el.style.transition='none'; el.style.width=el.dataset.w+'%'; });
+  root.querySelectorAll('.radar-poly').forEach(el=>{ el.style.animation='none'; });
+  root.querySelectorAll('.gauge-needle').forEach(el=>{ el.style.animation='none'; });
+  root.querySelectorAll('.tab-panel').forEach(el=>{ el.classList.add('active'); });
+}
+function printWithLightTheme(){
+  setMode('dashboard');
+  document.querySelectorAll('.tab-panel').forEach(el=>el.classList.add('active'));
+  finalizeForPrint(document);
+  document.documentElement.setAttribute('data-theme','light');
+  window.print();
+}
+window.addEventListener('afterprint', ()=>{ document.documentElement.removeAttribute('data-theme'); renderActiveTab(); });
+
+/* ================================================================
+   CAMADA 2 — motor de cálculo
+   (skill marketing-engajamento-metodologia/assets/calc-engine.js)
+   ================================================================ */
+function clamp(v, lo, hi){ return Math.max(lo, Math.min(hi, v)); }
+function lerp(v, loIn, hiIn, loOut, hiOut){ if(hiIn===loIn) return loOut; const t = clamp((v-loIn)/(hiIn-loIn), 0, 1); return loOut + t*(hiOut-loOut); }
+function fmtBRL(v){ if(v==null || isNaN(v)) return '—'; return v.toLocaleString('pt-BR', {style:'currency', currency:'BRL', maximumFractionDigits:0}); }
+function fmtPct(v, casas=1){ if(v==null||isNaN(v)) return '—'; return v.toFixed(casas).replace('.', ',')+'%'; }
+function fmtNum(v, casas=0){ if(v==null||isNaN(v)) return '—'; return v.toLocaleString('pt-BR', {maximumFractionDigits:casas}); }
+function mulberry32(seed){ let a = seed >>> 0; return function(){ a |= 0; a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+function amostraTriangular(rng, min, moda, max){ if(min==null||moda==null||max==null||max<=min) return moda!=null?moda:min; const u = rng(); const c = (moda-min)/(max-min); if(u < c) return min + Math.sqrt(u*(max-min)*(moda-min)); return max - Math.sqrt((1-u)*(max-min)*(max-moda)); }
+
+function metricasDoPost(p){
+  const engAbs = (p.curtidas||0)+(p.comentarios||0)+(p.salvamentos||0)+(p.compartilhamentos||0);
+  const erAlcance = p.alcance ? engAbs/p.alcance*100 : null;
+  const taxaSalvamento = p.alcance ? (p.salvamentos||0)/p.alcance*100 : null;
+  const taxaCompartilhamento = p.alcance ? (p.compartilhamentos||0)/p.alcance*100 : null;
+  const ctr = p.alcance ? (p.cliquesLink||0)/p.alcance*100 : null;
+  return {...p, engAbs, erAlcance, taxaSalvamento, taxaCompartilhamento, ctr};
+}
+function metricasAgregadas(state){
+  const posts = (state.conteudo.posts||[]).map(metricasDoPost);
+  const comAlcance = posts.filter(p=>p.erAlcance!=null);
+  const erMedio = comAlcance.length ? comAlcance.reduce((s,p)=>s+p.erAlcance,0)/comAlcance.length : null;
+  const salvMedio = comAlcance.length ? comAlcance.reduce((s,p)=>s+(p.taxaSalvamento||0),0)/comAlcance.length : null;
+  const retencaoVideos = posts.filter(p=>p.duracaoMediaAssistidaPct!=null);
+  const retencaoMedia = retencaoVideos.length ? retencaoVideos.reduce((s,p)=>s+p.duracaoMediaAssistidaPct,0)/retencaoVideos.length : null;
+
+  const porFormato = {};
+  posts.forEach(p=>{ if(!p.formato) return; (porFormato[p.formato]=porFormato[p.formato]||[]).push(p); });
+  const erPorFormato = Object.entries(porFormato).map(([formato,lista])=>{
+    const comEr = lista.filter(p=>p.erAlcance!=null);
+    return {formato, count:lista.length, erMedio: comEr.length? comEr.reduce((s,p)=>s+p.erAlcance,0)/comEr.length : null};
+  });
+
+  const porPilar = {};
+  posts.forEach(p=>{ if(!p.pilar) return; (porPilar[p.pilar]=porPilar[p.pilar]||[]).push(p); });
+  const erPorPilar = Object.entries(porPilar).map(([pilar,lista])=>{
+    const comEr = lista.filter(p=>p.erAlcance!=null);
+    return {pilar, count:lista.length, erMedio: comEr.length? comEr.reduce((s,p)=>s+p.erAlcance,0)/comEr.length : null};
+  });
+
+  const porHorario = {};
+  posts.forEach(p=>{ if(!p.horarioPublicacao || p.erAlcance==null) return; (porHorario[p.horarioPublicacao]=porHorario[p.horarioPublicacao]||[]).push(p.erAlcance); });
+  const erPorHorario = Object.entries(porHorario).map(([h,vals])=>({horario:h, erMedio: vals.reduce((a,b)=>a+b,0)/vals.length, count:vals.length}));
+
+  const H = state.meta.horizonteMeses||12;
+  const freqReal = posts.length / (H*4.345);
+  const metaFreq = state.conteudo.metas?.frequenciaSemanal;
+  const scoreConsistencia = metaFreq ? clamp(100*Math.min(1, freqReal/metaFreq), 0, 100) : null;
+
+  const totalPosts = posts.length || 1;
+  const mixReal = {};
+  Object.keys(porFormato).forEach(f=>{ mixReal[f] = porFormato[f].length/totalPosts*100; });
+
+  const crescSeguidores = (state.conteudo.seguidoresInicio && state.conteudo.seguidoresFim!=null)
+    ? (state.conteudo.seguidoresFim-state.conteudo.seguidoresInicio)/state.conteudo.seguidoresInicio*100 : null;
+
+  return {posts, erMedio, salvMedio, retencaoMedia, erPorFormato, erPorPilar, erPorHorario, freqReal, scoreConsistencia, mixReal, crescSeguidores};
+}
+
+const MIX_POR_OBJETIVO = {
+  alcance:      {Reels:50, Carrossel:20, Estático:10, Stories:20},
+  engajamento:  {Reels:30, Carrossel:30, Estático:15, Stories:25},
+  conversao:    {Reels:35, Carrossel:30, Estático:25, Stories:10},
+  educacao:     {Reels:25, Carrossel:40, Estático:25, Stories:10},
+  generico:     {Reels:40, Carrossel:25, Estático:20, Stories:15},
+};
+function mixRecomendado(objetivo){ return MIX_POR_OBJETIVO[objetivo] || MIX_POR_OBJETIVO.generico; }
+function desvioDoMix(mixReal, recomendado){
+  const formatos = new Set([...Object.keys(mixReal), ...Object.keys(recomendado)]);
+  let soma=0;
+  formatos.forEach(f=>{ soma += Math.abs((mixReal[f]||0) - (recomendado[f]||0)); });
+  return soma/2;
+}
+
+function funilConversoes(etapas){
+  const ordem = ['alcance','aquisicao','ativacao','retencao','receita','indicacao'];
+  const vals = ordem.map(k=>etapas[k]);
+  const taxas = [];
+  for(let i=1;i<vals.length;i++){
+    if(vals[i-1]!=null && vals[i]!=null && vals[i-1]>0) taxas.push({de:ordem[i-1], para:ordem[i], taxa: vals[i]/vals[i-1]*100});
+    else taxas.push({de:ordem[i-1], para:ordem[i], taxa:null});
+  }
+  return {ordem, vals, taxas};
+}
+
+function calcularAquisicao(state){
+  const o = state.orcamentoRoi;
+  const investTotal = (o.investimentoPorCanal||[]).reduce((s,c)=>s+(c.valor||0),0);
+  const cac = o.cac!=null ? o.cac : null;
+  let ltv = null;
+  if(o.ticketMedio!=null && o.churnMensalPct){
+    ltv = o.ticketMedio * (1/(o.churnMensalPct/100));
+  }
+  const ltvCac = (ltv!=null && cac) ? ltv/cac : null;
+  const paybackMeses = (cac!=null && o.ticketMedio) ? cac/o.ticketMedio : null;
+  return {investTotal, cac, ltv, ltvCac, paybackMeses};
+}
+
+function metricasCampanhas(campanhas){
+  return (campanhas||[]).map(c=>({
+    ...c,
+    roas: c.investimento? (c.receita||0)/c.investimento : null,
+    cpa: c.conversoes? c.investimento/c.conversoes : null,
+    ctr: c.impressoes? (c.cliques||0)/c.impressoes*100 : null,
+    taxaConversao: c.cliques? (c.conversoes||0)/c.cliques*100 : null,
+  }));
+}
+
+function scoreRFM_(seg){ return ((seg.recencia||0)+(seg.frequencia||0)+(seg.valor||0))/3; }
+
+function curvaSaturacao(investimentoMax, passos=20){
+  const pts = [];
+  for(let i=0;i<=passos;i++){ const invest = investimentoMax*i/passos; pts.push({investimento:invest, retorno: Math.pow(invest,0.7)}); }
+  return pts;
+}
+
+function monteCarloAquisicao(state){
+  const mc = state.orcamentoRoi.monteCarlo || {};
+  const n = mc.iteracoes || 2000;
+  const rng = mulberry32(mc.semente ?? 42);
+  const d = mc.distribuicoes || {};
+  const orcamento = (state.orcamentoRoi.investimentoPorCanal||[]).reduce((s,c)=>s+(c.valor||0),0);
+  const resultados = [];
+  for(let i=0;i<n;i++){
+    const cac = d.cacTriangular?.min!=null ? amostraTriangular(rng, d.cacTriangular.min, d.cacTriangular.moda, d.cacTriangular.max) : state.orcamentoRoi.cac;
+    if(!cac){ resultados.push(0); continue; }
+    resultados.push(orcamento/cac);
+  }
+  resultados.sort((a,b)=>a-b);
+  const pct = p => resultados[clamp(Math.round(p*(resultados.length-1)),0,resultados.length-1)];
+  return {resultados, p10:pct(0.10), p50:pct(0.50), p90:pct(0.90)};
+}
+
+function scoreAquisicao(state, aquisicao, campanhas){
+  const partes = [];
+  if(aquisicao.ltvCac!=null) partes.push(lerp(aquisicao.ltvCac, 1, 3, 0, 100));
+  if(campanhas.length){ const roasMedio = campanhas.filter(c=>c.roas!=null).reduce((s,c,_,arr)=>s+c.roas/arr.length,0); partes.push(lerp(roasMedio,1,3,0,100)); }
+  return partes.length ? clamp(partes.reduce((a,b)=>a+b,0)/partes.length, 0, 100) : 50;
+}
+function scoreEngajamentoRetencao(agregados){
+  const partes = [];
+  if(agregados.erMedio!=null) partes.push(lerp(agregados.erMedio, 0.3, 5, 0, 100));
+  if(agregados.scoreConsistencia!=null) partes.push(agregados.scoreConsistencia);
+  return partes.length ? clamp(partes.reduce((a,b)=>a+b,0)/partes.length, 0, 100) : 50;
+}
+function scoreMarca(state, agregados, objetivo){
+  const pv = state.posicionamento?.propostaDeValor, dif = state.posicionamento?.diferenciacao;
+  const sPos = (pv && dif) ? 100 : (pv || dif) ? 50 : 0;
+  const desvio = desvioDoMix(agregados.mixReal, mixRecomendado(objetivo));
+  const sMix = clamp(100 - desvio, 0, 100);
+  return clamp((sPos+sMix)/2, 0, 100);
+}
+function scoreRisco(state){
+  const riscos = state.riscosReputacionais||[]; if(!riscos.length) return 60;
+  const media = riscos.reduce((s,r)=>s+(r.probabilidade||1)*(r.impacto||1),0)/riscos.length;
+  return clamp(100*(1-media/25), 0, 100);
+}
+function scoreFinal(state, sub){
+  const p = state.veredito?.pesos || {aquisicao:0.35, engajamentoRetencao:0.25, marca:0.20, risco:0.20};
+  const score = sub.aquisicao*p.aquisicao + sub.engajamentoRetencao*p.engajamentoRetencao + sub.marca*p.marca + sub.risco*p.risco;
+  const classificacao = score>=70 ? 'Efetivo' : score>=50 ? 'Efetivo com ajustes' : 'Inefetivo';
+  return {score, classificacao};
+}
+
+function inferirObjetivo(state){
+  const nsm = (state.metricasKpis?.northStarMetric||'').toLowerCase();
+  if(/alcance|reconhecimento|awareness/.test(nsm)) return 'alcance';
+  if(/engaj|comunidade/.test(nsm)) return 'engajamento';
+  if(/convers|venda|receita/.test(nsm)) return 'conversao';
+  if(/educ|autoridade|conte[uú]do/.test(nsm)) return 'educacao';
+  return 'generico';
+}
+function gerarRecomendacoes(state, agregados, aquisicao, campanhas){
+  const recs = [];
+  const add = (severidade, texto) => recs.push({severidade, texto});
+
+  if(agregados.erMedio!=null){
+    if(agregados.erMedio < 1) add('alerta', `Taxa de engajamento média de ${agregados.erMedio.toFixed(1)}% está abaixo da faixa de referência (1–5% é comum na maioria dos nichos, variando com tamanho de base e formato). Revise a primeira linha da legenda e o gancho visual dos 3 primeiros segundos.`);
+    else if(agregados.erMedio < 2) add('oportunidade', `Engajamento médio de ${agregados.erMedio.toFixed(1)}% está na faixa baixa da referência. Teste aumentar CTAs diretos (pergunta no final, enquete em Stories).`);
+  }
+  if(agregados.retencaoMedia!=null && agregados.retencaoMedia < 40){
+    add('alerta', `Retenção média de vídeo em ${agregados.retencaoMedia.toFixed(0)}% (abaixo de ~40%) sugere que o gancho inicial não está segurando a audiência. Teste começar pelo ponto mais forte do vídeo, sem introdução.`);
+  }
+  if(agregados.salvMedio!=null && agregados.salvMedio < 0.5){
+    add('oportunidade', `Taxa de salvamento média de ${agregados.salvMedio.toFixed(2)}% está baixa. Conteúdo utilitário (listas, passo a passo, comparativos) costuma ser mais salvo que conteúdo só inspiracional.`);
+  }
+  const metaFreq = state.conteudo.metas?.frequenciaSemanal;
+  if(metaFreq && agregados.freqReal < metaFreq*0.7){
+    add('alerta', `Cadência real de ${agregados.freqReal.toFixed(1)} posts/semana está abaixo da meta de ${metaFreq}/semana. Um calendário editorial simples ajuda a manter o ritmo sem depender de inspiração no dia.`);
+  }
+  const formatosMix = Object.entries(agregados.mixReal);
+  if(formatosMix.length){
+    const dominante = formatosMix.sort((a,b)=>b[1]-a[1])[0];
+    const objetivo = inferirObjetivo(state);
+    const desvio = desvioDoMix(agregados.mixReal, mixRecomendado(objetivo));
+    if(desvio > 40) add('oportunidade', `Mix de formatos concentrado em ${dominante[0]} (${dominante[1].toFixed(0)}% dos posts). Diversificar reduz a dependência de como o algoritmo distribui um único formato.`);
+    if(!agregados.mixReal['Reels']) add('oportunidade', `Nenhum conteúdo em vídeo curto (Reels) registrado. Vídeo costuma ter o maior alcance orgânico por publicação — mesmo uma versão simples tende a performar melhor que ausência total de vídeo.`);
+  }
+  if(agregados.erPorPilar.length>1){
+    const validos = agregados.erPorPilar.filter(p=>p.erMedio!=null);
+    if(validos.length>1){
+      const media = validos.reduce((s,p)=>s+p.erMedio,0)/validos.length;
+      const vencedor = validos.sort((a,b)=>b.erMedio-a.erMedio)[0];
+      if(vencedor.erMedio > media*1.5) add('reforco', `O pilar "${vencedor.pilar}" performa bem acima dos demais (ER ${vencedor.erMedio.toFixed(1)}% vs. média de ${media.toFixed(1)}%). Vale aumentar a proporção dele no calendário e estudar o padrão (tema, formato, horário) para replicar.`);
+    }
+  }
+  if(agregados.crescSeguidores!=null && agregados.crescSeguidores < 0){
+    add('alerta', `Base de seguidores encolheu ${Math.abs(agregados.crescSeguidores).toFixed(1)}% no período. Cruze com a aba Público para checar se o conteúdo recente ainda fala com a persona definida.`);
+  }
+  if(agregados.erPorHorario.length>=3){
+    const comAmostra = agregados.erPorHorario.filter(h=>h.count>=1);
+    const max = Math.max(...comAmostra.map(h=>h.erMedio)), min = Math.min(...comAmostra.map(h=>h.erMedio));
+    if(max>0 && (max-min)/max > 0.3){
+      const top = comAmostra.sort((a,b)=>b.erMedio-a.erMedio).slice(0,2).map(h=>h.horario).join(' e ');
+      add('reforco', `Os horários ${top} tiveram o melhor engajamento no seu histórico. Concentrar publicações nessa janela é um ajuste de baixo custo com retorno direto.`);
+    }
+  }
+  if(aquisicao.ltvCac!=null){
+    if(aquisicao.ltvCac < 1) add('alerta', `LTV:CAC de ${aquisicao.ltvCac.toFixed(1)}× — cada cliente novo custa mais do que devolve ao longo do tempo. Prioridade: reduzir CAC antes de aumentar investimento.`);
+    else if(aquisicao.ltvCac < 3) add('oportunidade', `LTV:CAC de ${aquisicao.ltvCac.toFixed(1)}× está abaixo da referência de mercado (≥3×). Ainda dá para escalar, com atenção a reduzir CAC por canal.`);
+  }
+  campanhas.forEach(c=>{ if(c.roas!=null && c.roas < 1) add('alerta', `A campanha "${c.nome}" devolve menos do que investe (ROAS ${c.roas.toFixed(2)}×). Pausar ou revisar segmentação/criativo antes de continuar alocando orçamento.`); });
+
+  const peso = {alerta:0, oportunidade:1, reforco:2};
+  return recs.sort((a,b)=>peso[a.severidade]-peso[b.severidade]);
+}
+
+function calcularTudo(state){
+  const agregados = metricasAgregadas(state);
+  const aquisicao = calcularAquisicao(state);
+  const campanhas = metricasCampanhas(state.midiaPaga?.campanhas);
+  const funil = funilConversoes(state.jornada?.etapas || {});
+  const objetivo = inferirObjetivo(state);
+  const desvioMix = desvioDoMix(agregados.mixReal, mixRecomendado(objetivo));
+  const nivel = state.meta.nivel;
+  const mc = nivel==='avancado' ? monteCarloAquisicao(state) : null;
+
+  const sub = {
+    aquisicao: scoreAquisicao(state, aquisicao, campanhas),
+    engajamentoRetencao: scoreEngajamentoRetencao(agregados),
+    marca: scoreMarca(state, agregados, objetivo),
+    risco: scoreRisco(state),
+  };
+  const veredito = scoreFinal(state, sub);
+  const recomendacoes = gerarRecomendacoes(state, agregados, aquisicao, campanhas);
+
+  return {agregados, aquisicao, campanhas, funil, objetivo, desvioMix, monteCarlo:mc, sub, veredito, recomendacoes};
+}
+</script>
+
+<script>
+/* ================================================================
+   CAMADA 3 — biblioteca visual
+   (genéricos de plano-de-negocios-visual + específicos de marketing-engajamento-visual)
+   ================================================================ */
+function radarChartSVG({eixos, max=5, width=380, height=380, color='var(--accent)'}){
+  const cx=width/2, cy=height/2, r=Math.min(width,height)/2-46, n=eixos.length;
+  const angle = i => -Math.PI/2 + i*(2*Math.PI/n);
+  const ptAt = (i,val) => { const rr = (val/max)*r; return [cx+rr*Math.cos(angle(i)), cy+rr*Math.sin(angle(i))]; };
+  let grid='';
+  for(let ring=1; ring<=max; ring++){ const pts = eixos.map((_,i)=>ptAt(i,ring).join(',')).join(' '); grid += `<polygon points="${pts}" fill="none" stroke="var(--border)" stroke-width="1"/>`; }
+  eixos.forEach((e,i)=>{
+    const [ex,ey] = ptAt(i,max); grid += `<line x1="${cx}" y1="${cy}" x2="${ex.toFixed(1)}" y2="${ey.toFixed(1)}" stroke="var(--border)" stroke-width="1"/>`;
+    const [lx,ly] = ptAt(i,max*1.22); const anchor = Math.abs(Math.cos(angle(i)))<0.25 ? 'middle' : (Math.cos(angle(i))>0?'start':'end');
+    grid += `<text x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="${anchor}" font-size="11" fill="var(--ink-muted)" font-family="var(--font-body)">${esc(e.label)}</text>`;
+  });
+  const polyPts = eixos.map((e,i)=>ptAt(i,clamp(e.valor,0,max)).join(',')).join(' ');
+  const dots = eixos.map((e,i)=>{ const [px,py]=ptAt(i,clamp(e.valor,0,max)); return `<circle cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="3.2" fill="${color}"/>`; }).join('');
+  return `<svg class="radar-svg" viewBox="0 0 ${width} ${height}" width="100%" height="${height}" role="img" aria-label="Radar">${grid}<polygon class="radar-poly" points="${polyPts}" fill="${color}" fill-opacity="0.22" stroke="${color}" stroke-width="2"/>${dots}</svg>`;
+}
+function gaugeChartSVG({value, width=260, height=160}){
+  const cx=width/2, cy=height-24, r=Math.min(width/2-20, height-40);
+  const color = value>=70?'var(--positive)':value>=50?'var(--warning)':'var(--critical)';
+  const angFor = v => Math.PI - (v/100)*Math.PI;
+  const arcPath = (a0,a1) => { const p0=[cx+r*Math.cos(a0), cy-r*Math.sin(a0)]; const p1=[cx+r*Math.cos(a1), cy-r*Math.sin(a1)]; const large = Math.abs(a1-a0)>Math.PI?1:0; return `M${p0[0].toFixed(1)},${p0[1].toFixed(1)} A${r},${r} 0 ${large} 0 ${p1[0].toFixed(1)},${p1[1].toFixed(1)}`; };
+  const needleA = angFor(clamp(value,0,100));
+  let svg=`<svg viewBox="0 0 ${width} ${height}" width="100%" height="${height}" role="img" aria-label="Score de efetividade">`;
+  svg+=`<path d="${arcPath(Math.PI,0)}" fill="none" stroke="var(--surface-2)" stroke-width="16" stroke-linecap="round"/>`;
+  svg+=`<path d="${arcPath(Math.PI, Math.PI*0.5)}" fill="none" stroke="var(--critical)" stroke-width="16" opacity="0.55"/>`;
+  svg+=`<path d="${arcPath(Math.PI*0.5, Math.PI*0.3)}" fill="none" stroke="var(--warning)" stroke-width="16" opacity="0.55"/>`;
+  svg+=`<path d="${arcPath(Math.PI*0.3, 0)}" fill="none" stroke="var(--positive)" stroke-width="16" opacity="0.55"/>`;
+  svg+=`<path class="gauge-needle" d="${arcPath(Math.PI, needleA)}" fill="none" stroke="${color}" stroke-width="16" stroke-linecap="round"/>`;
+  svg+=`<circle cx="${cx}" cy="${cy}" r="4" fill="${color}"/>`;
+  svg+=`<text x="${cx}" y="${cy-24}" text-anchor="middle" font-size="30" font-weight="700" font-family="var(--font-mono)" fill="var(--ink)">${Math.round(value)}</text>`;
+  svg+=`</svg>`; return svg;
+}
+function histogramChartSVG({valores, p10, p50, p90, bins=24, width=780, height=260, fmtY=(v)=>v}){
+  const min=Math.min(...valores), max=Math.max(...valores); const span=(max-min)||1, w=span/bins;
+  const freq=new Array(bins).fill(0);
+  valores.forEach(v=>{ let idx=Math.floor((v-min)/w); if(idx>=bins) idx=bins-1; if(idx<0) idx=0; freq[idx]++; });
+  const padL=54,padR=20,padT=18,padB=34; const innerW=width-padL-padR, innerH=height-padT-padB;
+  const maxFreq=Math.max(...freq)||1; const x = i => padL + (i/bins)*innerW; const y = f => padT + innerH - (f/maxFreq)*innerH; const barW = innerW/bins;
+  let svg=`<svg viewBox="0 0 ${width} ${height}" width="100%" height="${height}" role="img" aria-label="Distribuição de probabilidade (Monte Carlo)">`;
+  const zeroIdx = (0-min)/w;
+  if(zeroIdx>=0 && zeroIdx<=bins){ const zx=padL+(zeroIdx/bins)*innerW;
+    svg+=`<rect x="${padL}" y="${padT}" width="${Math.max(0,zx-padL).toFixed(1)}" height="${innerH}" fill="var(--critical)" opacity="0.06"/>`;
+    svg+=`<rect x="${zx.toFixed(1)}" y="${padT}" width="${Math.max(0,(padL+innerW)-zx).toFixed(1)}" height="${innerH}" fill="var(--positive)" opacity="0.06"/>`; }
+  freq.forEach((f,i)=>{ const bx=x(i), by=y(f), bh=(padT+innerH)-by; svg+=`<rect class="bar-rect" x="${(bx+1).toFixed(1)}" y="${by.toFixed(1)}" width="${Math.max(1,barW-2).toFixed(1)}" height="${bh.toFixed(1)}" fill="var(--accent)" fill-opacity="0.75" style="animation-delay:${(i*0.012).toFixed(2)}s"/>`; });
+  [['P10',p10,'var(--critical)'],['P50 (mediana)',p50,'var(--ink)'],['P90',p90,'var(--positive)']].forEach(([lb,val,color])=>{
+    const px = padL + ((val-min)/span)*innerW;
+    svg+=`<line x1="${px.toFixed(1)}" y1="${padT}" x2="${px.toFixed(1)}" y2="${height-padB}" stroke="${color}" stroke-width="1.4" stroke-dasharray="4 3"/>`;
+    svg+=`<text x="${px.toFixed(1)}" y="${height-16}" text-anchor="middle" font-size="9.5" font-family="var(--font-mono)" fill="${color}">${lb}</text>`; });
+  svg+=`</svg>`; return svg;
+}
+function heatmapRiscosSVG({riscos, width=460, height=460}){
+  const pad=54, cell=(Math.min(width,height)-pad-20)/5;
+  const colorFor = sev => sev>=17?'var(--critical)': sev>=9?'var(--warning)': 'var(--positive)';
+  let svg=`<svg viewBox="0 0 ${width} ${height}" width="100%" height="${height}" role="img" aria-label="Matriz de riscos">`;
+  for(let p=1;p<=5;p++){ for(let im=1; im<=5; im++){ const sev=p*im; const cx=pad+(im-1)*cell, cy=height-pad-(p)*cell;
+    svg+=`<rect x="${cx.toFixed(1)}" y="${cy.toFixed(1)}" width="${(cell-2).toFixed(1)}" height="${(cell-2).toFixed(1)}" rx="5" fill="${colorFor(sev)}" opacity="0.16"/>`; } }
+  for(let p=1;p<=5;p++){ const cy=height-pad-(p-0.5)*cell; svg+=`<text x="${pad-10}" y="${(cy+4).toFixed(1)}" text-anchor="end" font-size="10.5" fill="var(--ink-muted)">${p}</text>`; }
+  for(let im=1;im<=5;im++){ const cx=pad+(im-0.5)*cell; svg+=`<text x="${cx.toFixed(1)}" y="${height-pad+16}" text-anchor="middle" font-size="10.5" fill="var(--ink-muted)">${im}</text>`; }
+  svg+=`<text x="${pad+2.5*cell}" y="${height-pad+34}" text-anchor="middle" font-size="10.5" fill="var(--ink-faint)">Impacto</text>`;
+  svg+=`<text x="18" y="${(height-pad-2.5*cell).toFixed(1)}" text-anchor="middle" font-size="10.5" fill="var(--ink-faint)" transform="rotate(-90 18 ${(height-pad-2.5*cell).toFixed(1)})">Probabilidade</text>`;
+  const porCelula = {}; (riscos||[]).forEach(r=>{ const k=`${r.probabilidade}-${r.impacto}`; (porCelula[k]=porCelula[k]||[]).push(r); });
+  Object.entries(porCelula).forEach(([k,lista],gi)=>{ const [p,im]=k.split('-').map(Number); const cx=pad+(im-0.5)*cell, cy=height-pad-(p-0.5)*cell;
+    svg+=`<circle class="donut-seg" cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="9" fill="${colorFor(p*im)}" stroke="var(--bg)" stroke-width="2" style="animation-delay:${(gi*0.06).toFixed(2)}s"/>`;
+    svg+=`<text x="${cx.toFixed(1)}" y="${(cy+3.5).toFixed(1)}" text-anchor="middle" font-size="9.5" font-weight="700" fill="var(--bg)">${lista.length}</text>`; });
+  svg+=`</svg>`; return svg;
+}
+function tornadoChartSVG({base, itens, width=760, height=null, fmtY=(v)=>v}){
+  const rowH=46; height = height || (itens.length*rowH+60);
+  const padL=180,padR=30,padT=20,padB=30; const innerW=width-padL-padR;
+  const allVals=[base]; itens.forEach(it=>{ allVals.push(it.vplBaixo, it.vplAlto); });
+  const min=Math.min(...allVals), max=Math.max(...allVals); const span=(max-min)||1;
+  const x = v => padL + ((v-min)/span)*innerW; const baseX = x(base);
+  let svg=`<svg viewBox="0 0 ${width} ${height}" width="100%" height="${height}" role="img" aria-label="Análise de sensibilidade">`;
+  svg+=`<line x1="${baseX.toFixed(1)}" y1="${padT}" x2="${baseX.toFixed(1)}" y2="${height-padB}" stroke="var(--ink-faint)" stroke-width="1.2" stroke-dasharray="3 3"/>`;
+  itens.forEach((it,i)=>{
+    const cy=padT+i*rowH+rowH/2; const xBaixo=x(it.vplBaixo), xAlto=x(it.vplAlto); const lo=Math.min(xBaixo,xAlto), hi=Math.max(xBaixo,xAlto);
+    svg+=`<text x="${padL-14}" y="${(cy+4).toFixed(1)}" text-anchor="end" font-size="11.5" fill="var(--ink)" font-family="var(--font-body)">${esc(it.nome)}</text>`;
+    svg+=`<rect class="bar-rect" x="${lo.toFixed(1)}" y="${(cy-11).toFixed(1)}" width="${Math.max(2,hi-lo).toFixed(1)}" height="22" rx="5" fill="${it.vplAlto>=it.vplBaixo?'var(--positive)':'var(--critical)'}" fill-opacity="0.85" style="animation-delay:${(i*0.06).toFixed(2)}s"/>`;
+    const roomLo = lo - padL, roomHi = (padL+innerW) - hi;
+    const loInside = roomLo < 44, hiInside = roomHi < 44;
+    svg+=`<text x="${(loInside? lo+8 : lo-6).toFixed(1)}" y="${(cy+4).toFixed(1)}" text-anchor="${loInside?'start':'end'}" font-size="10" font-family="var(--font-mono)" fill="${loInside?'var(--bg)':'var(--critical)'}">${fmtY(Math.min(it.vplBaixo,it.vplAlto))}</text>`;
+    svg+=`<text x="${(hiInside? hi-8 : hi+6).toFixed(1)}" y="${(cy+4).toFixed(1)}" text-anchor="${hiInside?'end':'start'}" font-size="10" font-family="var(--font-mono)" fill="${hiInside?'var(--bg)':'var(--positive)'}">${fmtY(Math.max(it.vplBaixo,it.vplAlto))}</text>`;
+  });
+  svg+=`</svg>`; return svg;
+}
+
+/* ---------- Específicos de marketing-engajamento-visual ---------- */
+function funnelChartSVG({ordem, vals, taxas, labels, width=760, height=null}){
+  // Rótulo sempre FORA da barra (acima dela), nunca centralizado dentro — uma barra
+  // estreita (etapa com pouco volume) não teria contraste pra texto escuro em cima
+  // da cor de destaque, nem espaço pro texto claro não estourar a barra colorida.
+  const rowH=68; height = height || (ordem.length*rowH+16);
+  const max = Math.max(...vals.filter(v=>v!=null), 1);
+  const padX=40, barH=24;
+  let svg = `<svg viewBox="0 0 ${width} ${height}" width="100%" height="${height}" role="img" aria-label="Funil de conversão">`;
+  ordem.forEach((etapa,i)=>{
+    const v = vals[i];
+    const w = v!=null ? Math.max(40, (v/max)*(width-padX*2)) : 0;
+    const x = (width-w)/2;
+    const yTop = i*rowH+8;
+    const yBar = yTop+18;
+    svg += `<text x="${(width/2).toFixed(1)}" y="${(yTop+10).toFixed(1)}" text-anchor="middle" font-size="12.5" font-weight="700" font-family="var(--font-mono)" fill="var(--ink)">${esc(labels[i])}: ${v!=null?fmtNum(v):'—'}</text>`;
+    svg += `<rect class="bar-rect" x="${x.toFixed(1)}" y="${yBar.toFixed(1)}" width="${w.toFixed(1)}" height="${barH}" rx="7" fill="var(--topic, var(--accent))" fill-opacity="${1-i*0.11}" style="animation-delay:${(i*0.07).toFixed(2)}s"/>`;
+    if(i<taxas.length && taxas[i].taxa!=null){
+      svg += `<text x="${(width/2).toFixed(1)}" y="${(yBar+barH+16).toFixed(1)}" text-anchor="middle" font-size="10.5" font-family="var(--font-mono)" fill="var(--ink-faint)">↓ ${taxas[i].taxa.toFixed(1)}%</text>`;
+    }
+  });
+  svg += `</svg>`;
+  return svg;
+}
+function perceptualMapSVG({eixoX, eixoY, pontos, width=460, height=460}){
+  const pad=50, innerW=width-pad*2, innerH=height-pad*2;
+  const x = v => pad + (v/10)*innerW;
+  const y = v => height-pad - (v/10)*innerH;
+  let svg = `<svg viewBox="0 0 ${width} ${height}" width="100%" height="${height}" role="img" aria-label="Mapa perceptual">`;
+  svg += `<line x1="${pad}" y1="${height-pad}" x2="${width-pad}" y2="${height-pad}" stroke="var(--border-strong)" stroke-width="1.2"/>`;
+  svg += `<line x1="${pad}" y1="${pad}" x2="${pad}" y2="${height-pad}" stroke="var(--border-strong)" stroke-width="1.2"/>`;
+  svg += `<line x1="${(pad+innerW/2).toFixed(1)}" y1="${pad}" x2="${(pad+innerW/2).toFixed(1)}" y2="${height-pad}" stroke="var(--border)" stroke-width="1" stroke-dasharray="3 3"/>`;
+  svg += `<line x1="${pad}" y1="${(pad+innerH/2).toFixed(1)}" x2="${width-pad}" y2="${(pad+innerH/2).toFixed(1)}" stroke="var(--border)" stroke-width="1" stroke-dasharray="3 3"/>`;
+  svg += `<text x="${width-pad}" y="${height-pad+18}" text-anchor="end" font-size="11" fill="var(--ink-muted)">${esc(eixoX)} →</text>`;
+  svg += `<text x="${pad-8}" y="${pad-8}" text-anchor="start" font-size="11" fill="var(--ink-muted)">↑ ${esc(eixoY)}</text>`;
+  (pontos||[]).forEach((p,i)=>{
+    const px=x(p.x), py=y(p.y), r = p.eu?7:5, color = p.eu?'var(--topic, var(--accent))':'var(--ink-faint)';
+    svg += `<circle class="donut-seg" cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="${r}" fill="${color}" stroke="var(--bg)" stroke-width="2" style="animation-delay:${(i*0.06).toFixed(2)}s"/>`;
+    svg += `<text x="${px.toFixed(1)}" y="${(py-11).toFixed(1)}" text-anchor="middle" font-size="10.5" font-weight="${p.eu?700:500}" fill="${p.eu?'var(--ink)':'var(--ink-muted)'}">${esc(p.nome)}</text>`;
+  });
+  svg += `</svg>`;
+  return svg;
+}
+function rfmMatrixSVG({segmentos, width=460, height=420}){
+  const pad=50, innerW=width-pad*2, innerH=height-pad*2;
+  const x = v => pad + ((v-1)/4)*innerW;
+  const y = v => height-pad - ((v-1)/4)*innerH;
+  const maxTam = Math.max(...segmentos.map(s=>s.tamanho||1), 1);
+  let svg = `<svg viewBox="0 0 ${width} ${height}" width="100%" height="${height}" role="img" aria-label="Matriz RFM">`;
+  for(let g=1;g<=5;g++){
+    svg += `<line x1="${x(g).toFixed(1)}" y1="${pad}" x2="${x(g).toFixed(1)}" y2="${height-pad}" stroke="var(--border)" stroke-width="1"/>`;
+    svg += `<line x1="${pad}" y1="${y(g).toFixed(1)}" x2="${width-pad}" y2="${y(g).toFixed(1)}" stroke="var(--border)" stroke-width="1"/>`;
+  }
+  svg += `<text x="${width-pad}" y="${height-pad+18}" text-anchor="end" font-size="11" fill="var(--ink-muted)">Frequência →</text>`;
+  svg += `<text x="${pad-8}" y="${pad-8}" text-anchor="start" font-size="11" fill="var(--ink-muted)">↑ Recência</text>`;
+  (segmentos||[]).forEach((s,i)=>{
+    const px=x(s.frequencia||1), py=y(s.recencia||1), r = 10+((s.tamanho||1)/maxTam)*26;
+    const valorColor = s.valor>=4?'var(--positive)':s.valor>=2.5?'var(--warning)':'var(--critical)';
+    svg += `<circle class="donut-seg" cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="${r.toFixed(1)}" fill="${valorColor}" fill-opacity="0.35" stroke="${valorColor}" stroke-width="1.6" style="animation-delay:${(i*0.08).toFixed(2)}s"/>`;
+    svg += `<text x="${px.toFixed(1)}" y="${(py+4).toFixed(1)}" text-anchor="middle" font-size="10.5" font-weight="600" fill="var(--ink)">${esc(s.segmento)}</text>`;
+  });
+  svg += `</svg>`;
+  return svg;
+}
+function saturationCurvesSVG({canais, width=760, height=260, fmtY=(v)=>v}){
+  const padL=64,padR=20,padT=18,padB=30;
+  const innerW=width-padL-padR, innerH=height-padT-padB;
+  const allX = canais.flatMap(c=>c.pontos.map(p=>p.investimento));
+  const allY = canais.flatMap(c=>c.pontos.map(p=>p.retorno));
+  const maxX = Math.max(...allX,1), maxY = Math.max(...allY,1);
+  const x = v => padL + (v/maxX)*innerW, y = v => padT+innerH - (v/maxY)*innerH;
+  let svg = `<svg viewBox="0 0 ${width} ${height}" width="100%" height="${height}" role="img" aria-label="Curvas de saturação de mídia">`;
+  for(let g=0;g<=3;g++){ const gy = padT+innerH*(1-g/3); svg += `<line x1="${padL}" y1="${gy.toFixed(1)}" x2="${width-padR}" y2="${gy.toFixed(1)}" stroke="var(--border)" stroke-width="1"/>`; }
+  canais.forEach((c,ci)=>{
+    let d=''; c.pontos.forEach((p,i)=>{ d += `${i===0?'M':'L'}${x(p.investimento).toFixed(1)},${y(p.retorno).toFixed(1)} `; });
+    svg += `<path class="draw" d="${d}" fill="none" stroke="${c.cor}" stroke-width="2.4" stroke-linecap="round" style="stroke-dasharray:2000;stroke-dashoffset:2000;animation-delay:${(ci*0.12).toFixed(2)}s"/>`;
+  });
+  svg += `</svg>`;
+  return svg;
+}
+const PILAR_CORES = ['var(--topic, var(--accent))','var(--positive)','var(--focus)','var(--warning)','var(--critical)','#9B7ED8'];
+function contentCalendarHTML(calendario, pilares){
+  const corPorPilar = {}; (pilares||[]).forEach((p,i)=>{ corPorPilar[p.nome] = PILAR_CORES[i%PILAR_CORES.length]; });
+  const porData = {}; (calendario||[]).forEach(c=>{ (porData[c.data]=porData[c.data]||[]).push(c); });
+  const datas = Object.keys(porData).sort();
+  if(!datas.length) return '<p class="empty-note">Nenhum item no calendário ainda.</p>';
+  return `<div class="calendar-grid">${datas.map(d=>{
+    const itens = porData[d];
+    return `<div class="calendar-day"><div class="calendar-date">${esc(d)}</div><div>${itens.map(it=>`<div class="calendar-item" style="border-left-color:${corPorPilar[it.pilar]||'var(--ink-faint)'}"><b>${esc(it.formato)}</b><span>${esc(it.tema)}</span><span class="calendar-status calendar-status-${it.status}">${it.status}</span></div>`).join('')}</div></div>`;
+  }).join('')}</div>`;
+}
+const SEVERIDADE_INFO = {alerta:{label:'Atenção', tone:'bad'}, oportunidade:{label:'Oportunidade', tone:'warn'}, reforco:{label:'Reforçar', tone:'good'}};
+function recomendacoesHTML(recomendacoes){
+  if(!recomendacoes || !recomendacoes.length) return '<p class="empty-note">Preencha posts na aba Conteúdo para gerar recomendações — elas nascem dos números, não aparecem sem dado.</p>';
+  return `<div class="rec-list">${recomendacoes.map(r=>{
+    const info = SEVERIDADE_INFO[r.severidade];
+    return `<div class="card kpi ${info.tone} rec-card"><div class="kpi-badge">${info.label}</div><p class="rec-text">${esc(r.texto)}</p></div>`;
+  }).join('')}</div>`;
+}
+function mixComparativoSVG({mixReal, mixRecomendado, width=680, height=240, fmtY=(v)=>v.toFixed(0)+'%'}){
+  const formatos = [...new Set([...Object.keys(mixReal||{}), ...Object.keys(mixRecomendado||{})])];
+  return groupedBarChartSVG({
+    labels: formatos,
+    series: [
+      {name:'Real', values: formatos.map(f=>mixReal?.[f]||0), color:'var(--topic, var(--accent))'},
+      {name:'Recomendado', values: formatos.map(f=>mixRecomendado?.[f]||0), color:'var(--ink-faint)'},
+    ],
+    width, height, fmtY,
+  });
+}
+</script>
+
+<script>
+/* ================================================================
+   CAMADA 4 — estado, formulários e orquestração do app
+   ================================================================ */
+function getPath(obj, path){ return path.split('.').reduce((o,k)=> o==null?o:o[k], obj); }
+function setPath(obj, path, value){
+  const keys = path.split('.'); let o = obj;
+  for(let i=0;i<keys.length-1;i++){ if(o[keys[i]]==null) o[keys[i]] = {}; o = o[keys[i]]; }
+  o[keys[keys.length-1]] = value;
+}
+function defaultState(nivel){
+  return {
+    meta: { nivel: nivel||'padrao', nomeMarca:'', setor:'', dataCriacao:new Date().toISOString(), horizonteMeses:12 },
+    publico: { segmentacao:'', persona:'', jtbd:'', concorrentesDiretos:[] },
+    posicionamento: { propostaDeValor:'', diferenciacao:'', arquiteturaDeMarca:'', mapaPerceptual:{eixoX:'Preço', eixoY:'Qualidade percebida', pontos:[]} },
+    conteudo: {
+      pilares: [], calendario: [], posts: [],
+      seguidoresInicio:null, seguidoresFim:null,
+      metas: { frequenciaSemanal:null, taxaEngajamentoAlvoPct:null, crescimentoSeguidoresAlvoPct:null },
+    },
+    jornada: { etapas: { alcance:null, aquisicao:null, ativacao:null, retencao:null, receita:null, indicacao:null } },
+    canais: { mix:[] },
+    midiaPaga: { campanhas:[] },
+    engajamentoRetencao: { rfm:[], lifecycle:{novo:null, ativo:null, emRisco:null, inativo:null} },
+    metricasKpis: { northStarMetric:'', okrs:[] },
+    orcamentoRoi: {
+      investimentoPorCanal:[], cac:null, ltv:null, ticketMedio:null, churnMensalPct:null,
+      atribuicao:{modelo:'ultimo-clique'}, mmm:{canais:[]},
+      sensibilidade:{variacaoPct:15},
+      monteCarlo:{iteracoes:2000, distribuicoes:{cacTriangular:{min:null,moda:null,max:null}, conversaoTriangular:{min:null,moda:null,max:null}}, semente:42},
+    },
+    riscosReputacionais: [],
+    compliance: { jurisdicoes:[], consentimentoDados:'' },
+    veredito: { pesos:{aquisicao:0.35, engajamentoRetencao:0.25, marca:0.20, risco:0.20}, overrideManual:null },
+  };
+}
+const TAB_DEFS = [
+  {id:'sumario', label:'Sumário Executivo', tiers:['essencial','padrao','avancado']},
+  {id:'publico', label:'Público e Posicionamento', tiers:['essencial','padrao','avancado']},
+  {id:'conteudo', label:'Conteúdo e Redes Sociais', tiers:['essencial','padrao','avancado']},
+  {id:'jornada', label:'Jornada e Funil', tiers:['padrao','avancado']},
+  {id:'canais', label:'Estratégia de Canais', tiers:['padrao','avancado']},
+  {id:'midiaPaga', label:'Mídia Paga', tiers:['padrao','avancado']},
+  {id:'engajamento', label:'Engajamento e Retenção', tiers:['padrao','avancado']},
+  {id:'metricas', label:'Métricas e KPIs', tiers:['padrao','avancado']},
+  {id:'orcamento', label:'Orçamento e ROI', tiers:['essencial','padrao','avancado']},
+  {id:'riscos', label:'Riscos e Reputação', tiers:['padrao','avancado']},
+  {id:'compliance', label:'Compliance e Dados', tiers:['avancado']},
+  {id:'veredito', label:'Veredito', tiers:['essencial','padrao','avancado']},
+];
+const LIST_CONFIGS = {
+  'publico.concorrentesDiretos': {nome:'', diferencial:''},
+  'posicionamento.mapaPerceptual.pontos': {nome:'', x:5, y:5, eu:false},
+  'conteudo.pilares': {nome:'', objetivo:''},
+  'conteudo.calendario': {data:'', pilar:'', formato:'Reels', tema:'', status:'planejado'},
+  'conteudo.posts': {data:'', formato:'Reels', pilar:'', alcance:null, impressoes:null, curtidas:null, comentarios:null, salvamentos:null, compartilhamentos:null, cliquesLink:null, seguidoresGanhos:null, duracaoMediaAssistidaPct:null, horarioPublicacao:''},
+  'canais.mix': {canal:'', tipo:'owned', prioridade:3},
+  'midiaPaga.campanhas': {nome:'', canal:'', investimento:0, impressoes:0, cliques:0, conversoes:0, receita:0},
+  'engajamentoRetencao.rfm': {segmento:'', recencia:3, frequencia:3, valor:3, tamanho:10},
+  'metricasKpis.okrs': {objetivo:'', keyResult:'', metaPct:null, atualPct:null},
+  'orcamentoRoi.investimentoPorCanal': {canal:'', valor:0},
+  'riscosReputacionais': {descricao:'', categoria:'', probabilidade:3, impacto:3, mitigacao:''},
+  'compliance.jurisdicoes': {pais:'', exigencias:''},
+};
+function cselId(path){ return 'csel_'+path.replace(/[^a-zA-Z0-9]/g,'_'); }
+function fieldInputHTML(path, field, value){
+  if(field.type==='select'){ return `<div style="flex:1;min-width:140px">${customSelect(cselId(path), field.options, value??field.options[0].value, `data-path="${path}"`)}</div>`; }
+  if(field.type==='textarea'){ return `<textarea placeholder="${esc(field.placeholder||field.label)}" data-path="${path}">${esc(value??'')}</textarea>`; }
+  if(field.type==='checkbox'){ return `<label style="display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--ink-muted)"><input type="checkbox" data-path="${path}" data-checkbox="1" ${value?'checked':''}> ${esc(field.label)}</label>`; }
+  const type = field.type||'text';
+  return `<input type="${type}" placeholder="${esc(field.placeholder||field.label)}" data-path="${path}" value="${esc(value??'')}" ${field.step?`step="${field.step}"`:''} ${field.min!=null?`min="${field.min}"`:''} ${field.max!=null?`max="${field.max}"`:''}>`;
+}
+function listEditorHTML(path, items, fields, placeholder){
+  items = items||[];
+  const rows = items.map((item,i)=>{
+    if(fields){ return `<div class="list-row">${fields.map(f=>fieldInputHTML(`${path}.${i}.${f.key}`, f, item[f.key])).join('')}<button type="button" class="btn-remove" data-action="remove-item" data-path="${path}.${i}" title="Remover">×</button></div>`; }
+    return `<div class="list-row"><input type="text" placeholder="${esc(placeholder||'')}" data-path="${path}.${i}" value="${esc(item??'')}"><button type="button" class="btn-remove" data-action="remove-item" data-path="${path}.${i}" title="Remover">×</button></div>`;
+  }).join('');
+  return `<div class="list-editor">${rows}</div><button type="button" class="btn small btn-add" data-action="add-item" data-path="${path}">+ adicionar</button>`;
+}
+const FORMATO_OPTIONS = [{value:'Reels',label:'Reels'},{value:'Carrossel',label:'Carrossel'},{value:'Estático',label:'Estático'},{value:'Stories',label:'Stories'},{value:'Live',label:'Live'}];
+
+/* ---------- 01 · Sumário Executivo (sempre gerado) ---------- */
+function renderSumario(state, r){
+  const paragrafos = [];
+  if(state.meta.nomeMarca || state.posicionamento.propostaDeValor){
+    let p = `<b>${esc(state.meta.nomeMarca||'Esta marca')}</b>`;
+    if(state.meta.setor) p += `, no setor de ${esc(state.meta.setor)},`;
+    if(state.posicionamento.propostaDeValor) p += ` ${esc(state.posicionamento.propostaDeValor)}`;
+    paragrafos.push(p+'.');
+  }
+  const ag = r.agregados;
+  if(ag.posts.length){
+    let p = `Conteúdo: ${ag.posts.length} publicação(ões) registradas`;
+    if(state.conteudo.metas?.frequenciaSemanal) p += `, cadência de ${ag.freqReal.toFixed(1)}/semana (meta: ${state.conteudo.metas.frequenciaSemanal}/semana)`;
+    if(ag.erMedio!=null) p += `, taxa de engajamento média de ${fmtPct(ag.erMedio)} sobre o alcance`;
+    const melhorFormato = ag.erPorFormato.filter(f=>f.erMedio!=null).sort((a,b)=>b.erMedio-a.erMedio)[0];
+    if(melhorFormato) p += `. O formato de melhor desempenho é ${esc(melhorFormato.formato)} (ER ${fmtPct(melhorFormato.erMedio)})`;
+    paragrafos.push(p+'.');
+  }
+  if(r.aquisicao.cac!=null || r.aquisicao.ltv!=null || r.campanhas.length){
+    let p = `Aquisição:`;
+    const partes=[];
+    if(r.aquisicao.cac!=null) partes.push(`CAC de ${fmtBRL(r.aquisicao.cac)}`);
+    if(r.aquisicao.ltvCac!=null) partes.push(`LTV:CAC de ${r.aquisicao.ltvCac.toFixed(1)}×`);
+    if(r.campanhas.length){ const roasMedio = r.campanhas.filter(c=>c.roas!=null).reduce((s,c,_,a)=>s+c.roas/a.length,0); partes.push(`ROAS médio de ${roasMedio.toFixed(2)}×`); }
+    paragrafos.push(p+' '+partes.join(', ')+'.');
+  }
+  const subLabels = {aquisicao:'Aquisição', engajamentoRetencao:'de Engajamento/Retenção', marca:'de Marca', risco:'de Risco'};
+  const piorKey = Object.entries(r.sub).sort((a,b)=>a[1]-b[1])[0];
+  let p4 = `Veredito: <b>${r.veredito.classificacao}</b> (score ${r.veredito.score.toFixed(0)}/100). A condição mais restritiva é o Score ${subLabels[piorKey[0]]} (${piorKey[1].toFixed(0)}/100)`;
+  paragrafos.push(p4+'.');
+  return `<div class="section-head"><div><div class="eyebrow">01 · Síntese</div><h1>Sumário Executivo</h1><div class="desc">Gerado automaticamente a partir dos módulos preenchidos — nunca preenchido manualmente.</div></div></div>
+    <div class="card panel">${paragrafos.length? paragrafos.map(p=>`<div class="summary-block">${p}</div>`).join('') : '<p class="empty-note">Preencha as abas de Conteúdo e Posicionamento para gerar o sumário.</p>'}</div>`;
+}
+
+/* ---------- 02 · Público e Posicionamento ---------- */
+function formPublico(state){
+  const simplificado = state.meta.nivel==='essencial';
+  let html = `<div class="section-head"><div><div class="eyebrow">02 · Público</div><h1>Público e Posicionamento</h1></div></div>
+  <div class="card panel field-group"><h3>Público-alvo</h3><div class="form-grid cols-1">
+    <div class="field"><label>Segmentação</label><textarea data-path="publico.segmentacao">${esc(state.publico.segmentacao)}</textarea></div>
+    <div class="field"><label>Persona principal</label><textarea data-path="publico.persona">${esc(state.publico.persona)}</textarea></div>
+    <div class="field"><label>Job to be Done (o que a persona contrata a marca pra resolver)</label><textarea data-path="publico.jtbd">${esc(state.publico.jtbd)}</textarea></div>
+  </div></div>
+  <div class="card panel field-group"><h3>Concorrentes diretos</h3>${listEditorHTML('publico.concorrentesDiretos', state.publico.concorrentesDiretos, [{key:'nome',label:'Nome'},{key:'diferencial',label:'Diferencial',type:'textarea'}])}</div>
+  <div class="card panel field-group"><h3>Posicionamento</h3><div class="form-grid cols-1">
+    <div class="field"><label>Proposta de valor</label><textarea data-path="posicionamento.propostaDeValor">${esc(state.posicionamento.propostaDeValor)}</textarea></div>
+    <div class="field"><label>Diferenciação</label><textarea data-path="posicionamento.diferenciacao">${esc(state.posicionamento.diferenciacao)}</textarea></div>
+    ${!simplificado?`<div class="field"><label>Arquitetura de marca</label><textarea data-path="posicionamento.arquiteturaDeMarca">${esc(state.posicionamento.arquiteturaDeMarca)}</textarea></div>`:''}
+  </div></div>`;
+  if(!simplificado){
+    const mp = state.posicionamento.mapaPerceptual;
+    html += `<div class="card panel field-group"><h3>Mapa perceptual</h3><div class="hint">Posicione sua marca e concorrentes em dois eixos (0-10)</div>
+      <div class="form-grid">
+        <div class="field"><label>Eixo X</label><input type="text" data-path="posicionamento.mapaPerceptual.eixoX" value="${esc(mp.eixoX)}"></div>
+        <div class="field"><label>Eixo Y</label><input type="text" data-path="posicionamento.mapaPerceptual.eixoY" value="${esc(mp.eixoY)}"></div>
+      </div>
+      <div style="margin-top:12px">${listEditorHTML('posicionamento.mapaPerceptual.pontos', mp.pontos, [{key:'nome',label:'Marca'},{key:'x',label:'X (0-10)',type:'number',min:0,max:10},{key:'y',label:'Y (0-10)',type:'number',min:0,max:10},{key:'eu',label:'É a minha marca',type:'checkbox'}])}</div>
+    </div>`;
+  }
+  return html;
+}
+function viewPublico(state, r){
+  const simplificado = state.meta.nivel==='essencial';
+  let html = `<div class="section-head"><div><div class="eyebrow">02 · Público</div><h1>Público e Posicionamento</h1></div></div>`;
+  if(state.publico.persona) html += `<div class="card panel"><h3>Persona</h3><p style="font-size:13px;color:var(--ink-muted)">${esc(state.publico.persona)}</p></div>`;
+  if(state.posicionamento.propostaDeValor) html += `<div class="card panel"><h3>Proposta de valor</h3><p style="font-size:13px;color:var(--ink-muted)">${esc(state.posicionamento.propostaDeValor)}</p></div>`;
+  if(state.publico.concorrentesDiretos?.length){
+    html += `<div class="card panel"><h3>Concorrentes diretos</h3>${state.publico.concorrentesDiretos.map(c=>`<div class="barrow"><div class="lbl">${esc(c.nome)}</div><div style="font-size:12.5px;color:var(--ink-muted)">${esc(c.diferencial)}</div><div></div></div>`).join('')}</div>`;
+  }
+  if(!simplificado && state.posicionamento.mapaPerceptual.pontos?.length){
+    html += `<div class="card panel"><h3>Mapa perceptual</h3><div class="chart-wrap">${perceptualMapSVG(state.posicionamento.mapaPerceptual)}</div></div>`;
+  }
+  return html;
+}
+
+/* ---------- 03 · Conteúdo e Redes Sociais — módulo principal ---------- */
+const POST_FIELDS = [
+  {key:'data',label:'Data',type:'text',placeholder:'AAAA-MM-DD'},
+  {key:'formato',label:'Formato',type:'select',options:FORMATO_OPTIONS},
+  {key:'pilar',label:'Pilar'},
+  {key:'horarioPublicacao',label:'Horário',placeholder:'HH:00'},
+  {key:'alcance',label:'Alcance',type:'number'},
+  {key:'impressoes',label:'Impressões',type:'number'},
+  {key:'curtidas',label:'Curtidas',type:'number'},
+  {key:'comentarios',label:'Comentários',type:'number'},
+  {key:'salvamentos',label:'Salvamentos',type:'number'},
+  {key:'compartilhamentos',label:'Compart.',type:'number'},
+  {key:'cliquesLink',label:'Cliques no link',type:'number'},
+  {key:'duracaoMediaAssistidaPct',label:'% assistido (Reels)',type:'number',min:0,max:100},
+];
+function formConteudo(state){
+  const c = state.conteudo;
+  let html = `<div class="section-head"><div><div class="eyebrow">03 · Conteúdo</div><h1>Conteúdo e Redes Sociais</h1></div></div>
+  <div class="card panel field-group"><h3>Pilares de conteúdo</h3><div class="hint">Ex.: Educar, Inspirar, Vender, Bastidores — use o mesmo nome no calendário e nos posts</div>${listEditorHTML('conteudo.pilares', c.pilares, [{key:'nome',label:'Nome do pilar'},{key:'objetivo',label:'Objetivo'}])}</div>
+  <div class="card panel field-group"><h3>Metas e seguidores</h3><div class="form-grid cols-3">
+    <div class="field"><label>Frequência semanal alvo</label><input type="number" step="0.5" data-path="conteudo.metas.frequenciaSemanal" value="${c.metas.frequenciaSemanal??''}"></div>
+    <div class="field"><label>Taxa de engajamento alvo (%)</label><input type="number" step="0.1" data-path="conteudo.metas.taxaEngajamentoAlvoPct" value="${c.metas.taxaEngajamentoAlvoPct??''}"></div>
+    <div class="field"><label>Crescimento de seguidores alvo (%)</label><input type="number" step="0.1" data-path="conteudo.metas.crescimentoSeguidoresAlvoPct" value="${c.metas.crescimentoSeguidoresAlvoPct??''}"></div>
+    <div class="field"><label>Seguidores no início do período</label><input type="number" data-path="conteudo.seguidoresInicio" value="${c.seguidoresInicio??''}"></div>
+    <div class="field"><label>Seguidores no fim do período</label><input type="number" data-path="conteudo.seguidoresFim" value="${c.seguidoresFim??''}"></div>
+  </div></div>
+  <div class="card panel field-group"><h3>Calendário editorial</h3>${listEditorHTML('conteudo.calendario', c.calendario, [{key:'data',label:'Data',placeholder:'AAAA-MM-DD'},{key:'pilar',label:'Pilar'},{key:'formato',label:'Formato',type:'select',options:FORMATO_OPTIONS},{key:'tema',label:'Tema'},{key:'status',label:'Status',type:'select',options:[{value:'planejado',label:'Planejado'},{value:'publicado',label:'Publicado'}]}])}</div>
+  <div class="card panel field-group"><h3>Publicações e performance</h3><div class="hint">Cada linha é um post real — preencha só as métricas que você tem; o que faltar simplesmente não entra na média.</div>${listEditorHTML('conteudo.posts', c.posts, POST_FIELDS)}</div>`;
+  return html;
+}
+function viewConteudo(state, r){
+  const ag = r.agregados;
+  let html = `<div class="section-head"><div><div class="eyebrow">03 · Conteúdo</div><h1>Conteúdo e Redes Sociais</h1></div></div>`;
+  html += `<div class="grid kpis">
+    <div class="card kpi ${ag.erMedio==null?'':ag.erMedio>=2?'good':ag.erMedio>=1?'warn':'bad'}"><div class="kpi-label">ER médio (sobre alcance)</div><div class="kpi-value num">${fmtPct(ag.erMedio)}</div><div class="kpi-goal">Faixa de referência: 1–5%</div></div>
+    <div class="card kpi"><div class="kpi-label">Taxa de salvamento média</div><div class="kpi-value num">${fmtPct(ag.salvMedio,2)}</div></div>
+    <div class="card kpi ${ag.crescSeguidores==null?'':ag.crescSeguidores>=0?'good':'bad'}"><div class="kpi-label">Crescimento de seguidores</div><div class="kpi-value num">${fmtPct(ag.crescSeguidores)}</div></div>
+    <div class="card kpi ${ag.scoreConsistencia==null?'':ag.scoreConsistencia>=80?'good':ag.scoreConsistencia>=50?'warn':'bad'}"><div class="kpi-label">Consistência (vs. meta)</div><div class="kpi-value num">${ag.scoreConsistencia!=null?ag.scoreConsistencia.toFixed(0):'—'}</div><div class="kpi-goal">${fmtNum(ag.freqReal,1)} posts/semana</div></div>
+  </div>`;
+  html += `<div class="card panel"><h3>Recomendações</h3><div class="hint">Geradas a partir dos números desta aba — nunca genéricas.</div>${recomendacoesHTML(r.recomendacoes)}</div>`;
+  if(ag.erPorFormato.length){
+    html += `<div class="card panel"><h3>Mix de formato — real × recomendado</h3><div class="hint">Recomendado com base no objetivo declarado em Métricas e KPIs (North Star)</div><div class="chart-wrap">${mixComparativoSVG({mixReal:ag.mixReal, mixRecomendado:mixRecomendado(r.objetivo)})}</div></div>`;
+    html += `<div class="card panel"><h3>Engajamento por formato</h3>${ag.erPorFormato.sort((a,b)=>(b.erMedio||0)-(a.erMedio||0)).map(f=>barRow(f.formato, f.erMedio||0, null, v=>fmtPct(v))).join('')}</div>`;
+  }
+  if(ag.erPorPilar.length){
+    html += `<div class="card panel"><h3>Engajamento por pilar</h3>${ag.erPorPilar.sort((a,b)=>(b.erMedio||0)-(a.erMedio||0)).map(f=>barRow(f.pilar, f.erMedio||0, null, v=>fmtPct(v))).join('')}</div>`;
+  }
+  html += `<div class="card panel"><h3>Calendário editorial</h3>${contentCalendarHTML(state.conteudo.calendario, state.conteudo.pilares)}</div>`;
+  return html;
+}
+
+/* ---------- 04 · Jornada e Funil ---------- */
+const ETAPAS_FUNIL = [['alcance','Alcance'],['aquisicao','Aquisição'],['ativacao','Ativação'],['retencao','Retenção'],['receita','Receita'],['indicacao','Indicação']];
+function formJornada(state){
+  const e = state.jornada.etapas;
+  return `<div class="section-head"><div><div class="eyebrow">04 · Jornada</div><h1>Jornada e Funil (RACE/AARRR)</h1></div></div>
+  <div class="card panel field-group"><h3>Volume por etapa</h3><div class="hint">Preencha o volume absoluto em cada etapa (nº de pessoas/contatos) — as taxas de conversão são calculadas automaticamente</div>
+    <div class="form-grid cols-3">${ETAPAS_FUNIL.map(([k,label])=>`<div class="field"><label>${label}</label><input type="number" data-path="jornada.etapas.${k}" value="${e[k]??''}"></div>`).join('')}</div>
+  </div>`;
+}
+function viewJornada(state, r){
+  const f = r.funil;
+  return `<div class="section-head"><div><div class="eyebrow">04 · Jornada</div><h1>Jornada e Funil</h1></div></div>
+  <div class="card panel">${funnelChartSVG({...f, labels:ETAPAS_FUNIL.map(e=>e[1])})}</div>`;
+}
+
+/* ---------- 05 · Estratégia de Canais ---------- */
+function formCanais(state){
+  return `<div class="section-head"><div><div class="eyebrow">05 · Canais</div><h1>Estratégia de Canais</h1></div></div>
+  <div class="card panel field-group"><h3>Mix de canais</h3>${listEditorHTML('canais.mix', state.canais.mix, [{key:'canal',label:'Canal'},{key:'tipo',label:'Tipo',type:'select',options:[{value:'owned',label:'Próprio (owned)'},{value:'earned',label:'Conquistado (earned)'},{value:'paid',label:'Pago (paid)'}]},{key:'prioridade',label:'Prioridade (1-5)',type:'number',min:1,max:5}])}</div>`;
+}
+function viewCanais(state, r){
+  const porTipo = {owned:[], earned:[], paid:[]};
+  (state.canais.mix||[]).forEach(c=> porTipo[c.tipo||'owned']?.push(c));
+  const labelTipo = {owned:'Próprio', earned:'Conquistado', paid:'Pago'};
+  return `<div class="section-head"><div><div class="eyebrow">05 · Canais</div><h1>Estratégia de Canais</h1></div></div>
+  <div class="grid cols-3">${Object.entries(porTipo).map(([tipo,lista])=>`<div class="card panel"><h3>${labelTipo[tipo]}</h3>${lista.length?lista.sort((a,b)=>(b.prioridade||0)-(a.prioridade||0)).map(c=>barRow(c.canal, c.prioridade||0, 5, v=>v)).join(''):'<p class="muted">—</p>'}</div>`).join('')}</div>`;
+}
+
+/* ---------- 06 · Mídia Paga ---------- */
+function formMidiaPaga(state){
+  return `<div class="section-head"><div><div class="eyebrow">06 · Mídia Paga</div><h1>Mídia Paga</h1></div></div>
+  <div class="card panel field-group"><h3>Campanhas</h3>${listEditorHTML('midiaPaga.campanhas', state.midiaPaga.campanhas, [{key:'nome',label:'Campanha'},{key:'canal',label:'Canal'},{key:'investimento',label:'Investimento',type:'number'},{key:'impressoes',label:'Impressões',type:'number'},{key:'cliques',label:'Cliques',type:'number'},{key:'conversoes',label:'Conversões',type:'number'},{key:'receita',label:'Receita gerada',type:'number'}])}</div>`;
+}
+function viewMidiaPaga(state, r){
+  const campanhas = r.campanhas;
+  return `<div class="section-head"><div><div class="eyebrow">06 · Mídia Paga</div><h1>Mídia Paga</h1></div></div>
+  ${campanhas.length? campanhas.map(c=>`<div class="card panel"><h3>${esc(c.nome)} <span class="muted" style="font-size:12px">· ${esc(c.canal)}</span></h3>
+    <div class="grid cols-3">
+      <div class="card kpi ${c.roas==null?'':c.roas>=3?'good':c.roas>=1?'warn':'bad'}"><div class="kpi-label">ROAS</div><div class="kpi-value num">${c.roas!=null?c.roas.toFixed(2)+'×':'—'}</div></div>
+      <div class="card kpi"><div class="kpi-label">CPA</div><div class="kpi-value num">${fmtBRL(c.cpa)}</div></div>
+      <div class="card kpi"><div class="kpi-label">CTR</div><div class="kpi-value num">${fmtPct(c.ctr)}</div></div>
+    </div></div>`).join('') : '<p class="empty-note">Nenhuma campanha cadastrada.</p>'}`;
+}
+
+/* ---------- 07 · Engajamento e Retenção (RFM) ---------- */
+function formEngajamento(state){
+  const e = state.engajamentoRetencao;
+  return `<div class="section-head"><div><div class="eyebrow">07 · Engajamento</div><h1>Engajamento e Retenção</h1></div></div>
+  <div class="card panel field-group"><h3>Segmentos RFM</h3><div class="hint">Recência/Frequência/Valor de 1 (baixo) a 5 (alto), por segmento de audiência/cliente</div>${listEditorHTML('engajamentoRetencao.rfm', e.rfm, [{key:'segmento',label:'Segmento'},{key:'recencia',label:'Recência (1-5)',type:'number',min:1,max:5},{key:'frequencia',label:'Frequência (1-5)',type:'number',min:1,max:5},{key:'valor',label:'Valor (1-5)',type:'number',min:1,max:5},{key:'tamanho',label:'Tamanho do segmento',type:'number'}])}</div>
+  <div class="card panel field-group"><h3>Ciclo de vida (nº de contatos/clientes por estágio)</h3><div class="form-grid">
+    <div class="field"><label>Novo</label><input type="number" data-path="engajamentoRetencao.lifecycle.novo" value="${e.lifecycle.novo??''}"></div>
+    <div class="field"><label>Ativo</label><input type="number" data-path="engajamentoRetencao.lifecycle.ativo" value="${e.lifecycle.ativo??''}"></div>
+    <div class="field"><label>Em risco</label><input type="number" data-path="engajamentoRetencao.lifecycle.emRisco" value="${e.lifecycle.emRisco??''}"></div>
+    <div class="field"><label>Inativo</label><input type="number" data-path="engajamentoRetencao.lifecycle.inativo" value="${e.lifecycle.inativo??''}"></div>
+  </div></div>`;
+}
+function viewEngajamento(state, r){
+  const e = state.engajamentoRetencao;
+  return `<div class="section-head"><div><div class="eyebrow">07 · Engajamento</div><h1>Engajamento e Retenção</h1></div></div>
+  ${e.rfm?.length?`<div class="card panel"><h3>Matriz RFM</h3><div class="chart-wrap">${rfmMatrixSVG({segmentos:e.rfm})}</div></div>`:'<p class="empty-note">Cadastre segmentos RFM para ver a matriz.</p>'}
+  <div class="grid cols-3">
+    <div class="card kpi"><div class="kpi-label">Novo</div><div class="kpi-value num">${fmtNum(e.lifecycle.novo)}</div></div>
+    <div class="card kpi good"><div class="kpi-label">Ativo</div><div class="kpi-value num">${fmtNum(e.lifecycle.ativo)}</div></div>
+    <div class="card kpi warn"><div class="kpi-label">Em risco</div><div class="kpi-value num">${fmtNum(e.lifecycle.emRisco)}</div></div>
+  </div>`;
+}
+
+/* ---------- 08 · Métricas e KPIs ---------- */
+function formMetricas(state){
+  const m = state.metricasKpis;
+  return `<div class="section-head"><div><div class="eyebrow">08 · Métricas</div><h1>Métricas e KPIs</h1></div></div>
+  <div class="card panel field-group"><h3>North Star Metric</h3><div class="hint">Descreva o objetivo dominante (ex.: "aumentar alcance/reconhecimento", "gerar mais engajamento/comunidade", "converter mais vendas", "construir autoridade/educação") — isso alimenta o mix de formato recomendado na aba Conteúdo.</div>
+    <textarea data-path="metricasKpis.northStarMetric">${esc(m.northStarMetric)}</textarea>
+  </div>
+  <div class="card panel field-group"><h3>OKRs</h3>${listEditorHTML('metricasKpis.okrs', m.okrs, [{key:'objetivo',label:'Objetivo'},{key:'keyResult',label:'Resultado-chave'},{key:'metaPct',label:'Meta (%)',type:'number'},{key:'atualPct',label:'Atual (%)',type:'number'}])}</div>`;
+}
+function viewMetricas(state, r){
+  const m = state.metricasKpis;
+  return `<div class="section-head"><div><div class="eyebrow">08 · Métricas</div><h1>Métricas e KPIs</h1></div></div>
+  ${m.northStarMetric?`<div class="card panel"><h3>North Star Metric</h3><p style="font-size:13px;color:var(--ink-muted)">${esc(m.northStarMetric)}</p><p class="kpi-goal" style="margin-top:8px">Objetivo interpretado: <b>${esc(r.objetivo)}</b></p></div>`:''}
+  ${(m.okrs||[]).length?`<div class="card panel"><h3>OKRs</h3>${m.okrs.map(o=>barRow(o.objetivo+' — '+o.keyResult, o.atualPct||0, o.metaPct, v=>fmtPct(v))).join('')}</div>`:'<p class="empty-note">Nenhum OKR cadastrado.</p>'}`;
+}
+
+/* ---------- 09 · Orçamento e ROI ---------- */
+function formOrcamento(state){
+  const nivel = state.meta.nivel; const o = state.orcamentoRoi;
+  let html = `<div class="section-head"><div><div class="eyebrow">09 · Orçamento</div><h1>Orçamento e ROI</h1></div></div>`;
+  html += `<div class="card panel field-group"><h3>Investimento por canal</h3>${listEditorHTML('orcamentoRoi.investimentoPorCanal', o.investimentoPorCanal, [{key:'canal',label:'Canal'},{key:'valor',label:'Valor',type:'number'}])}</div>`;
+  html += `<div class="card panel field-group"><h3>Aquisição</h3><div class="form-grid cols-3">
+    <div class="field"><label>CAC (custo de aquisição)</label><input type="number" data-path="orcamentoRoi.cac" value="${o.cac??''}"></div>
+    <div class="field"><label>Ticket médio</label><input type="number" data-path="orcamentoRoi.ticketMedio" value="${o.ticketMedio??''}"></div>
+    <div class="field"><label>Churn mensal (%)</label><input type="number" step="0.1" data-path="orcamentoRoi.churnMensalPct" value="${o.churnMensalPct??''}"></div>
+  </div><div class="field-note" style="margin-top:8px">LTV é calculado como ticket médio × (1/churn mensal) — deixe churn em branco se não souber; o sistema não estima.</div></div>`;
+  if(nivel!=='essencial'){
+    html += `<div class="card panel field-group"><h3>Sensibilidade</h3><div class="form-grid cols-3"><div class="field"><label>Variação padrão (±%)</label><input type="number" data-path="orcamentoRoi.sensibilidade.variacaoPct" value="${o.sensibilidade.variacaoPct??15}"></div></div></div>`;
+  }
+  if(nivel==='avancado'){
+    html += `<div class="card panel field-group"><h3>Marketing Mix Modeling — canais</h3><div class="hint">Investimento máximo considerado por canal, para desenhar a curva de saturação</div>${listEditorHTML('orcamentoRoi.mmm.canais', o.mmm.canais, [{key:'canal',label:'Canal'},{key:'saturacaoInvestimento',label:'Investimento máx.',type:'number'}])}</div>`;
+    const tri = (label, key) => `<div class="field"><label>${label} — mín / moda / máx</label><div style="display:flex;gap:6px">
+        <input type="number" placeholder="min" data-path="orcamentoRoi.monteCarlo.distribuicoes.${key}.min" value="${o.monteCarlo.distribuicoes[key].min??''}">
+        <input type="number" placeholder="moda" data-path="orcamentoRoi.monteCarlo.distribuicoes.${key}.moda" value="${o.monteCarlo.distribuicoes[key].moda??''}">
+        <input type="number" placeholder="máx" data-path="orcamentoRoi.monteCarlo.distribuicoes.${key}.max" value="${o.monteCarlo.distribuicoes[key].max??''}">
+      </div></div>`;
+    html += `<div class="card panel field-group"><h3>Simulação Monte Carlo — clientes adquiridos</h3><div class="hint">Distribuição triangular do CAC dado o orçamento total investido acima</div>
+      <div class="form-grid">${tri('CAC','cacTriangular')}</div>
+      <div class="form-grid" style="margin-top:12px"><div class="field"><label>Iterações</label><input type="number" data-path="orcamentoRoi.monteCarlo.iteracoes" value="${o.monteCarlo.iteracoes??2000}"></div></div>
+    </div>`;
+  }
+  return html;
+}
+function viewOrcamento(state, r){
+  const nivel = state.meta.nivel; const a = r.aquisicao;
+  let html = `<div class="section-head"><div><div class="eyebrow">09 · Orçamento</div><h1>Orçamento e ROI</h1></div></div>`;
+  html += `<div class="grid kpis">
+    <div class="card kpi"><div class="kpi-label">Investimento total</div><div class="kpi-value num">${fmtBRL(a.investTotal)}</div></div>
+    <div class="card kpi"><div class="kpi-label">CAC</div><div class="kpi-value num">${fmtBRL(a.cac)}</div></div>
+    <div class="card kpi"><div class="kpi-label">LTV</div><div class="kpi-value num">${fmtBRL(a.ltv)}</div></div>
+    <div class="card kpi ${a.ltvCac==null?'':a.ltvCac>=3?'good':a.ltvCac>=1?'warn':'bad'}"><div class="kpi-label">LTV : CAC</div><div class="kpi-value num">${a.ltvCac!=null?a.ltvCac.toFixed(1)+'×':'—'}</div><div class="kpi-goal">Referência: ≥ 3×</div></div>
+  </div>`;
+  if(state.orcamentoRoi.investimentoPorCanal?.length){
+    html += `<div class="card panel"><h3>Investimento por canal</h3>${state.orcamentoRoi.investimentoPorCanal.map(c=>barRow(c.canal, c.valor||0, null, v=>fmtBRL(v))).join('')}</div>`;
+  }
+  if(nivel==='avancado' && state.orcamentoRoi.mmm.canais?.length){
+    const canais = state.orcamentoRoi.mmm.canais.filter(c=>c.saturacaoInvestimento).map((c,i)=>({nome:c.canal, cor:PILAR_CORES[i%PILAR_CORES.length], pontos:curvaSaturacao(c.saturacaoInvestimento)}));
+    if(canais.length) html += `<div class="card panel"><h3>Curvas de saturação (MMM simplificado)</h3><div class="hint">Retorno marginal decrescente — heurística didática (expoente 0.7), não regressão sobre histórico real. Ver formulas.md §8.</div><div class="chart-wrap">${saturationCurvesSVG({canais})}</div>
+      <div class="legend">${canais.map(c=>`<span><i style="background:${c.cor}"></i>${esc(c.nome)}</span>`).join('')}</div></div>`;
+  }
+  if(nivel==='avancado' && r.monteCarlo){
+    html += `<div class="card panel"><h3>Simulação Monte Carlo — clientes adquiridos</h3><div class="hint">${state.orcamentoRoi.monteCarlo.iteracoes||2000} iterações, dado o orçamento total investido</div>
+      <div class="chart-wrap">${histogramChartSVG({valores:r.monteCarlo.resultados, p10:r.monteCarlo.p10, p50:r.monteCarlo.p50, p90:r.monteCarlo.p90, fmtY:v=>fmtNum(v)})}</div>
+      <div class="grid cols-3" style="margin-top:14px">
+        <div class="card kpi"><div class="kpi-label">P10</div><div class="kpi-value num">${fmtNum(r.monteCarlo.p10)}</div></div>
+        <div class="card kpi"><div class="kpi-label">P50</div><div class="kpi-value num">${fmtNum(r.monteCarlo.p50)}</div></div>
+        <div class="card kpi"><div class="kpi-label">P90</div><div class="kpi-value num">${fmtNum(r.monteCarlo.p90)}</div></div>
+      </div></div>`;
+  }
+  return html;
+}
+
+/* ---------- 10 · Riscos e Reputação ---------- */
+function formRiscos(state){
+  return `<div class="section-head"><div><div class="eyebrow">10 · Riscos</div><h1>Riscos e Reputação</h1></div></div>
+  <div class="card panel field-group"><h3>Riscos identificados</h3>${listEditorHTML('riscosReputacionais', state.riscosReputacionais, [{key:'descricao',label:'Descrição',type:'textarea'},{key:'categoria',label:'Categoria'},{key:'probabilidade',label:'Probabilidade (1-5)',type:'number',min:1,max:5},{key:'impacto',label:'Impacto (1-5)',type:'number',min:1,max:5},{key:'mitigacao',label:'Mitigação',type:'textarea'}])}</div>`;
+}
+function viewRiscos(state, r){
+  return `<div class="section-head"><div><div class="eyebrow">10 · Riscos</div><h1>Riscos e Reputação</h1></div></div>
+  <div class="grid cols-2">
+    <div class="card panel"><h3>Heatmap 5×5</h3><div class="chart-wrap">${heatmapRiscosSVG({riscos:state.riscosReputacionais})}</div></div>
+    <div><h3 style="font-size:15px;margin-bottom:10px">Riscos e mitigação</h3>${(state.riscosReputacionais||[]).length? state.riscosReputacionais.map(rk=>{ const sev=(rk.probabilidade||0)*(rk.impacto||0); const tone = sev>=17?'bad':sev>=9?'warn':'good'; return `<div class="card kpi ${tone}" style="margin-bottom:8px"><div class="kpi-label">${esc(rk.categoria)||'Risco'}</div><div style="font-size:13px;margin:4px 0">${esc(rk.descricao)}</div><div style="font-size:11.5px;color:var(--ink-muted)">Severidade ${sev}/25 · ${esc(rk.mitigacao)||'sem mitigação definida'}</div></div>`; }).join('') : '<p class="empty-note">Nenhum risco cadastrado.</p>'}</div>
+  </div>`;
+}
+
+/* ---------- 11 · Compliance e Dados (avançado) ---------- */
+function formCompliance(state){
+  const c = state.compliance;
+  return `<div class="section-head"><div><div class="eyebrow">Compliance</div><h1>Compliance e Dados</h1></div></div>
+  <div class="card panel field-group"><h3>Consentimento e coleta de dados</h3><div class="hint">Como a coleta de dados em campanhas/formulários trata consentimento (LGPD/GDPR)</div><textarea data-path="compliance.consentimentoDados">${esc(c.consentimentoDados)}</textarea></div>
+  <div class="card panel field-group"><h3>Jurisdições cobertas</h3>${listEditorHTML('compliance.jurisdicoes', c.jurisdicoes, [{key:'pais',label:'País/região'},{key:'exigencias',label:'Exigências regulatórias',type:'textarea'}])}</div>`;
+}
+function viewCompliance(state, r){
+  const c = state.compliance;
+  return `<div class="section-head"><div><div class="eyebrow">Compliance</div><h1>Compliance e Dados</h1></div></div>
+  ${c.consentimentoDados?`<div class="card panel"><h3>Consentimento e coleta de dados</h3><p style="font-size:13px;color:var(--ink-muted)">${esc(c.consentimentoDados)}</p></div>`:''}
+  <div class="card panel"><h3>Jurisdições cobertas</h3>${(c.jurisdicoes||[]).length?`<ul>${c.jurisdicoes.map(j=>`<li><b>${esc(j.pais)}</b>: ${esc(j.exigencias)}</li>`).join('')}</ul>`:'<p class="muted">Nenhuma jurisdição cadastrada.</p>'}</div>`;
+}
+
+/* ---------- Veredito ---------- */
+function renderVeredito(state, r){
+  const subLabels = {aquisicao:'Aquisição', engajamentoRetencao:'Engajamento/Retenção', marca:'Marca', risco:'Risco'};
+  const cls = r.veredito.score>=70?'good':r.veredito.score>=50?'warn':'bad';
+  const piorKey = Object.entries(r.sub).sort((a,b)=>a[1]-b[1])[0];
+  let justificativa = `A condição mais restritiva é o Score de ${subLabels[piorKey[0]]} (${piorKey[1].toFixed(0)}/100).`;
+  if(state.meta.nivel==='essencial') justificativa += ' Scores de Aquisição/Risco usam valores neutros neste nível (módulos completos só em Padrão+).';
+  let html = `<div class="section-head"><div><div class="eyebrow">Veredito</div><h1>Veredito de Efetividade</h1></div></div>
+  <div class="card panel veredict-hero">
+    <div class="gauge-wrap">${gaugeChartSVG({value:r.veredito.score})}<div class="gauge-classificacao ${cls}">${r.veredito.classificacao}</div></div>
+    <div>
+      <div class="veredict-title eyebrow" style="color:var(--ink-muted)">Score ponderado — 35% aquisição · 25% engajamento/retenção · 20% marca · 20% risco</div>
+      <p class="veredict-justificativa">${justificativa}</p>
+      <div class="subscore-row">${Object.entries(r.sub).map(([k,v])=>`<div class="subscore"><div class="lbl">${subLabels[k]}</div><div class="val" style="color:${v>=70?'var(--positive)':v>=50?'var(--warning)':'var(--critical)'}">${v.toFixed(0)}</div></div>`).join('')}</div>
+    </div>
+  </div>`;
+  if(state.veredito.overrideManual?.score!=null){
+    html += `<div class="card panel"><h3>Julgamento humano registrado</h3><p style="font-size:13px;color:var(--ink-muted)">Score manual: <b>${state.veredito.overrideManual.score}</b> — ${esc(state.veredito.overrideManual.justificativa||'')}</p></div>`;
+  }
+  html += `<div class="card panel field-group"><h3>Registrar julgamento manual (opcional)</h3><div class="hint">Aparece junto do score calculado, nunca no lugar dele.</div>
+    <div class="form-grid cols-3">
+      <div class="field"><label>Score manual (0-100)</label><input type="number" min="0" max="100" data-path="veredito.overrideManual.score" value="${state.veredito.overrideManual?.score??''}"></div>
+      <div class="field" style="grid-column:span 2"><label>Justificativa</label><input type="text" data-path="veredito.overrideManual.justificativa" value="${esc(state.veredito.overrideManual?.justificativa||'')}"></div>
+    </div>
+  </div>`;
+  return html;
+}
+
+/* ---------- Orquestração ---------- */
+const TAB_RENDERERS = {
+  sumario: {dashboard: renderSumario},
+  publico: {form: formPublico, dashboard: viewPublico},
+  conteudo: {form: formConteudo, dashboard: viewConteudo},
+  jornada: {form: formJornada, dashboard: viewJornada},
+  canais: {form: formCanais, dashboard: viewCanais},
+  midiaPaga: {form: formMidiaPaga, dashboard: viewMidiaPaga},
+  engajamento: {form: formEngajamento, dashboard: viewEngajamento},
+  metricas: {form: formMetricas, dashboard: viewMetricas},
+  orcamento: {form: formOrcamento, dashboard: viewOrcamento},
+  riscos: {form: formRiscos, dashboard: viewRiscos},
+  compliance: {form: formCompliance, dashboard: viewCompliance},
+  veredito: {dashboard: renderVeredito},
+};
+
+let STATE = null, MODE = 'preencher', currentTab = 'sumario', RESULT = null, dirty = true;
+function markDirty(){ dirty = true; saveLocal(); }
+function ensureResult(){ if(dirty || !RESULT){ RESULT = calcularTudo(STATE); dirty = false; } return RESULT; }
+function saveLocal(){ try{ localStorage.setItem('marketingEngajamento.v1', JSON.stringify(STATE)); }catch(e){} }
+function showToast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(showToast._t); showToast._t=setTimeout(()=>t.classList.remove('show'), 2600); }
+
+function renderTabContent(tabId){
+  const rdr = TAB_RENDERERS[tabId]; if(!rdr) return '';
+  if(!rdr.form) return rdr.dashboard(STATE, ensureResult());
+  return MODE==='preencher' ? rdr.form(STATE) : rdr.dashboard(STATE, ensureResult());
+}
+function renderActiveTab(){
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active', b.dataset.tab===currentTab));
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.toggle('active', p.dataset.tab===currentTab));
+  const panel = document.querySelector(`.tab-panel[data-tab="${currentTab}"]`);
+  if(!panel) return;
+  panel.innerHTML = renderTabContent(currentTab);
+  animateBars(panel);
+}
+function initTabNav(){
+  const visibleTabs = TAB_DEFS.filter(t=>t.tiers.includes(STATE.meta.nivel));
+  document.getElementById('tab-nav').innerHTML = visibleTabs.map((t,i)=>`<button class="tab-btn" data-tab="${t.id}"><span class="tab-num">${String(i+1).padStart(2,'0')}</span>${esc(t.label)}</button>`).join('');
+  document.getElementById('tab-content').innerHTML = visibleTabs.map(t=>`<section class="tab-panel" data-tab="${t.id}"></section>`).join('');
+  document.querySelectorAll('#tab-nav .tab-btn').forEach(b=> b.onclick=()=>{ currentTab=b.dataset.tab; renderActiveTab(); window.scrollTo({top:0,behavior:'smooth'}); });
+  currentTab = visibleTabs.some(t=>t.id===currentTab) ? currentTab : visibleTabs[0].id;
+  renderActiveTab();
+}
+function renderAllTabsForPrint(){
+  const visibleTabs = TAB_DEFS.filter(t=>t.tiers.includes(STATE.meta.nivel));
+  ensureResult();
+  visibleTabs.forEach(t=>{
+    const panel = document.querySelector(`.tab-panel[data-tab="${t.id}"]`); if(!panel) return;
+    const rdr = TAB_RENDERERS[t.id];
+    panel.innerHTML = rdr.dashboard(STATE, RESULT);
+    panel.classList.add('active');
+    animateBars(panel);
+  });
+}
+function setMode(mode){ MODE = mode; document.querySelectorAll('#mode-toggle button').forEach(b=>b.classList.toggle('active', b.dataset.mode===mode)); }
+
+/* ---------- Tela de seleção de nível ---------- */
+const TIER_INFO = [
+  {value:'essencial', nome:'Essencial', perfil:'Criador solo, MEI, autônomo', desc:'Conteúdo e Redes Sociais completo desde o primeiro nível, Público/Posicionamento simplificado, Orçamento básico e Veredito.', modulos:['Sumário Executivo','Público e Posicionamento','Conteúdo e Redes Sociais (completo)','Orçamento básico','Veredito']},
+  {value:'padrao', nome:'Padrão', perfil:'Pequena e média empresa', desc:'Adiciona Jornada/Funil, Canais, Mídia Paga, Engajamento (RFM), Métricas/KPIs e Riscos.', modulos:['+ Jornada e Funil','+ Estratégia de Canais','+ Mídia Paga','+ Engajamento e Retenção (RFM)','+ Métricas e KPIs','+ Riscos e Reputação']},
+  {value:'avancado', nome:'Avançado', perfil:'Grande empresa / multimarca', desc:'Adiciona Marketing Mix Modeling, Monte Carlo de aquisição, atribuição multi-touch e Compliance de dados.', modulos:['+ Marketing Mix Modeling','+ Monte Carlo de aquisição','+ Atribuição multi-touch','+ Compliance e Dados (LGPD)']},
+];
+function renderTierPicker(){
+  document.getElementById('tier-picker').innerHTML = TIER_INFO.map(t=>`
+    <div class="card tier-card ${STATE&&STATE.meta.nivel===t.value?'selected':''}" data-tier="${t.value}">
+      <div class="tier-perfil">${esc(t.perfil)}</div><h3>${esc(t.nome)}</h3><p>${esc(t.desc)}</p>
+      <ul>${t.modulos.map(m=>`<li>${esc(m)}</li>`).join('')}</ul>
+    </div>`).join('');
+  document.querySelectorAll('.tier-card').forEach(c=> c.onclick = ()=> chooseTier(c.dataset.tier));
+  const saved = localStorage.getItem('marketingEngajamento.v1');
+  document.getElementById('resume-row').hidden = !saved || !!STATE;
+}
+function chooseTier(tier){ if(STATE){ STATE.meta.nivel = tier; } else { STATE = defaultState(tier); } markDirty(); showApp(); }
+function showApp(){
+  document.getElementById('screen-onboarding').hidden = true;
+  document.getElementById('screen-app').hidden = false;
+  document.getElementById('tier-badge').textContent = {essencial:'Essencial',padrao:'Padrão',avancado:'Avançado'}[STATE.meta.nivel];
+  initTabNav();
+  saveLocal();
+}
+
+/* ---------- Eventos delegados (formulário) ---------- */
+function handleFieldChange(e){
+  const el = e.target; const path = el.dataset.path; if(!path) return;
+  let val;
+  if(el.dataset.checkbox) val = el.checked;
+  else if(el.type==='number') val = el.value===''? null : parseFloat(el.value);
+  else val = el.value;
+  setPath(STATE, path, val);
+  markDirty();
+  if(el.dataset.rerender) renderActiveTab();
+}
+function handleAction(e){
+  const btn = e.target.closest('[data-action]'); if(!btn) return;
+  const action = btn.dataset.action;
+  if(action==='add-item'){
+    const path = btn.dataset.path; const arr = getPath(STATE, path); const template = LIST_CONFIGS[path];
+    arr.push(template && typeof template==='object' ? JSON.parse(JSON.stringify(template)) : '');
+    markDirty(); renderActiveTab();
+  } else if(action==='remove-item'){
+    const path = btn.dataset.path; const idx = parseInt(path.split('.').pop(),10);
+    const arrPath = path.split('.').slice(0,-1).join('.'); const arr = getPath(STATE, arrPath);
+    arr.splice(idx,1); markDirty(); renderActiveTab();
+  }
+}
+function setupDelegatedHandlers(){
+  const root = document.getElementById('tab-content');
+  root.addEventListener('input', handleFieldChange);
+  root.addEventListener('change', handleFieldChange);
+  root.addEventListener('click', handleAction);
+}
+
+/* ---------- UI global (topbar) ---------- */
+function initGlobalUI(){
+  document.getElementById('mode-toggle').addEventListener('click', (e)=>{
+    const btn = e.target.closest('button[data-mode]'); if(!btn) return;
+    setMode(btn.dataset.mode); renderActiveTab();
+  });
+  document.getElementById('btn-change-tier').onclick = ()=>{ document.getElementById('screen-app').hidden=true; document.getElementById('screen-onboarding').hidden=false; renderTierPicker(); };
+  document.getElementById('btn-export').onclick = async ()=>{
+    const filename = `marketing-engajamento-${(STATE.meta.nomeMarca||'sem-nome').toLowerCase().replace(/[^a-z0-9]+/g,'-')}.json`;
+    const dataStr = JSON.stringify(STATE,null,2);
+    if(window.claude && typeof window.claude.use==='function'){
+      try{
+        const downloads = await window.claude.use('downloads');
+        if(downloads){ await downloads.save({filename, data: dataStr}); showToast('JSON exportado.'); return; }
+      }catch(err){ if(err && err.code==='declined') return; }
+    }
+    const blob = new Blob([dataStr], {type:'application/json'});
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+    a.download = filename;
+    document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(a.href);
+    showToast('JSON exportado.');
+  };
+  document.getElementById('btn-import').onclick = ()=> document.getElementById('file-import').click();
+  document.getElementById('file-import').onchange = (e)=>{
+    const file = e.target.files[0]; if(!file) return;
+    const reader = new FileReader();
+    reader.onload = ()=>{ try{ STATE = JSON.parse(reader.result); markDirty(); showApp(); showToast('Plano importado.'); }catch(err){ showToast('Arquivo inválido.'); } };
+    reader.readAsText(file); e.target.value='';
+  };
+  document.getElementById('btn-print').onclick = ()=>{ renderAllTabsForPrint(); printWithLightTheme(); };
+  document.getElementById('btn-resume').onclick = ()=>{ const saved = localStorage.getItem('marketingEngajamento.v1'); if(saved){ STATE = JSON.parse(saved); markDirty(); showApp(); } };
+}
+
+/* ---------- Boot ---------- */
+renderTierPicker();
+setupDelegatedHandlers();
+initGlobalUI();
+</script>
